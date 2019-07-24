@@ -5,10 +5,9 @@
 
 class MainWindow :public QMainWindow, private Ui::MainWindow{
 	Q_OBJECT
-	
+
 public:
 	explicit MainWindow( QWidget* parent = nullptr );
-//	virtual ~MainWindow();
-
+	//	virtual ~MainWindow();
+  void resizeEvent(QResizeEvent *event) override ;
 };
-
