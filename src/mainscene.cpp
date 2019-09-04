@@ -1,4 +1,4 @@
-#include "hellocamera.h"
+#include "mainscene.h"
 #include <iostream>
 
 
@@ -35,7 +35,7 @@ static const char* fragmentshader_source ="#version 410 core\n\
             color = vec4(normalize(normal)*0.5+0.5, 1.0);\n\
         }\n";
 
-SimpleCamera::SimpleCamera(int width, int height) : OpenGLDemo(width, height), _activecamera(0), _camera(nullptr) {
+MainScene::MainScene(int width, int height) : OpenGLDemo(width, height), _activecamera(0), _camera(nullptr) {
     // Initialise geometric data
     _vertices = {
         0.5f,  0.5f, 0.0f,  // Top Right
@@ -135,7 +135,7 @@ SimpleCamera::SimpleCamera(int width, int height) : OpenGLDemo(width, height), _
     _projection = glm::perspective(_camera->zoom(), float(_width) / _height, 0.1f, 100.0f);
 }
 
-SimpleCamera::~SimpleCamera() {
+MainScene::~MainScene() {
     glDeleteProgram(_program);
     glDeleteBuffers(1, &_vbo);
     glDeleteBuffers(1, &_nbo);
@@ -143,13 +143,13 @@ SimpleCamera::~SimpleCamera() {
     glDeleteVertexArrays(1, &_vao) ;
 }
 
-void SimpleCamera::resize(int width, int height){
+void MainScene::resize(int width, int height){
     OpenGLDemo::resize(width, height);
     _camera->setviewport(glm::vec4(0.f, 0.f, _width, _height));
     _projection = glm::perspective(_camera->zoom(), float(_width) / _height, 0.1f, 100.0f);
 }
 
-void SimpleCamera::draw() {
+void MainScene::draw() {
     OpenGLDemo::draw();
 
     glUseProgram(_program);
@@ -165,22 +165,22 @@ void SimpleCamera::draw() {
     glBindVertexArray(0);
 }
 
-void SimpleCamera::mouseclick(int button, float xpos, float ypos) {
+void MainScene::mouseclick(int button, float xpos, float ypos) {
     _button = button;
     _mousex = xpos;
     _mousey = ypos;
     _camera->processmouseclick(_button, xpos, ypos);
 }
 
-void SimpleCamera::mousemove(float xpos, float ypos) {
+void MainScene::mousemove(float xpos, float ypos) {
     _camera->processmousemovement(_button, xpos, ypos, true);
 }
 
-void SimpleCamera::keyboardmove(int key, double time) {
+void MainScene::keyboardmove(int key, double time) {
     _camera->processkeyboard(Camera_Movement(key), time);
 }
 
-bool SimpleCamera::keyboard(unsigned char k) {
+bool MainScene::keyboard(unsigned char k) {
     switch(k) {
         case 'p':
             _activecamera = (_activecamera+1)%2;

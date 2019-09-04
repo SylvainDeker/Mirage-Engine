@@ -7,7 +7,7 @@
 #include <iostream>
 #include <stdexcept>
 
-#include "hello_camera/hellocamera.h"
+#include "mainscene.h"
 
 
 
@@ -15,7 +15,7 @@ MyOpenGLWidget::MyOpenGLWidget(QWidget *parent) :QOpenGLWidget(parent)/*, QOpenG
     // add all demo constructors here
 
     _democonstructors = [](int width, int height)->OpenGLDemo*{
-       return new SimpleCamera(width, height);
+       return new MainScene(width, height);
     };
 }
 

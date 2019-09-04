@@ -11,10 +11,10 @@
 
 /** Simple drawing demonstration
  */
-class SimpleCamera : public OpenGLDemo {
+class MainScene : public OpenGLDemo {
 public:
-    explicit SimpleCamera(int width, int height);
-    ~SimpleCamera() override;
+    explicit MainScene(int width, int height);
+    ~MainScene() override;
 
     void resize(int width, int height) override;
     void draw() override;
