@@ -7,39 +7,15 @@
 #include <iostream>
 #include <stdexcept>
 
-#include "hello_triangles/hellotriangles.h"
 #include "hello_camera/hellocamera.h"
-#include "spheres/uv_spheres.h"
-#include "spheres/ico_spheres.h"
-#include "spheres/diffuse_light.h"
-#include "spheres/approx_err.h"
+
 
 
 MyOpenGLWidget::MyOpenGLWidget(QWidget *parent) :QOpenGLWidget(parent)/*, QOpenGLFunctions_4_1_Core()*/, _openglDemo(nullptr), _lastime(0) {
     // add all demo constructors here
-    _democonstructors.push_back( [](int width, int height)->OpenGLDemo*{
-        std::cout << "Hello clear ..." << std::endl; return new OpenGLDemo(width, height);
-        } );
-    _democonstructors.push_back( [](int width, int height)->OpenGLDemo*{
-        std::cout << "Hello triangles ..." << std::endl; return new SimpleTriangle(width, height);
-        } );
+
     _democonstructors.push_back( [](int width, int height)->OpenGLDemo*{
         std::cout << "Hello camera ..." << std::endl; return new SimpleCamera(width, height);
-        } );
-    _democonstructors.push_back( [](int width, int height)->OpenGLDemo*{
-    std::cout << "UV Shpere ..." << std::endl; return new UVsphere(width, height);
-        } );
-    _democonstructors.push_back( [](int width, int height)->OpenGLDemo*{
-    // std::cout << "ICO Shpere ..." << std::endl;
-        return new ICOsphere(width, height);
-        } );
-    _democonstructors.push_back( [](int width, int height)->OpenGLDemo*{
-    // std::cout << "ICO Shpere ..." << std::endl;
-        return new Diffuse_light(width, height);
-        } );
-    _democonstructors.push_back( [](int width, int height)->OpenGLDemo*{
-    // std::cout << "ICO Shpere ..." << std::endl;
-        return new ApproxErr(width, height);
         } );
 }
 

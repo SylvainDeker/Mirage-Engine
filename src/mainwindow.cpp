@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 
 #include "ui_mainwindow.h"
-#include "spheres/calcul.h"
+
 
 #include <QMessageBox>
 #include <QVBoxLayout>
@@ -41,36 +41,8 @@ void MainWindow::on_action_Version_OpenGL_triggered() {
     QMessageBox::information(this, "OpenGL Information", message.str().c_str());
 }
 
-void MainWindow::on_actionHello_clear_triggered() {
-    openglWidget->activatedemo(0);
-}
 
-void MainWindow::on_actionHello_triangle_triggered() {
-    openglWidget->activatedemo(1);
-}
 
 void MainWindow::on_actionHello_camera_triggered() {
     openglWidget->activatedemo(2);
-}
-
-void MainWindow::on_actionUV_spheres_triggered() {
-    openglWidget->activatedemo(3);
-}
-
-void MainWindow::on_actionICO_spheres_triggered() {
-    openglWidget->activatedemo(4);
-}
-
-void MainWindow::on_actionDiffuse_light_triggered() {
-    openglWidget->activatedemo(5);
-}
-
-void MainWindow::on_actionApprox_err_triggered() {
-    openglWidget->activatedemo(6);
-}
-
-void MainWindow::on_actionCalcul_triggered() {
-    size_t max = 24;
-    calculuvsphere(max);
-    calculicosphere(max);
 }

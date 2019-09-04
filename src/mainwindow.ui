@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>512</width>
-    <height>512</height>
+    <width>1008</width>
+    <height>730</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -24,8 +24,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>512</width>
-     <height>22</height>
+     <width>1008</width>
+     <height>30</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuInfo">
@@ -38,14 +38,7 @@
     <property name="title">
      <string>&amp;Demo</string>
     </property>
-    <addaction name="actionHello_clear"/>
-    <addaction name="actionHello_triangle"/>
     <addaction name="actionHello_camera"/>
-    <addaction name="actionUV_spheres"/>
-    <addaction name="actionICO_spheres"/>
-    <addaction name="actionDiffuse_light"/>
-    <addaction name="actionApprox_err"/>
-    <addaction name="actionCalcul"/>
    </widget>
    <addaction name="menu_Demo"/>
    <addaction name="menuInfo"/>

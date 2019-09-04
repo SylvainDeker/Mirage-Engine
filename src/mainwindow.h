@@ -19,21 +19,8 @@ public:
 private slots:
     void on_action_Version_OpenGL_triggered();
 
-    void on_actionHello_triangle_triggered();
-
     void on_actionHello_camera_triggered();
 
-    void on_actionUV_spheres_triggered();
-
-    void on_actionICO_spheres_triggered();
-
-    void on_actionDiffuse_light_triggered();
-
-    void on_actionApprox_err_triggered();
-
-    void on_actionHello_clear_triggered();
-
-    void on_actionCalcul_triggered();
 private:
     Ui::MainWindow *ui;
     MyOpenGLWidget *openglWidget;
