@@ -14,9 +14,9 @@
 MyOpenGLWidget::MyOpenGLWidget(QWidget *parent) :QOpenGLWidget(parent)/*, QOpenGLFunctions_4_1_Core()*/, _openglDemo(nullptr), _lastime(0) {
     // add all demo constructors here
 
-    _democonstructors.push_back( [](int width, int height)->OpenGLDemo*{
-        std::cout << "Hello camera ..." << std::endl; return new SimpleCamera(width, height);
-        } );
+    _democonstructors = [](int width, int height)->OpenGLDemo*{
+       return new SimpleCamera(width, height);
+    };
 }
 
 MyOpenGLWidget::~MyOpenGLWidget() {
@@ -45,7 +45,7 @@ void MyOpenGLWidget::initializeGL() {
         exit(1);
     }
     // Initialize OpenGL and all OpenGL dependent stuff below
-    _openglDemo.reset(_democonstructors[0](width(), height()));
+    _openglDemo.reset(_democonstructors(width(), height()));
 }
 
 void MyOpenGLWidget::paintGL() {
@@ -121,11 +121,11 @@ void MyOpenGLWidget::keyPressEvent(QKeyEvent *event) {
 }
 
 void MyOpenGLWidget::activatedemo(unsigned int numdemo) {
-    if (numdemo < _democonstructors.size()) {
-        std::cout << "Activating demo " << numdemo << " : ";
-        makeCurrent();
-        _openglDemo.reset(_democonstructors[numdemo](width(), height()));
-        doneCurrent();
-        update();
-    }
+    (void) numdemo;
+    std::cout << "Activating demo " << numdemo << " : ";
+    makeCurrent();
+    _openglDemo.reset(_democonstructors(width(), height()));
+    doneCurrent();
+    update();
+
 }
