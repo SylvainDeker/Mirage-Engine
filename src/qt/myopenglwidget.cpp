@@ -7,7 +7,7 @@
 #include <iostream>
 #include <stdexcept>
 
-#include "mainscene.h"
+#include "../openGL/mainscene.h"
 
 
 

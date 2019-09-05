@@ -247,5 +247,3 @@ void TrackballCamera::pancamera() {
         _panstart = _panend;
     }
 }
-
-

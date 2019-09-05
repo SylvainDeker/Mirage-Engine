@@ -7,7 +7,7 @@
 
 #include <memory>
 
-#include "opengldemo.h"
+#include "../openGL/opengldemo.h"
 
 
 class MyOpenGLWidget : public QOpenGLWidget, protected QOpenGLFunctions_4_1_Core {
