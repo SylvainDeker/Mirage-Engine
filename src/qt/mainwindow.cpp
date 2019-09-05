@@ -20,7 +20,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
     ui->setupUi(this);
 
-    openglWidget = new MyOpenGLWidget(this);
+    openglWidget = new OpenGLWidget(this);
     openglWidget->resize(openglWidget->sizeHint());
     openglWidget->setFocus();
 

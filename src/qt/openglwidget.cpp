@@ -1,4 +1,4 @@
-#include "myopenglwidget.h"
+#include "openglwidget.h"
 
 #include <QMessageBox>
 #include <QApplication>
@@ -11,7 +11,7 @@
 
 
 
-MyOpenGLWidget::MyOpenGLWidget(QWidget *parent) :QOpenGLWidget(parent)/*, QOpenGLFunctions_4_1_Core()*/, _openglDemo(nullptr), _lastime(0) {
+OpenGLWidget::OpenGLWidget(QWidget *parent) :QOpenGLWidget(parent)/*, QOpenGLFunctions_4_1_Core()*/, _openglDemo(nullptr), _lastime(0) {
     // add all demo constructors here
 
     _democonstructors = [](int width, int height)->OpenGLDemo*{
@@ -19,36 +19,36 @@ MyOpenGLWidget::MyOpenGLWidget(QWidget *parent) :QOpenGLWidget(parent)/*, QOpenG
     };
 }
 
-MyOpenGLWidget::~MyOpenGLWidget() {
+OpenGLWidget::~OpenGLWidget() {
 
 }
 
-QSize MyOpenGLWidget::minimumSizeHint() const
+QSize OpenGLWidget::minimumSizeHint() const
 {
     return QSize(50, 50);
 }
 
-QSize MyOpenGLWidget::sizeHint() const
+QSize OpenGLWidget::sizeHint() const
 {
     return QSize(512, 512);
 }
 
-void MyOpenGLWidget::cleanup() {
+void OpenGLWidget::cleanup() {
     _openglDemo.reset(nullptr);
 }
 
-void MyOpenGLWidget::initializeGL() {
-    connect(context(), &QOpenGLContext::aboutToBeDestroyed, this, &MyOpenGLWidget::cleanup);
+void OpenGLWidget::initializeGL() {
+    connect(context(), &QOpenGLContext::aboutToBeDestroyed, this, &OpenGLWidget::cleanup);
 
     if (!initializeOpenGLFunctions()) {
-        QMessageBox::critical(this, "OpenGL initialization error", "MyOpenGLWidget::initializeGL() : Unable to initialize OpenGL functions");
+        QMessageBox::critical(this, "OpenGL initialization error", "OpenGLWidget::initializeGL() : Unable to initialize OpenGL functions");
         exit(1);
     }
     // Initialize OpenGL and all OpenGL dependent stuff below
     _openglDemo.reset(_democonstructors(width(), height()));
 }
 
-void MyOpenGLWidget::paintGL() {
+void OpenGLWidget::paintGL() {
     std::int64_t starttime = QDateTime::currentMSecsSinceEpoch();
     _openglDemo->draw();
     glFinish();
@@ -56,11 +56,11 @@ void MyOpenGLWidget::paintGL() {
     _lastime = endtime-starttime;
 }
 
-void MyOpenGLWidget::resizeGL(int width, int height) {
+void OpenGLWidget::resizeGL(int width, int height) {
     _openglDemo->resize(width, height);
 }
 
-void MyOpenGLWidget::mousePressEvent(QMouseEvent *event) {
+void OpenGLWidget::mousePressEvent(QMouseEvent *event) {
     // buttons are 0(left), 1(right) to 2(middle)
     int b;
     Qt::MouseButton button=event->button();
@@ -79,12 +79,12 @@ void MyOpenGLWidget::mousePressEvent(QMouseEvent *event) {
     _lastime = QDateTime::currentMSecsSinceEpoch();
 }
 
-void MyOpenGLWidget::mouseMoveEvent(QMouseEvent *event) {
+void OpenGLWidget::mouseMoveEvent(QMouseEvent *event) {
     _openglDemo->mousemove(event->x(), event->y());
     update();
 }
 
-void MyOpenGLWidget::keyPressEvent(QKeyEvent *event) {
+void OpenGLWidget::keyPressEvent(QKeyEvent *event) {
     switch(event->key()) {
         // Demo keys
         case Qt::Key_0:
@@ -120,7 +120,7 @@ void MyOpenGLWidget::keyPressEvent(QKeyEvent *event) {
     }
 }
 
-void MyOpenGLWidget::activatedemo(unsigned int numdemo) {
+void OpenGLWidget::activatedemo(unsigned int numdemo) {
     (void) numdemo;
     std::cout << "Activating demo " << numdemo << " : ";
     makeCurrent();

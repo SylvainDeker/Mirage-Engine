@@ -3,7 +3,7 @@
 
 #include <QMainWindow>
 
-#include "myopenglwidget.h"
+#include "openglwidget.h"
 
 namespace Ui {
     class MainWindow;
@@ -23,7 +23,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    MyOpenGLWidget *openglWidget;
+    OpenGLWidget *openglWidget;
 };
 
 #endif // MAINWINDOW_H

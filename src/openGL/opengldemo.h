@@ -1,5 +1,5 @@
-#ifndef SCENE_H
-#define SCENE_H
+#ifndef OPENGL_H
+#define OPENGL_H
 
 
 #include <vector>
@@ -35,4 +35,4 @@ private:
 };
 
 
-#endif // SCENE_H
+#endif // OPENGL_H

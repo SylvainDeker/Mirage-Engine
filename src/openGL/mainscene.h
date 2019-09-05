@@ -1,5 +1,5 @@
-#ifndef SIMPLECAMERA_H
-#define SIMPLECAMERA_H
+#ifndef MAINSCENE_H
+#define MAINSCENE_H
 
 #include "opengldemo.h"
 
@@ -60,4 +60,4 @@ private:
 /*------------------------------------------------------------------------------------------------------------------------*/
 
 
-#endif // SIMPLECAMERA_H
+#endif // MAINSCENE_H

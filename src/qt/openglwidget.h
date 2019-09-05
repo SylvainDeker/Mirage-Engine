@@ -10,12 +10,12 @@
 #include "../openGL/opengldemo.h"
 
 
-class MyOpenGLWidget : public QOpenGLWidget, protected QOpenGLFunctions_4_1_Core {
+class OpenGLWidget : public QOpenGLWidget, protected QOpenGLFunctions_4_1_Core {
 
 public:
-    explicit MyOpenGLWidget(QWidget *parent = 0);
+    explicit OpenGLWidget(QWidget *parent = 0);
 
-    ~MyOpenGLWidget();
+    ~OpenGLWidget();
 
     // size hints for the widget
     QSize minimumSizeHint() const override;
