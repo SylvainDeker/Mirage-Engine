@@ -1,4 +1,4 @@
-project(IIG3D-BaseTP)
+project(Mirage-Engine)
 
 ############################################
 # Configure CMake and GCC flags
