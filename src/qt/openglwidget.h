@@ -7,7 +7,7 @@
 
 #include <memory>
 
-#include "../openGL/opengldemo.h"
+#include "../openGL/openglmain.h"
 
 
 class OpenGLWidget : public QOpenGLWidget, protected QOpenGLFunctions_4_1_Core {
@@ -40,9 +40,9 @@ protected:
     void keyPressEvent(QKeyEvent *event) override;
 
 private :
-    std::unique_ptr<OpenGLDemo> _openglDemo;
+    std::unique_ptr<OpenGLMain> _openglDemo;
 
-    using DemoConstructors=std::function<OpenGLDemo*(int, int)>;
+    using DemoConstructors=std::function<OpenGLMain*(int, int)>;
     DemoConstructors _democonstructors;
 
     // for event management

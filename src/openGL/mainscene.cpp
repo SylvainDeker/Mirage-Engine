@@ -35,7 +35,7 @@ static const char* fragmentshader_source ="#version 410 core\n\
             color = vec4(normalize(normal)*0.5+0.5, 1.0);\n\
         }\n";
 
-MainScene::MainScene(int width, int height) : OpenGLDemo(width, height), _activecamera(0), _camera(nullptr) {
+MainScene::MainScene(int width, int height) : OpenGLMain(width, height), _activecamera(0), _camera(nullptr) {
     // Initialise geometric data
     _vertices = {
         0.5f,  0.5f, 0.0f,  // Top Right
@@ -144,13 +144,13 @@ MainScene::~MainScene() {
 }
 
 void MainScene::resize(int width, int height){
-    OpenGLDemo::resize(width, height);
+    OpenGLMain::resize(width, height);
     _camera->setviewport(glm::vec4(0.f, 0.f, _width, _height));
     _projection = glm::perspective(_camera->zoom(), float(_width) / _height, 0.1f, 100.0f);
 }
 
 void MainScene::draw() {
-    OpenGLDemo::draw();
+    OpenGLMain::draw();
 
     glUseProgram(_program);
 

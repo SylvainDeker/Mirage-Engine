@@ -7,11 +7,11 @@
 
 /** Simple class for managing an OpenGL demo
  */
-class OpenGLDemo {
+class OpenGLMain {
 
 public:
-    explicit OpenGLDemo(int width, int height);
-    virtual ~OpenGLDemo();
+    explicit OpenGLMain(int width, int height);
+    virtual ~OpenGLMain();
 
     virtual void resize(int width, int height);
     virtual void draw();

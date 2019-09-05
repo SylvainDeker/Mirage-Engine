@@ -14,7 +14,7 @@
 OpenGLWidget::OpenGLWidget(QWidget *parent) :QOpenGLWidget(parent)/*, QOpenGLFunctions_4_1_Core()*/, _openglDemo(nullptr), _lastime(0) {
     // add all demo constructors here
 
-    _democonstructors = [](int width, int height)->OpenGLDemo*{
+    _democonstructors = [](int width, int height)->OpenGLMain*{
        return new MainScene(width, height);
     };
 }

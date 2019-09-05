@@ -1,7 +1,7 @@
 #ifndef MAINSCENE_H
 #define MAINSCENE_H
 
-#include "opengldemo.h"
+#include "openglmain.h"
 
 #include "camera.h"
 
@@ -11,7 +11,7 @@
 
 /** Simple drawing demonstration
  */
-class MainScene : public OpenGLDemo {
+class MainScene : public OpenGLMain {
 public:
     explicit MainScene(int width, int height);
     ~MainScene() override;
