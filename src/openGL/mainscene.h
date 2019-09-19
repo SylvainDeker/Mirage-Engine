@@ -7,6 +7,7 @@
 
 #include <memory>
 #include <functional>
+#include "mesh.h"
 
 
 /** Simple drawing demonstration
@@ -25,16 +26,6 @@ public:
     bool keyboard(unsigned char k) override;
 
 private:
-    // A simple geometry
-    std::vector<GLfloat> _vertices;
-    std::vector<GLfloat> _normals;
-    std::vector<GLuint> _indices;
-
-    // OpenGL object for geometry
-    GLuint _vao;
-    GLuint _vbo;
-    GLuint _nbo;
-    GLuint _ebo;
 
     // Shader program for rendering
     GLuint _program;
@@ -55,6 +46,8 @@ private:
     glm::mat4 _model;
     glm::mat4 _view;
     glm::mat4 _projection;
+
+    Mesh _mesh;
 };
 
 /*------------------------------------------------------------------------------------------------------------------------*/
