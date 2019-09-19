@@ -38,10 +38,8 @@ static const char* fragmentshader_source ="#version 410 core\n\
 
 MainScene::MainScene(int width, int height) : OpenGLMain(width, height), _activecamera(0), _camera(nullptr) {
 
-    _mesh = Mesh();
     _sqr = Square();
 
-    _mesh.initializeGeometry();
     _sqr.initializeGeometry();
 
 
@@ -121,7 +119,6 @@ void MainScene::draw() {
     glUniformMatrix4fv( glGetUniformLocation(_program, "projection"), 1, GL_FALSE, glm::value_ptr(_projection));
 
 
-    _mesh.draw();
     _sqr.draw();
 
 }

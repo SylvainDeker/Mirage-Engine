@@ -6,6 +6,7 @@
 class Square: public Mesh {
 public:
   Square();
+  ~Square(){}
 private:
 
 };

@@ -7,30 +7,9 @@
 
 
 Mesh::Mesh(){
-  // Initialise geometric data
-  _vertices.push_back(glm::vec3(0.5f,  0.5f, 0.0f));  // Top Right
-  _vertices.push_back(glm::vec3(0.5f,  -0.5f, 0.0f));  // Bottom Right
-  _vertices.push_back(glm::vec3(-0.5f,  -0.5f, 0.0f)); // Bottom Left
-  _vertices.push_back(glm::vec3(-0.5f,  0.5f, 0.0f));  // Top Left
-
-
-
-  _normals.push_back(glm::vec3( 0.577350269189626f, 0.577350269189626f, 0.577350269189626f   ));// Top Right
-  _normals.push_back(glm::vec3( 0.577350269189626f, -0.577350269189626f, 0.577350269189626f  )); // Bottom Right
-  _normals.push_back(glm::vec3( -0.577350269189626f, -0.577350269189626f, 0.577350269189626f )); // Bottom Left
-  _normals.push_back(glm::vec3( -0.577350269189626f, 0.577350269189626f, 0.577350269189626f   )); // Top Left
-
-// TODO
-  // _indices.push_back(Triangle(0,1,3));
-  // _indices.push_back(Triangle(1,2,3));
-
-  _indices = {
-      // Note that we start from 0!
-      0, 1, 3,   // First Triangle
-      1, 2, 3    // Second Triangle
-  };
 
 }
+
 
 Mesh::~Mesh(){
   glDeleteBuffers(1, &_vbo);
@@ -38,6 +17,22 @@ Mesh::~Mesh(){
   glDeleteBuffers(1, &_ebo);
   glDeleteVertexArrays(1, &_vao) ;
 }
+
+void Mesh::addVertice(glm::vec3 vertice){
+  _vertices.push_back(vertice);  // Top Right
+}
+
+void Mesh::addNormal(glm::vec3 normal){
+  _normals.push_back(normal);
+}
+
+void Mesh::addTriangle(GLuint a,GLuint b,GLuint c){
+  _indices.push_back(a);
+  _indices.push_back(b);
+  _indices.push_back(c);
+}
+
+
 
 void Mesh::draw(){
   glBindVertexArray(_vao);
@@ -69,11 +64,10 @@ void Mesh::initializeGeometry(){
       glEnableVertexAttribArray(1);
       // 7. Copy our index array in a element buffer for OpenGL to use
       glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _ebo);
-      glBufferData(GL_ELEMENT_ARRAY_BUFFER, _indices.size()*sizeof (Triangle), _indices.data(), GL_STATIC_DRAW);
+      glBufferData(GL_ELEMENT_ARRAY_BUFFER, _indices.size()*sizeof (GLuint), _indices.data(), GL_STATIC_DRAW);
   //6. Unbind the VAO
   glBindVertexArray(0);
 
-  std::cout << sizeof (Triangle)<<"  " << 3* sizeof (GLuint)   << '\n';
 
 
 
