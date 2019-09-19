@@ -1,7 +1,7 @@
 #include "mainscene.h"
 #include <iostream>
 #include "mesh.h"
-
+#include "../mesh/square.h"
 
 /*------------------------------------------------------------------------------------------------------------------------*/
 /*------------------------------------------------------------------------------------------------------------------------*/
@@ -39,8 +39,10 @@ static const char* fragmentshader_source ="#version 410 core\n\
 MainScene::MainScene(int width, int height) : OpenGLMain(width, height), _activecamera(0), _camera(nullptr) {
 
     _mesh = Mesh();
+    _sqr = Square();
 
     _mesh.initializeGeometry();
+    _sqr.initializeGeometry();
 
 
     // Initialize shaders
@@ -120,6 +122,7 @@ void MainScene::draw() {
 
 
     _mesh.draw();
+    _sqr.draw();
 
 }
 

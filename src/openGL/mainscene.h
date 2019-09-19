@@ -8,6 +8,7 @@
 #include <memory>
 #include <functional>
 #include "mesh.h"
+#include "../mesh/square.h"
 
 
 /** Simple drawing demonstration
@@ -48,6 +49,7 @@ private:
     glm::mat4 _projection;
 
     Mesh _mesh;
+    Square _sqr;
 };
 
 /*------------------------------------------------------------------------------------------------------------------------*/
