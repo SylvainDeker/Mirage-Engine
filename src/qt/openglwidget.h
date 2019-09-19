@@ -6,7 +6,7 @@
 #include <QKeyEvent>
 
 #include <memory>
-
+#include <functional>
 #include "../openGL/openglmain.h"
 
 
