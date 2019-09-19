@@ -8,7 +8,8 @@
 #include <memory>
 #include <functional>
 #include "mesh.h"
-#include "../mesh/square.h"
+#include "../mesh/demoBSplineLine.hpp"
+#include "../mesh/demoBSplineSurface.hpp"
 
 
 /** Simple drawing demonstration
@@ -48,7 +49,8 @@ private:
     glm::mat4 _view;
     glm::mat4 _projection;
 
-    Square _sqr;
+    DemoBSplineLine _demoBSplineLine;
+    DemoBSplineSurface _demoBSplineSurface;
 };
 
 /*------------------------------------------------------------------------------------------------------------------------*/

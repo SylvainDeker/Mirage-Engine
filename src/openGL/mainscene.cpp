@@ -1,7 +1,8 @@
 #include "mainscene.h"
 #include <iostream>
 #include "mesh.h"
-#include "../mesh/square.h"
+#include "../mesh/demoBSplineLine.hpp"
+#include "../mesh/demoBSplineSurface.hpp"
 
 /*------------------------------------------------------------------------------------------------------------------------*/
 /*------------------------------------------------------------------------------------------------------------------------*/
@@ -36,11 +37,23 @@ static const char* fragmentshader_source ="#version 410 core\n\
             color = vec4(normalize(normal)*0.5+0.5, 1.0);\n\
         }\n";
 
-MainScene::MainScene(int width, int height) : OpenGLMain(width, height), _activecamera(0), _camera(nullptr) {
+MainScene::MainScene(int width, int height) : OpenGLMain(width, height), _activecamera(0), _camera(nullptr),
 
-    _sqr = Square();
 
-    _sqr.initializeGeometry();
+      _demoBSplineLine(DemoBSplineLine()),
+      _demoBSplineSurface(DemoBSplineSurface())
+
+
+
+          {
+
+
+
+
+
+    _demoBSplineLine.initializeGeometry();
+    _demoBSplineSurface.initializeGeometry();
+
 
 
     // Initialize shaders
@@ -119,7 +132,8 @@ void MainScene::draw() {
     glUniformMatrix4fv( glGetUniformLocation(_program, "projection"), 1, GL_FALSE, glm::value_ptr(_projection));
 
 
-    _sqr.draw();
+    _demoBSplineLine.draw();
+    _demoBSplineSurface.draw();
 
 }
 
