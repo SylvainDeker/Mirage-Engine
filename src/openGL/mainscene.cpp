@@ -1,7 +1,8 @@
 #include "mainscene.h"
 #include <iostream>
 #include "mesh.h"
-#include "../mesh/square.h"
+#include "../mesh/controlPoints.h"
+#include "../mesh/bSplineLine.h"
 
 /*------------------------------------------------------------------------------------------------------------------------*/
 /*------------------------------------------------------------------------------------------------------------------------*/
@@ -38,9 +39,12 @@ static const char* fragmentshader_source ="#version 410 core\n\
 
 MainScene::MainScene(int width, int height) : OpenGLMain(width, height), _activecamera(0), _camera(nullptr) {
 
-    _sqr = Square();
 
-    _sqr.initializeGeometry();
+    _ctrlpt = ControlPoints();
+    _bspl = BSplineLine();
+
+    _ctrlpt.initializeGeometry();
+    _bspl.initializeGeometry();
 
 
     // Initialize shaders
@@ -119,7 +123,8 @@ void MainScene::draw() {
     glUniformMatrix4fv( glGetUniformLocation(_program, "projection"), 1, GL_FALSE, glm::value_ptr(_projection));
 
 
-    _sqr.draw();
+    _ctrlpt.draw();
+    _bspl.draw();
 
 }
 
