@@ -6,48 +6,17 @@
 #include "controlPoints.h"
 
 
-ControlPoints::ControlPoints(){
-  float tmp = 0.1f;
-  float dec =0.2f;
-
-  addVertice(glm::vec3(tmp,  tmp, dec));  // Top Right
-  addVertice(glm::vec3(tmp,  -tmp, dec));  // Bottom Right
-  addVertice(glm::vec3(-tmp,  -tmp, dec)); // Bottom Left
-  addVertice(glm::vec3(-tmp,  tmp, dec));  // Top Left
+ControlPoints::ControlPoints(std::vector<glm::vec3> & points):_vertices(points){
 
 
-  addNormal(glm::vec3( 0.577350269189626f, 0.577350269189626f, 0.577350269189626f   ));// Top Right
-  addNormal(glm::vec3( 0.577350269189626f, -0.577350269189626f, 0.577350269189626f  )); // Bottom Right
-  addNormal(glm::vec3( -0.577350269189626f, -0.577350269189626f, 0.577350269189626f )); // Bottom Left
-  addNormal(glm::vec3( -0.577350269189626f, 0.577350269189626f, 0.577350269189626f   )); // Top Left
 
-  addTriangle(0,1,3);
-  addTriangle(1,2,3);
 }
-
 
 ControlPoints::~ControlPoints(){
   glDeleteBuffers(1, &_vbo);
-  glDeleteBuffers(1, &_nbo);
   glDeleteBuffers(1, &_ebo);
   glDeleteVertexArrays(1, &_vao) ;
 }
-
-void ControlPoints::addVertice(glm::vec3 vertice){
-  _vertices.push_back(vertice);  // Top Right
-}
-
-void ControlPoints::addNormal(glm::vec3 normal){
-  _normals.push_back(normal);
-}
-
-void ControlPoints::addTriangle(GLuint a,GLuint b,GLuint c){
-  _indices.push_back(a);
-  _indices.push_back(b);
-  _indices.push_back(c);
-}
-
-
 
 void ControlPoints::draw(){
   glBindVertexArray(_vao);
@@ -58,10 +27,13 @@ void ControlPoints::draw(){
 
 void ControlPoints::initializeGeometry(){
 
+  for (size_t i = 0; i < _vertices.size(); i++) {
+    _indices.push_back(int(i));
+  }
+
   // Initialize the geometry
   // 1. Generate geometry buffers
   glGenBuffers(1, &_vbo) ;
-  glGenBuffers(1, &_nbo) ;
   glGenBuffers(1, &_ebo) ;
   glGenVertexArrays(1, &_vao) ;
   // 2. Bind Vertex Array Object
@@ -83,8 +55,5 @@ void ControlPoints::initializeGeometry(){
       glBufferData(GL_ELEMENT_ARRAY_BUFFER, _indices.size()*sizeof (GLuint), _indices.data(), GL_STATIC_DRAW);
   //6. Unbind the VAO
   glBindVertexArray(0);
-
-
-
 
 }

@@ -1,8 +1,7 @@
 #include "mainscene.h"
 #include <iostream>
 #include "mesh.h"
-#include "../mesh/controlPoints.h"
-#include "../mesh/bSplineLine.h"
+#include "../mesh/demoBSpline.hpp"
 
 /*------------------------------------------------------------------------------------------------------------------------*/
 /*------------------------------------------------------------------------------------------------------------------------*/
@@ -37,14 +36,21 @@ static const char* fragmentshader_source ="#version 410 core\n\
             color = vec4(normalize(normal)*0.5+0.5, 1.0);\n\
         }\n";
 
-MainScene::MainScene(int width, int height) : OpenGLMain(width, height), _activecamera(0), _camera(nullptr) {
+MainScene::MainScene(int width, int height) : OpenGLMain(width, height), _activecamera(0), _camera(nullptr),
 
 
-    _ctrlpt = ControlPoints();
-    _bspl = BSplineLine();
+      _demobspline(DemoBSpline())
 
-    _ctrlpt.initializeGeometry();
-    _bspl.initializeGeometry();
+
+
+          {
+
+
+
+
+
+    _demobspline.initializeGeometry();
+
 
 
     // Initialize shaders
@@ -123,8 +129,7 @@ void MainScene::draw() {
     glUniformMatrix4fv( glGetUniformLocation(_program, "projection"), 1, GL_FALSE, glm::value_ptr(_projection));
 
 
-    _ctrlpt.draw();
-    _bspl.draw();
+    _demobspline.draw();
 
 }
 

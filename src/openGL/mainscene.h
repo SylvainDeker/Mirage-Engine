@@ -8,8 +8,7 @@
 #include <memory>
 #include <functional>
 #include "mesh.h"
-#include "../mesh/controlPoints.h"
-#include "../mesh/bSplineLine.h"
+#include "../mesh/demoBSpline.hpp"
 
 
 /** Simple drawing demonstration
@@ -49,8 +48,7 @@ private:
     glm::mat4 _view;
     glm::mat4 _projection;
 
-    ControlPoints _ctrlpt;
-    BSplineLine _bspl;
+    DemoBSpline _demobspline;
 };
 
 /*------------------------------------------------------------------------------------------------------------------------*/

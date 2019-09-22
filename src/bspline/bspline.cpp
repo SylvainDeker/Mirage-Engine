@@ -19,6 +19,11 @@ BSpline::BSpline(std::vector<glm::vec3>& controlPoints,
 void BSpline::setOrderK(int k){
   _order_k = k;
 }
+
 int BSpline::getOrderK() const {
   return _order_k;
+}
+
+int BSpline::getN() const {
+  return _controlPoints.size()- 1;
 }

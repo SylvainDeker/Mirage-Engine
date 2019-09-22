@@ -12,6 +12,8 @@ class DemoBSpline {
 public:
   DemoBSpline();
   ~DemoBSpline ();
+  void initializeGeometry();
+  void draw();
 
 
 private:

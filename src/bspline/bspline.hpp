@@ -14,6 +14,7 @@ public:
 
 void setOrderK(int k);
 int getOrderK() const ;
+int getN() const ;
 
 private:
 

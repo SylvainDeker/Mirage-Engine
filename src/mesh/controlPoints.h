@@ -9,7 +9,7 @@
 
 class ControlPoints {
 public:
-  ControlPoints();
+  ControlPoints(std::vector<glm::vec3> & points);
   ~ControlPoints();
 
   void initializeGeometry();
@@ -17,21 +17,15 @@ public:
   void draw();
 
 
-
-  void addVertice(glm::vec3 vertice);
-  void addNormal(glm::vec3 normal);
-  void addTriangle(GLuint a,GLuint b,GLuint c);
-
 protected:
   // A simple geometry
-  std::vector<glm::vec3> _vertices;
+  std::vector<glm::vec3> & _vertices;
   std::vector<glm::vec3> _normals;
   std::vector<GLuint> _indices;
 
   // OpenGL object for geometry
   GLuint _vao;
   GLuint _vbo;
-  GLuint _nbo;
   GLuint _ebo;
 
 
