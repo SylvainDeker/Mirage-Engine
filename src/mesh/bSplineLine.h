@@ -10,7 +10,7 @@
 
 class BSplineLine {
 public:
-  BSplineLine();
+  BSplineLine(std::vector<glm::vec3> & vertices);
   ~BSplineLine();
 
   void initializeGeometry();
@@ -24,7 +24,7 @@ public:
 
 protected:
   // A simple geometry
-  std::vector<glm::vec3> _vertices;
+  std::vector<glm::vec3> & _vertices;
   std::vector<GLuint> _indices;
 
   // OpenGL object for geometry

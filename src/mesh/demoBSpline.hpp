@@ -18,7 +18,7 @@ public:
 
 private:
   std::vector<glm::vec3> _controlPoints;
-  std::vector<float> _modalVector;
+  std::vector<glm::vec3> _displayPoints;
   BSplineLine _meshLine;
   ControlPoints _meshControlPoints;
   BSpline _bspline;

@@ -7,20 +7,7 @@
 #include "bSplineLine.h"
 
 
-BSplineLine::BSplineLine(){
-  float tmp = 0.1f;
-  float dec =0.5f;
-
-  addVertice(glm::vec3(tmp,  tmp, dec));  // Top Right
-  addVertice(glm::vec3(tmp,  -tmp, dec));  // Bottom Right
-  addVertice(glm::vec3(-tmp,  -tmp, dec)); // Bottom Left
-  addVertice(glm::vec3(-tmp,  tmp, dec));  // Top Left
-
-
-  _indices.push_back(0);
-  _indices.push_back(1);
-  _indices.push_back(2);
-  _indices.push_back(3);
+BSplineLine::BSplineLine(std::vector<glm::vec3> & vertices):_vertices(vertices){
 
 
 }
@@ -32,11 +19,6 @@ BSplineLine::~BSplineLine(){
   glDeleteVertexArrays(1, &_vao) ;
 }
 
-void BSplineLine::addVertice(glm::vec3 vertice){
-  _vertices.push_back(vertice);  // Top Right
-}
-
-
 
 
 void BSplineLine::draw(){
@@ -47,6 +29,11 @@ void BSplineLine::draw(){
 }
 
 void BSplineLine::initializeGeometry(){
+
+  _indices.clear();
+  for (size_t i = 0; i < _vertices.size(); i++) {
+    _indices.push_back(i);
+  }
 
   // Initialize the geometry
   // 1. Generate geometry buffers
