@@ -62,7 +62,7 @@ glm::vec3 BSpline::polynom(float u) const {
 }
 
 void BSpline::getDisplayPoints(std::vector<glm::vec3> & vertices,size_t points) const {
-  assert(_modalVector.size()==getOrderK()+getN()+1);
+  assert(int(_modalVector.size())==getOrderK()+getN()+1);
   float min = _modalVector[getOrderK()-1];
   float max = _modalVector[getN()+1];
   float dist = max-min;
