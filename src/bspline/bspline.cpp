@@ -6,17 +6,19 @@
 
 
 
-BSpline::BSpline(){
-  float dist = 1.f;
-
-  for (size_t i = 0; i < 10; i++) {
-    _controlPoints.push_back(glm::vec3( float(i)*dist , 1.f, 1.f ));
-  }
+BSpline::BSpline(std::vector<glm::vec3>& controlPoints,
+                std::vector<float>& modalVector):
+  _controlPoints(controlPoints),
+  _modalVector(modalVector),
+  _order_k(1){
 
 
 }
 
 
-const std::vector<glm::vec3> & BSpline::getControlPoints() const {
-  return _controlPoints;
+void BSpline::setOrderK(int k){
+  _order_k = k;
+}
+int BSpline::getOrderK() const {
+  return _order_k;
 }

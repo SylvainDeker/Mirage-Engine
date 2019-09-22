@@ -1,5 +1,6 @@
 #include "glm/glm.hpp"
 #include "../openGL/openglmain.h"
+#include "../bspline/bspline.hpp"
 
 #include <memory>
 #include <functional>
@@ -20,6 +21,8 @@ BSplineLine::BSplineLine(){
   _indices.push_back(1);
   _indices.push_back(2);
   _indices.push_back(3);
+
+
 }
 
 

@@ -5,6 +5,7 @@
 #include "glm/glm.hpp"
 #include <GL/gl.h>
 #include "../openGL/openglmain.h"
+#include "../bspline/bspline.hpp"
 #include <memory>
 
 class BSplineLine {
@@ -30,6 +31,7 @@ protected:
   GLuint _vao;
   GLuint _vbo;
   GLuint _ebo;
+
 
 
 };

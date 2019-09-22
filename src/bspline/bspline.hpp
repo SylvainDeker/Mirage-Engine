@@ -8,15 +8,19 @@
 
 class BSpline{
 public:
-  BSpline();
+  BSpline(
+         std::vector<glm::vec3>& controlPoints,
+         std::vector<float>& _modalVector);
 
-  const std::vector<glm::vec3> & getControlPoints() const ;
+void setOrderK(int k);
+int getOrderK() const ;
 
 private:
 
 
-std::vector<glm::vec3> _controlPoints;
-std::vector<float> _modalVector;
+std::vector<glm::vec3> &_controlPoints;
+std::vector<float> &_modalVector;
+int _order_k;
 
 
 };
