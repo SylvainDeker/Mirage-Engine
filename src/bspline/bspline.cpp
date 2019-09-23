@@ -68,7 +68,7 @@ void BSpline::getDisplayPoints(std::vector<glm::vec3> & vertices,size_t points) 
   float dist = max-min;
   float unit = dist/float(points);
   glm::vec3 v;
-  std::cout << "MAX=="<< max << '\n';
+  // std::cout << "MAX=="<< max << '\n';
   for (size_t i = 0; i < points; i++) {
     // std::cout << "Pour u=" << unit*float(i) << " ";
     v = polynom(unit*float(i)+min);

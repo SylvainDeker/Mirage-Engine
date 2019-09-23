@@ -1,7 +1,7 @@
 #include "mainscene.h"
 #include <iostream>
 #include "mesh.h"
-#include "../mesh/demoBSpline.hpp"
+#include "../mesh/demoBSplineLine.hpp"
 
 /*------------------------------------------------------------------------------------------------------------------------*/
 /*------------------------------------------------------------------------------------------------------------------------*/
@@ -39,7 +39,7 @@ static const char* fragmentshader_source ="#version 410 core\n\
 MainScene::MainScene(int width, int height) : OpenGLMain(width, height), _activecamera(0), _camera(nullptr),
 
 
-      _demobspline(DemoBSpline())
+      _demobspline(DemoBSplineLine())
 
 
 

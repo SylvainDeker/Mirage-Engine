@@ -7,11 +7,11 @@
 #include "glm/glm.hpp"
 
 
-class DemoBSpline {
+class DemoBSplineLine {
 
 public:
-  DemoBSpline();
-  ~DemoBSpline ();
+  DemoBSplineLine();
+  ~DemoBSplineLine ();
   void initializeGeometry();
   void draw();
 

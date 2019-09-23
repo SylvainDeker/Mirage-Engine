@@ -1,11 +1,11 @@
-#include "demoBSpline.hpp"
+#include "demoBSplineLine.hpp"
 #include "../bspline/bspline.hpp"
 #include "bSplineLine.h"
 #include "controlPoints.h"
 #include <vector>
 #include "glm/glm.hpp"
 
-DemoBSpline::DemoBSpline():
+DemoBSplineLine::DemoBSplineLine():
   _controlPoints(std::vector<glm::vec3>()),
   _meshLine(BSplineLine(_displayPoints)),
   _meshControlPoints(ControlPoints(_controlPoints)),
@@ -27,12 +27,12 @@ DemoBSpline::DemoBSpline():
 }
 
 
-DemoBSpline::~DemoBSpline(){
+DemoBSplineLine::~DemoBSplineLine(){
 
 }
 
 
-void DemoBSpline::initializeGeometry(){
+void DemoBSplineLine::initializeGeometry(){
   _bspline.setOrderK(3);
   _bspline.setModalVector();
   _bspline.getDisplayPoints(_displayPoints,100); // 10 discret point to display
@@ -44,7 +44,7 @@ void DemoBSpline::initializeGeometry(){
 }
 
 
-void DemoBSpline::draw(){
+void DemoBSplineLine::draw(){
   _meshLine.draw();
   _meshControlPoints.draw();
 }
