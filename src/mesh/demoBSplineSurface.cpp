@@ -15,13 +15,12 @@ DemoBSplineSurface::DemoBSplineSurface():
   float tmp = 0.1f;
   float dec = 0.1f;
   float decm = 0.5f;
-  _meshSurface.setDimXY(5,2);
+  _meshSurface.setDimXY(30,40);
   for (size_t i = 0; i < _meshSurface.getDimX(); i++) {
-    for (size_t j = 0; j < _meshSurface.getDimX(); j++) {
+    for (size_t j = 0; j < _meshSurface.getDimY(); j++) {
       _controlPoints.push_back(glm::vec3(float(i)*tmp,float(j)*tmp, decm+dec*(glm::cos(float(i))+glm::sin(float(j))) ));
     }
   }
-
 
 }
 

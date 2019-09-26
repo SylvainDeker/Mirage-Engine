@@ -17,7 +17,8 @@ public:
   size_t getDimX() const ;
   size_t getDimY() const ;
   void setDimXY(size_t x, size_t y);
-
+  glm::vec3 getVertice(size_t x,size_t y);
+  size_t getIdx(size_t x, size_t y) const ;
   void draw();
 
 

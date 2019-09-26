@@ -13,19 +13,29 @@ BSplineSurface::BSplineSurface(std::vector<glm::vec3> & vertices, size_t x, size
   float tmp = 0.1f;
   float dec = 0.1f;
   float decm = 0.5f;
-  for (size_t i = 0; i < 10; i++) {
-    for (size_t j = 0; j < 5; j++) {
-      _vertices.push_back(glm::vec3(float(i)*tmp,float(j)*tmp, decm) );
-      // _vertices.push_back(glm::vec3(float(i)*tmp,float(j)*tmp, decm+dec*(glm::cos(float(i))+glm::sin(float(j))) ));
+  setDimXY(30,40);
+  for (size_t i = 0; i < getDimX(); i++) {
+    for (size_t j = 0; j < getDimY(); j++) {
+      _vertices.push_back(glm::vec3(float(i)*tmp,float(j)*tmp, decm+dec*(glm::cos(float(i))+glm::sin(float(j))) ));
     }
   }
-  // glm::vec3 norm;
-  // for (size_t i = 0; i < 10; i++) {
-  //   for (size_t j = 0; j < 10; j++) {
-  //     norm = glm::cross()
-  //     _normals.push_back(glm::vec3(float(i)*tmp,float(j)*tmp, decm+dec*(glm::cos(float(i))+glm::sin(float(j))) ));
-  //   }
-  // }
+
+  //
+  // _vertices.push_back(glm::vec3(0,0,0));
+  // _vertices.push_back(glm::vec3(tmp,0,0));
+  // _vertices.push_back(glm::vec3(0,tmp,0));
+  // // _vertices.push_back(glm::vec3(tmp,tmp,0));
+  //
+  // _indices.push_back(0);
+  // _indices.push_back(1);
+  // _indices.push_back(2);
+  // // _indices.push_back(3);
+  //
+  // _normals.push_back(glm::vec3(0,0,1));
+  // _normals.push_back(glm::vec3(0,0,1));
+  // _normals.push_back(glm::vec3(0,0,1));
+  // // _normals.push_back(glm::vec3(0,0,-1));
+
   // TODO TEMP
 }
 
@@ -41,8 +51,26 @@ size_t BSplineSurface::getDimY() const {
 void BSplineSurface::setDimXY(size_t x, size_t y) {
   _dimx = x;
   _dimy = y;
+  std::cout << "XY = "<< getDimX()<<";"<<getDimY() << '\n';
 }
 
+glm::vec3 BSplineSurface::getVertice(size_t x,size_t y){
+
+  assert(x<getDimX());
+  assert(y<getDimY());
+  size_t idx = getIdx(x,y);
+
+  assert(idx<_vertices.size());
+  return _vertices[idx];
+}
+
+size_t BSplineSurface::getIdx(size_t x,size_t y) const {
+  assert(x<getDimX());
+  assert(y<getDimY());
+  size_t idx = x*getDimY()+y;
+  assert(idx<_vertices.size());
+  return idx;
+}
 
 
 BSplineSurface::~BSplineSurface(){
@@ -57,16 +85,40 @@ BSplineSurface::~BSplineSurface(){
 
 void BSplineSurface::draw(){
   glBindVertexArray(_vao);
-  glDrawElements(GL_QUAD_STRIP, _indices.size(), GL_UNSIGNED_INT, nullptr);
+  glDrawElements(GL_TRIANGLES, _indices.size(), GL_UNSIGNED_INT, nullptr);
   glBindVertexArray(0);
 }
 
 void BSplineSurface::initializeGeometry(){
 
   _indices.clear();
-  for (size_t i = 0; i < _vertices.size(); i++) {
-    _indices.push_back(i);
+
+
+  // Normals
+  glm::vec3 norm;
+  glm::vec3 e1,e2;
+  for (size_t i = 0; i < getDimX(); i++) {
+    for (size_t j = 0; j < getDimY(); j++) {
+      if(j<getDimY()-1) e1 = getVertice(i,j) - getVertice(i,j+1);
+      else e1 = getVertice(i,j) - getVertice(i,j-1);
+      if(i<getDimX()-1) e2 = getVertice(i,j) - getVertice(i+1,j);
+      else e2 = getVertice(i,j) - getVertice(i-1,j);
+
+
+      norm = glm::cross(e1,e2);
+      _normals.push_back(norm);
+      if(i<getDimX()-1&&j<getDimY()-1){
+        _indices.push_back(getIdx(i,j));
+        _indices.push_back(getIdx(i,j+1));
+        _indices.push_back(getIdx(i+1,j));
+
+        _indices.push_back(getIdx(i+1,j+1));
+        _indices.push_back(getIdx(i,j+1));
+        _indices.push_back(getIdx(i+1,j));
+      }
+    }
   }
+
 
   // Initialize the geometry
   // 1. Generate geometry buffers
