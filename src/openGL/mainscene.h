@@ -9,6 +9,7 @@
 #include <functional>
 #include "mesh.h"
 #include "../mesh/demoBSplineLine.hpp"
+#include "../mesh/demoBSplineSurface.hpp"
 
 
 /** Simple drawing demonstration
@@ -48,7 +49,8 @@ private:
     glm::mat4 _view;
     glm::mat4 _projection;
 
-    DemoBSplineLine _demobspline;
+    DemoBSplineLine _demoBSplineLine;
+    DemoBSplineSurface _demoBSplineSurface;
 };
 
 /*------------------------------------------------------------------------------------------------------------------------*/

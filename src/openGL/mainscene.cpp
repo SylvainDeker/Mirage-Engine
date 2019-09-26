@@ -2,6 +2,7 @@
 #include <iostream>
 #include "mesh.h"
 #include "../mesh/demoBSplineLine.hpp"
+#include "../mesh/demoBSplineSurface.hpp"
 
 /*------------------------------------------------------------------------------------------------------------------------*/
 /*------------------------------------------------------------------------------------------------------------------------*/
@@ -39,7 +40,8 @@ static const char* fragmentshader_source ="#version 410 core\n\
 MainScene::MainScene(int width, int height) : OpenGLMain(width, height), _activecamera(0), _camera(nullptr),
 
 
-      _demobspline(DemoBSplineLine())
+      _demoBSplineLine(DemoBSplineLine()),
+      _demoBSplineSurface(DemoBSplineSurface())
 
 
 
@@ -49,7 +51,8 @@ MainScene::MainScene(int width, int height) : OpenGLMain(width, height), _active
 
 
 
-    _demobspline.initializeGeometry();
+    _demoBSplineLine.initializeGeometry();
+    _demoBSplineSurface.initializeGeometry();
 
 
 
@@ -129,7 +132,8 @@ void MainScene::draw() {
     glUniformMatrix4fv( glGetUniformLocation(_program, "projection"), 1, GL_FALSE, glm::value_ptr(_projection));
 
 
-    _demobspline.draw();
+    _demoBSplineLine.draw();
+    _demoBSplineSurface.draw();
 
 }
 
