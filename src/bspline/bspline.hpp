@@ -18,6 +18,7 @@ public:
   void getDisplayPoints(std::vector<glm::vec3> & vertices,size_t points) const ;
   glm::vec3 polynom(float u) const ;
   void checkmemory();
+  glm::vec3 floraison(float u) const ;
 private:
   float bsplineFunction(float u,int k,int i) const ;
 

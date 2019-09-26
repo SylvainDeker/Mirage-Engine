@@ -51,7 +51,6 @@ size_t BSplineSurface::getDimY() const {
 void BSplineSurface::setDimXY(size_t x, size_t y) {
   _dimx = x;
   _dimy = y;
-  std::cout << "XY = "<< getDimX()<<";"<<getDimY() << '\n';
 }
 
 glm::vec3 BSplineSurface::getVertice(size_t x,size_t y){
