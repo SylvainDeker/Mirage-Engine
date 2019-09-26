@@ -1,6 +1,6 @@
 #ifndef DEMOBSPLINESURFACE_H_
 #define DEMOBSPLINESURFACE_H_
-#include "../bspline/bspline.hpp"
+#include "../bspline/bspline2D.hpp"
 #include "bSplineLine.h"
 #include "bSplineSurface.h"
 #include "controlPoints.h"
@@ -23,7 +23,7 @@ private:
 
   BSplineSurface _meshSurface;
   ControlPoints _meshControlPoints;
-  BSpline _bspline;
+  BSpline2D _bspline2D;
 
 
 

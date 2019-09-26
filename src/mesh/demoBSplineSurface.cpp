@@ -10,14 +10,16 @@ DemoBSplineSurface::DemoBSplineSurface():
   _controlPoints(std::vector<glm::vec3>()),
   _meshSurface(BSplineSurface(_displayPoints)),
   _meshControlPoints(ControlPoints(_controlPoints)),
-  _bspline(BSpline(_controlPoints)){
+  _bspline2D(BSpline2D(_controlPoints)){
 
   float tmp = 0.1f;
   float dec = 0.1f;
   float decm = 0.5f;
-  _meshSurface.setDimXY(30,40);
-  for (size_t i = 0; i < _meshSurface.getDimX(); i++) {
-    for (size_t j = 0; j < _meshSurface.getDimY(); j++) {
+  _meshSurface.setDimXY(100,100);
+  _bspline2D.setNX(6);
+  _bspline2D.setNY(6);
+  for (size_t i = 0; i <= _bspline2D.getNX(); i++) {
+    for (size_t j = 0; j <= _bspline2D.getNY(); j++) {
       _controlPoints.push_back(glm::vec3(float(i)*tmp,float(j)*tmp, decm+dec*(glm::cos(float(i))+glm::sin(float(j))) ));
     }
   }
@@ -31,12 +33,15 @@ DemoBSplineSurface::~DemoBSplineSurface(){
 
 
 void DemoBSplineSurface::initializeGeometry(){
-  // _bspline.setOrderK(3);
-  // _bspline.setModalVector();
-  // _bspline.getDisplayPoints(_displayPoints,100); // 10 discret point to display
-  //
-  //
-  //
+  _bspline2D.setOrderKX(3);
+  _bspline2D.setOrderKY(3);
+
+
+  _bspline2D.setModalVectors();
+  _bspline2D.getDisplayPoints(_displayPoints,100,100);
+
+
+
   _meshSurface.initializeGeometry();
   _meshControlPoints.initializeGeometry();
 }

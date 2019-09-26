@@ -10,15 +10,15 @@
 BSplineSurface::BSplineSurface(std::vector<glm::vec3> & vertices, size_t x, size_t y ):_vertices(vertices),_dimx(x),_dimy(y){
 
   // TODO TEMP
-  float tmp = 0.1f;
-  float dec = 0.1f;
-  float decm = 0.5f;
-  setDimXY(30,40);
-  for (size_t i = 0; i < getDimX(); i++) {
-    for (size_t j = 0; j < getDimY(); j++) {
-      _vertices.push_back(glm::vec3(float(i)*tmp,float(j)*tmp, decm+dec*(glm::cos(float(i))+glm::sin(float(j))) ));
-    }
-  }
+  // float tmp = 0.1f;
+  // float dec = 0.1f;
+  // float decm = 0.5f;
+  // setDimXY(30,40);
+  // for (size_t i = 0; i < getDimX(); i++) {
+  //   for (size_t j = 0; j < getDimY(); j++) {
+  //     _vertices.push_back(glm::vec3(float(i)*tmp,float(j)*tmp, decm+dec*(glm::cos(float(i))+glm::sin(float(j))) ));
+  //   }
+  // }
 
   //
   // _vertices.push_back(glm::vec3(0,0,0));
@@ -67,7 +67,7 @@ size_t BSplineSurface::getIdx(size_t x,size_t y) const {
   assert(x<getDimX());
   assert(y<getDimY());
   size_t idx = x*getDimY()+y;
-  assert(idx<_vertices.size());
+
   return idx;
 }
 
@@ -99,9 +99,9 @@ void BSplineSurface::initializeGeometry(){
   for (size_t i = 0; i < getDimX(); i++) {
     for (size_t j = 0; j < getDimY(); j++) {
       if(j<getDimY()-1) e1 = getVertice(i,j) - getVertice(i,j+1);
-      else e1 = getVertice(i,j) - getVertice(i,j-1);
+      else e1 = getVertice(i,j-1) - getVertice(i,j);
       if(i<getDimX()-1) e2 = getVertice(i,j) - getVertice(i+1,j);
-      else e2 = getVertice(i,j) - getVertice(i-1,j);
+      else e2 = getVertice(i-1,j) - getVertice(i,j);
 
 
       norm = glm::cross(e1,e2);
