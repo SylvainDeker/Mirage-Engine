@@ -7,19 +7,42 @@
 #include "bSplineSurface.h"
 
 
-BSplineSurface::BSplineSurface(std::vector<glm::vec3> & vertices):_vertices(vertices){
+BSplineSurface::BSplineSurface(std::vector<glm::vec3> & vertices, size_t x, size_t y ):_vertices(vertices),_dimx(x),_dimy(y){
 
   // TODO TEMP
   float tmp = 0.1f;
   float dec = 0.1f;
   float decm = 0.5f;
   for (size_t i = 0; i < 10; i++) {
-    for (size_t j = 0; j < 10; j++) {
-      _vertices.push_back(glm::vec3(float(i)*tmp,float(j)*tmp, decm+dec*(glm::cos(float(i))+glm::sin(float(j))) ));
+    for (size_t j = 0; j < 5; j++) {
+      _vertices.push_back(glm::vec3(float(i)*tmp,float(j)*tmp, decm) );
+      // _vertices.push_back(glm::vec3(float(i)*tmp,float(j)*tmp, decm+dec*(glm::cos(float(i))+glm::sin(float(j))) ));
     }
   }
+  // glm::vec3 norm;
+  // for (size_t i = 0; i < 10; i++) {
+  //   for (size_t j = 0; j < 10; j++) {
+  //     norm = glm::cross()
+  //     _normals.push_back(glm::vec3(float(i)*tmp,float(j)*tmp, decm+dec*(glm::cos(float(i))+glm::sin(float(j))) ));
+  //   }
+  // }
   // TODO TEMP
 }
+
+
+size_t BSplineSurface::getDimX() const {
+  return _dimx;
+}
+
+size_t BSplineSurface::getDimY() const {
+  return _dimy;
+}
+
+void BSplineSurface::setDimXY(size_t x, size_t y) {
+  _dimx = x;
+  _dimy = y;
+}
+
 
 
 BSplineSurface::~BSplineSurface(){
@@ -29,12 +52,6 @@ BSplineSurface::~BSplineSurface(){
   glDeleteVertexArrays(1, &_vao) ;
 }
 
-
-void BSplineSurface::addTriangle(GLuint a,GLuint b,GLuint c){
-  _indices.push_back(a);
-  _indices.push_back(b);
-  _indices.push_back(c);
-}
 
 
 

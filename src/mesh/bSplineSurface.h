@@ -10,15 +10,16 @@
 
 class BSplineSurface {
 public:
-  BSplineSurface(std::vector<glm::vec3> & vertices);
+  BSplineSurface(std::vector<glm::vec3> & vertices, size_t x=1, size_t y=1);
   ~BSplineSurface();
 
   void initializeGeometry();
+  size_t getDimX() const ;
+  size_t getDimY() const ;
+  void setDimXY(size_t x, size_t y);
 
   void draw();
 
-
-  void addTriangle(GLuint a,GLuint b,GLuint c);
 
 private:
   // A simple geometry
@@ -31,6 +32,9 @@ private:
   GLuint _vbo;
   GLuint _nbo;
   GLuint _ebo;
+
+  size_t _dimx;
+  size_t _dimy;
 
 
 };
