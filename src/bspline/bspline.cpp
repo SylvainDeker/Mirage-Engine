@@ -2,7 +2,6 @@
 #include "../glm/glm.hpp"
 #include <vector>
 #include <assert.h>
-#include <iostream>
 
 
 
@@ -104,28 +103,12 @@ void BSpline::getDisplayPoints(std::vector<glm::vec3> & vertices,size_t points) 
 
   for (size_t i = 0; i < points; i++) {
 
+    // Recursive calcul
     // v = polynom(unit*float(i)+min);
 
+    // Iterative calcul
     v = floraison(unit*float(i)+min);
 
     vertices.push_back(v);
-  }
-}
-
-
-void BSpline::checkmemory(){
-  std::cout << "Order K="<< _order_k << '\n';
-  std::cout << "N="<< getN() << '\n';
-  std::cout << "Modal Vector: ";
-  for (size_t i = 0; i < _modalVector.size(); i++) {
-    std::cout << _modalVector[i] << ", ";
-  }
-  std::cout << '\n';
-
-  std::cout << "Control Poitns" << '\n';
-  for (size_t i = 0; i < _controlPoints.size(); i++) {
-    std::cout << _controlPoints[i].x << '\t';
-    std::cout << _controlPoints[i].y << '\t';
-    std::cout << _controlPoints[i].z << '\n';
   }
 }

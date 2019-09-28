@@ -8,8 +8,6 @@
 /*!
    \file bSpline2D
    \brief Class aimed at calculate vertices of the surface from control points
-   \author "Your name"
-   \date "DD"/"Month"/"Year"
 */
 class BSpline2D{
 public:
