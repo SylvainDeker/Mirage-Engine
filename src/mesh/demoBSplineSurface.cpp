@@ -18,8 +18,8 @@ DemoBSplineSurface::DemoBSplineSurface():
   _meshSurface.setDimXY(100,100);
   _bspline2D.setNX(6);
   _bspline2D.setNY(6);
-  for (size_t i = 0; i <= _bspline2D.getNX(); i++) {
-    for (size_t j = 0; j <= _bspline2D.getNY(); j++) {
+  for (int i = 0; i <= _bspline2D.getNX(); i++) {
+    for (int j = 0; j <= _bspline2D.getNY(); j++) {
       _controlPoints.push_back(glm::vec3(float(i)*tmp,float(j)*tmp, decm+dec*(glm::cos(float(i))+glm::sin(float(j))) ));
     }
   }

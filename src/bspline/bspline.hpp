@@ -20,7 +20,7 @@ public:
   void checkmemory();
   glm::vec3 floraison(float u) const ;
 private:
-  float bsplineFunction(float u,int k,int i) const ;
+  float recFloraison(float u,int k,int i) const ;
 
   std::vector<glm::vec3> &_controlPoints;
   std::vector<float> _modalVector;

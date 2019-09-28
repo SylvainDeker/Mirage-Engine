@@ -9,34 +9,6 @@
 
 BSplineSurface::BSplineSurface(std::vector<glm::vec3> & vertices, size_t x, size_t y ):_vertices(vertices),_dimx(x),_dimy(y){
 
-  // TODO TEMP
-  // float tmp = 0.1f;
-  // float dec = 0.1f;
-  // float decm = 0.5f;
-  // setDimXY(30,40);
-  // for (size_t i = 0; i < getDimX(); i++) {
-  //   for (size_t j = 0; j < getDimY(); j++) {
-  //     _vertices.push_back(glm::vec3(float(i)*tmp,float(j)*tmp, decm+dec*(glm::cos(float(i))+glm::sin(float(j))) ));
-  //   }
-  // }
-
-  //
-  // _vertices.push_back(glm::vec3(0,0,0));
-  // _vertices.push_back(glm::vec3(tmp,0,0));
-  // _vertices.push_back(glm::vec3(0,tmp,0));
-  // // _vertices.push_back(glm::vec3(tmp,tmp,0));
-  //
-  // _indices.push_back(0);
-  // _indices.push_back(1);
-  // _indices.push_back(2);
-  // // _indices.push_back(3);
-  //
-  // _normals.push_back(glm::vec3(0,0,1));
-  // _normals.push_back(glm::vec3(0,0,1));
-  // _normals.push_back(glm::vec3(0,0,1));
-  // // _normals.push_back(glm::vec3(0,0,-1));
-
-  // TODO TEMP
 }
 
 

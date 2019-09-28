@@ -38,7 +38,7 @@ void BSpline::setModalVector(){
   }
 }
 
-float BSpline::bsplineFunction(float u,int k,int i) const {
+float BSpline::recFloraison(float u,int k,int i) const {
   assert(u>=0.f);
   assert(k>0);
 
@@ -47,7 +47,7 @@ float BSpline::bsplineFunction(float u,int k,int i) const {
     else                    return 0.f;
   }
   else{
-    return ((u-_modalVector[i])/(_modalVector[i+k-1] - _modalVector[i])) * bsplineFunction(u,k-1,i) + ((_modalVector[i+k] - u)/(_modalVector[i+k] - _modalVector[i+1]))*bsplineFunction(u,k-1,i+1);
+    return ((u-_modalVector[i])/(_modalVector[i+k-1] - _modalVector[i])) * recFloraison(u,k-1,i) + ((_modalVector[i+k] - u)/(_modalVector[i+k] - _modalVector[i+1]))*recFloraison(u,k-1,i+1);
   }
 }
 
@@ -55,7 +55,7 @@ float BSpline::bsplineFunction(float u,int k,int i) const {
 glm::vec3 BSpline::polynom(float u) const {
   glm::vec3 acc=glm::vec3(0.f,0.f,0.f);
   for (int i = 0; i <=getN() ; i++) {
-    acc += bsplineFunction(u,getOrderK(),i) * _controlPoints[i];
+    acc += recFloraison(u,getOrderK(),i) * _controlPoints[i];
   }
   return acc;
 }

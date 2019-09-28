@@ -72,44 +72,16 @@ void BSpline2D::setModalVectors(){
   }
 }
 
-// float BSpline2D::bsplineFunction(float u,float v,int kx,int ky,int i,int j) const {
-//   assert(u>=0.f);
-//   assert(v>=0.f);
-//   assert(kx>0);
-//   assert(ky>0);
-//
-//   // std::cout << u << ","<< v << ","<<kx<< ","<<ky<< ","<<i<< ","<<j<< '\n';
-//
-//   if(kx==1&&ky==1){
-//     if( (u >=_modalVectorX[i]  && u < _modalVectorX[i+1]) && (v >=_modalVectorY[j]  && v < _modalVectorY[j+1]) ) return 1.f;
-//     else                    return 0.f;
-//   }
-//   else if(kx==1){
-//     return ((v-_modalVectorY[j])/(_modalVectorY[j+ky-1] - _modalVectorY[j])) * bsplineFunction(u,v,kx,ky-1,i,j)
-//     + ((_modalVectorY[j+ky] - v)/(_modalVectorY[j+ky] - _modalVectorY[j+1])) * bsplineFunction(u,v,kx,ky-1,i+1,j);
-//   }
-//   else if(ky==1){
-//     return ((u-_modalVectorX[i])/(_modalVectorX[i+kx-1] - _modalVectorX[i])) * bsplineFunction(u,v,kx-1,ky,i,j)
-//     + ((_modalVectorX[i+kx] - u)/(_modalVectorX[i+kx] - _modalVectorX[i+1]))*bsplineFunction(u,v,kx-1,ky,i+1,j);
-//
-//   }
-//   else{
-//     assert(0);
-//   }
-//
-//   // if(kx==1){
-//   //   if( u >=_modalVectorX[i]  && u < _modalVectorX[i+1] ) return 1.f;
-//   //   else                    return 0.f;
-//   // }
-//   // else{
-//   //   return ((u-_modalVector[i])/(_modalVector[i+k-1] - _modalVector[i])) * bsplineFunction(u,k-1,i) + ((_modalVector[i+k] - u)/(_modalVector[i+k] - _modalVector[i+1]))*bsplineFunction(u,k-1,i+1);
-//   // }
-//
-//   return 1.f;
-// }
+void BSpline2D::setModalVectors(const std::vector<float> & modalVectorX, const std::vector<float> & modalVectorY){
+  assert(int(modalVectorX.size())==getNX()+1);
+  assert(int(modalVectorY.size())==getNY()+1);
+  _modalVectorX = modalVectorX;
+  _modalVectorY = modalVectorY;
+}
 
 
-float BSpline2D::bsplineFunction(float u,int k,int i,const std::vector<float> & modalVector) const {
+
+float BSpline2D::recFloraison(float u,int k,int i,const std::vector<float> & modalVector) const {
   assert(u>=0.f);
   assert(k>0);
 
@@ -118,7 +90,7 @@ float BSpline2D::bsplineFunction(float u,int k,int i,const std::vector<float> & 
     else                    return 0.f;
   }
   else{
-    return ((u-modalVector[i])/(modalVector[i+k-1] - modalVector[i])) * bsplineFunction(u,k-1,i,modalVector) + ((modalVector[i+k] - u)/(modalVector[i+k] - modalVector[i+1]))*bsplineFunction(u,k-1,i+1,modalVector);
+    return ((u-modalVector[i])/(modalVector[i+k-1] - modalVector[i])) * recFloraison(u,k-1,i,modalVector) + ((modalVector[i+k] - u)/(modalVector[i+k] - modalVector[i+1]))*recFloraison(u,k-1,i+1,modalVector);
   }
 }
 
@@ -127,12 +99,9 @@ glm::vec3 BSpline2D::polynom(float u,float v) const {
   glm::vec3 acc=glm::vec3(0.f,0.f,0.f);
   for (int i = 0; i <= getNX() ; i++) {
     for (int j = 0; j <= getNY(); j++) {
-      acc += bsplineFunction(u,getOrderKX(),i,_modalVectorX) * bsplineFunction(v,getOrderKY(),j,_modalVectorY) * _controlPoints[getIdx(i,j)];
-      // std::cout << _controlPoints[getIdx(i,j)].x<< ","<< _controlPoints[getIdx(i,j)].y<< ","<< _controlPoints[getIdx(i,j)].z<< "," << '\n';
+      acc += recFloraison(u,getOrderKX(),i,_modalVectorX) * recFloraison(v,getOrderKY(),j,_modalVectorY) * _controlPoints[getIdx(i,j)];
     }
-    // std::cout << "/* message */" << '\n';
   }
-  // std::cout << "ressssssssss=" << acc.x << " ; " <<acc.y << " ; " <<acc.z  << '\n';
   return acc;
 }
 
@@ -153,14 +122,11 @@ void BSpline2D::getDisplayPoints(std::vector<glm::vec3> & vertices,size_t points
   float unitY = distY/float(pointsY);
   glm::vec3 v;
 
-  // std::cout << "/* message */" << '\n';
   for (size_t i = 0; i < pointsX; i++) {
     for (size_t j = 0; j < pointsY; j++) {
 
       v = polynom(unitX*float(i)+minX,unitY*float(j)+minY);
-      // std::cout << v.x<<","<< v.y<< ","<< v.z << '\t';
       vertices.push_back(v);
     }
-    // std::cout  << '\n';
   }
 }
