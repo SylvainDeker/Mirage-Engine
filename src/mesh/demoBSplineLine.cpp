@@ -4,6 +4,7 @@
 #include "controlPoints.h"
 #include <vector>
 #include "glm/glm.hpp"
+#include "../openGL/drawElement.hpp"
 
 DemoBSplineLine::DemoBSplineLine():
   _controlPoints(std::vector<glm::vec3>()),
@@ -35,7 +36,7 @@ DemoBSplineLine::~DemoBSplineLine(){
 void DemoBSplineLine::initializeGeometry(){
   _bspline.setOrderK(3);
   _bspline.setModalVector();
-  _bspline.getDisplayPoints(_displayPoints,100); // 10 discret point to display
+  _bspline.getDisplayPoints(_displayPoints,100); // 100 discret points to display
 
 
 
@@ -44,7 +45,9 @@ void DemoBSplineLine::initializeGeometry(){
 }
 
 
-void DemoBSplineLine::draw(){
-  _meshLine.draw();
-  _meshControlPoints.draw();
+void DemoBSplineLine::draw(DrawElement de){
+
+  _meshLine.draw(de);
+  _meshControlPoints.draw(de);
+
 }

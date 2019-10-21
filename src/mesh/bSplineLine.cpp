@@ -21,7 +21,8 @@ BSplineLine::~BSplineLine(){
 
 
 
-void BSplineLine::draw(){
+void BSplineLine::draw(DrawElement de){
+  de.progGL[0].use(de.model,de.view,de.projection);
   glBindVertexArray(_vao);
   glDrawElements(GL_LINE_STRIP, _indices.size(), GL_UNSIGNED_INT, nullptr);
   glPointSize(10.0f);

@@ -6,6 +6,7 @@
 #include <GL/gl.h>
 #include "../openGL/openglmain.h"
 #include <memory>
+#include "../openGL/drawElement.hpp"
 
 class ControlPoints {
 public:
@@ -14,7 +15,7 @@ public:
 
   void initializeGeometry();
 
-  void draw();
+  void draw(DrawElement de);
 
 
 protected:

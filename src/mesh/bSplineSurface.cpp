@@ -54,7 +54,8 @@ BSplineSurface::~BSplineSurface(){
 
 
 
-void BSplineSurface::draw(){
+void BSplineSurface::draw(DrawElement de){
+  de.progGL[0].use(de.model,de.view,de.projection);
   glBindVertexArray(_vao);
   glDrawElements(GL_TRIANGLES, _indices.size(), GL_UNSIGNED_INT, nullptr);
   glBindVertexArray(0);
@@ -116,8 +117,6 @@ void BSplineSurface::initializeGeometry(){
       glBufferData(GL_ELEMENT_ARRAY_BUFFER, _indices.size()*sizeof (GLuint), _indices.data(), GL_STATIC_DRAW);
   //6. Unbind the VAO
   glBindVertexArray(0);
-
-
 
 
 }

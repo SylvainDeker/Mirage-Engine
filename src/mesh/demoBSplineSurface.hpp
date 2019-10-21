@@ -6,6 +6,7 @@
 #include "controlPoints.h"
 #include <vector>
 #include "glm/glm.hpp"
+#include "../openGL/drawElement.hpp"
 
 
 class DemoBSplineSurface {
@@ -14,7 +15,7 @@ public:
   DemoBSplineSurface();
   ~DemoBSplineSurface ();
   void initializeGeometry();
-  void draw();
+  void draw(DrawElement de);
 
 
 private:

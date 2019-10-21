@@ -10,6 +10,7 @@
 #include "mesh.h"
 #include "../mesh/demoBSplineLine.hpp"
 #include "../mesh/demoBSplineSurface.hpp"
+#include "./programGL.hpp"
 
 
 /** Simple drawing demonstration
@@ -29,8 +30,12 @@ public:
 
 private:
 
-    // Shader program for rendering
-    GLuint _program;
+    // // Shader program for rendering
+    // GLuint _program;
+
+
+    std::vector<ProgramGL> _progGL;
+
 
     // for mouse management
     int _button; // 0 --> left. 1 --> right. 2 --> middle. 3 --> other

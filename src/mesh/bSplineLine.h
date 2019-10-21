@@ -6,7 +6,9 @@
 #include <GL/gl.h>
 #include "../openGL/openglmain.h"
 #include "../bspline/bspline.hpp"
+#include "../openGL/drawElement.hpp"
 #include <memory>
+
 
 class BSplineLine {
 public:
@@ -15,7 +17,7 @@ public:
 
   void initializeGeometry();
 
-  void draw();
+  void draw(DrawElement de);
 
 
 

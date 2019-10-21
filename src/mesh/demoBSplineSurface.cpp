@@ -47,7 +47,7 @@ void DemoBSplineSurface::initializeGeometry(){
 }
 
 
-void DemoBSplineSurface::draw(){
-  _meshSurface.draw();
-  _meshControlPoints.draw();
+void DemoBSplineSurface::draw(DrawElement de){
+  _meshSurface.draw(de);
+  _meshControlPoints.draw(de);
 }

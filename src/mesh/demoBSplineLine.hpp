@@ -1,11 +1,12 @@
 #ifndef DEMOBSPLINE_H_
 #define DEMOBSPLINE_H_
 #include "../bspline/bspline.hpp"
+#include "../openGL/programGL.hpp"
 #include "bSplineLine.h"
 #include "controlPoints.h"
 #include <vector>
 #include "glm/glm.hpp"
-
+#include "../openGL/drawElement.hpp"
 
 class DemoBSplineLine {
 
@@ -13,8 +14,7 @@ public:
   DemoBSplineLine();
   ~DemoBSplineLine ();
   void initializeGeometry();
-  void draw();
-
+  void draw(DrawElement de);
 
 private:
   std::vector<glm::vec3> _controlPoints;
