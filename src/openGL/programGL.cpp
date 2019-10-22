@@ -1,5 +1,9 @@
 #include "programGL.hpp"
 #include <cassert>
+#include <iostream>
+#include <fstream>
+#include <string>
+
 ProgramGL::ProgramGL():_program(0){
 }
 
@@ -12,6 +16,7 @@ ProgramGL::~ProgramGL(){
 
 
 int ProgramGL::load(const char * vertexshader_source, const char * fragmentshader_source){
+
   // Initialize shaders
   GLint success;
   GLchar infoLog[512]; // warning fixed size ... request for LOG_LENGTH!!!
@@ -28,6 +33,7 @@ int ProgramGL::load(const char * vertexshader_source, const char * fragmentshade
   if(!success) {
       glGetShaderInfoLog(vertexshader, 512, NULL, infoLog);
       std::cerr << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
+      return 1;
   }
 
   fragmentshader = glCreateShader(GL_FRAGMENT_SHADER);
@@ -37,6 +43,7 @@ int ProgramGL::load(const char * vertexshader_source, const char * fragmentshade
   if(!success) {
       glGetShaderInfoLog(fragmentshader, 512, NULL, infoLog);
       std::cerr << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog << std::endl;
+      return 2;
   }
 
   // 1. Generate the program
@@ -51,6 +58,7 @@ int ProgramGL::load(const char * vertexshader_source, const char * fragmentshade
   if(!success) {
       glGetProgramInfoLog(_program, 512, NULL, infoLog);
       std::cerr << "ERROR::SHADER::LINK_FAILED\n" << infoLog << std::endl;
+      return 3;
   }
   glDeleteShader(vertexshader);
   glDeleteShader(fragmentshader);
@@ -63,39 +71,54 @@ int ProgramGL::load(const char * vertexshader_source, const char * fragmentshade
 int ProgramGL::loadfile(std::string vertexshader_path, std::string fragmentshader_path){
   (void) vertexshader_path;
   (void) fragmentshader_path;
-  // TODO put in file
-  const char* vertexshader_source ="#version 410 core\n\
-          layout (location = 0) in vec3 position;\n\
-          layout (location = 1) in vec3 inormal;\n\
-          uniform mat4 model;\n\
-          uniform mat4 view;\n\
-          uniform mat4 projection;\n\
-          out vec3 normal;\n\
-          void main()\n\
-          {\n\
-              // Note that we read the multiplication from right to left\n\
-              gl_Position = projection * view * model * vec4(position, 1.0f);\n\
-              normal = inormal;\n\
-          }\n";
-
-  const char* fragmentshader_source ="#version 410 core\n\
-          in vec3 normal;\n\
-          out vec4 color;\n\
-          void main()\n\
-          {\n\
-              //color = vec4(vec3(clamp(dot(normalize(normal), vec3(0,0,1)), 0, 1)), 1.0);\n\
-              color = vec4(normalize(normal)*0.5+0.5, 1.0);\n\
-          }\n";
 
 
-  return load(vertexshader_source,fragmentshader_source);
+   std::ifstream desc_vs(vertexshader_path);
+   std::ifstream desc_fs(fragmentshader_path);
+
+   std::string line;
+   std::string vertexshader_source;
+   std::string fragmentshader_source;
+
+   if(desc_vs)
+   {
+
+      while(getline(desc_vs, line)){
+        vertexshader_source += line + '\n';
+      }
+      vertexshader_source += '\0';
+
+   }
+   else   std::cerr << "ERROR: cannot read vertex shader file: "<< vertexshader_path << '\n';
+
+   line = "";
+
+   if(desc_fs)
+   {
+
+      while(getline(desc_fs, line)){
+        fragmentshader_source += line + '\n';
+      }
+      fragmentshader_source += '\0';
+   }
+   else   std::cerr << "ERROR: cannot read fragment shader shader file: "<< fragmentshader_path << '\n';
+
+
+
+
+
+   return load(vertexshader_source.c_str(),fragmentshader_source.c_str());
+
+
+
+
 }
 
 
 GLuint ProgramGL::getGLProgram() const { return _program;}
 
 
-int ProgramGL::use(const glm::mat4 &model,const glm::mat4 &view,const glm::mat4 &projection) const {
+void ProgramGL::use(const glm::mat4 &model,const glm::mat4 &view,const glm::mat4 &projection) const {
   glUseProgram(_program);
   assert(getGLProgram()!=0);
   glUniformMatrix4fv( glGetUniformLocation(getGLProgram(), "model"), 1, GL_FALSE, glm::value_ptr(model));

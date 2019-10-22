@@ -36,7 +36,7 @@ MainScene::MainScene(int width, int height) : OpenGLMain(width, height),
 
     _progGL.push_back(ProgramGL());
 
-    _progGL[0].loadfile("","");
+    _progGL[0].loadfile("../shader/normal_VertexShader.glsl","../shader/normal_FragmentShader.glsl");
 
 
 
