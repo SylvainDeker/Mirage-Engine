@@ -6,7 +6,7 @@
 #include "controlPoints.h"
 #include <vector>
 #include "glm/glm.hpp"
-#include "../openGL/drawElement.hpp"
+
 
 class DemoBSplineLine {
 
@@ -14,7 +14,10 @@ public:
   DemoBSplineLine();
   ~DemoBSplineLine ();
   void initializeGeometry();
-  void draw(DrawElement de);
+  void draw(const std::vector<ProgramGL> & progGL,
+            const glm::mat4 & model,
+            const glm::mat4 & view,
+            const glm::mat4 & projection);
 
 private:
   std::vector<glm::vec3> _controlPoints;

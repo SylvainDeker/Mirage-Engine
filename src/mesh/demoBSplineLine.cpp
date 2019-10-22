@@ -4,7 +4,7 @@
 #include "controlPoints.h"
 #include <vector>
 #include "glm/glm.hpp"
-#include "../openGL/drawElement.hpp"
+
 
 DemoBSplineLine::DemoBSplineLine():
   _controlPoints(std::vector<glm::vec3>()),
@@ -45,9 +45,12 @@ void DemoBSplineLine::initializeGeometry(){
 }
 
 
-void DemoBSplineLine::draw(DrawElement de){
+void DemoBSplineLine::draw(const std::vector<ProgramGL> & progGL,
+          const glm::mat4 & model,
+          const glm::mat4 & view,
+          const glm::mat4 & projection){
 
-  _meshLine.draw(de);
-  _meshControlPoints.draw(de);
+  _meshLine.draw(progGL,model,view,projection);
+  _meshControlPoints.draw(progGL,model,view,projection);
 
 }

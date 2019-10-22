@@ -3,7 +3,6 @@
 #include "mesh.h"
 #include "../mesh/demoBSplineLine.hpp"
 #include "../mesh/demoBSplineSurface.hpp"
-#include "drawElement.hpp"
 
 /*------------------------------------------------------------------------------------------------------------------------*/
 /*------------------------------------------------------------------------------------------------------------------------*/
@@ -73,8 +72,8 @@ void MainScene::draw() {
 
 
 
-    _demoBSplineLine.draw(DrawElement(_progGL,_model,_view,_projection));
-    _demoBSplineSurface.draw(DrawElement(_progGL,_model,_view,_projection));
+    _demoBSplineLine.draw(_progGL,_model,_view,_projection);
+    _demoBSplineSurface.draw(_progGL,_model,_view,_projection);
 
 }
 

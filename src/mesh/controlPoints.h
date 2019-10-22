@@ -5,8 +5,9 @@
 #include "glm/glm.hpp"
 #include <GL/gl.h>
 #include "../openGL/openglmain.h"
+#include "../openGL/programGL.hpp"
 #include <memory>
-#include "../openGL/drawElement.hpp"
+
 
 class ControlPoints {
 public:
@@ -15,7 +16,10 @@ public:
 
   void initializeGeometry();
 
-  void draw(DrawElement de);
+  void draw(const std::vector<ProgramGL> & progGL,
+            const glm::mat4 & model,
+            const glm::mat4 & view,
+            const glm::mat4 & projection);
 
 
 protected:

@@ -4,7 +4,7 @@
 #include <memory>
 #include <functional>
 #include "controlPoints.h"
-#include "../openGL/drawElement.hpp"
+
 
 
 ControlPoints::ControlPoints(std::vector<glm::vec3> & points):_vertices(points){
@@ -19,9 +19,12 @@ ControlPoints::~ControlPoints(){
   glDeleteVertexArrays(1, &_vao) ;
 }
 
-void ControlPoints::draw(DrawElement de){
-  de.progGL[0].use(de.model,de.view,de.projection);
-  
+void ControlPoints::draw(const std::vector<ProgramGL> & progGL,
+          const glm::mat4 & model,
+          const glm::mat4 & view,
+          const glm::mat4 & projection){
+  progGL[0].use(model,view,projection);
+
   glBindVertexArray(_vao);
   glDrawElements(GL_POINTS, _indices.size(), GL_UNSIGNED_INT, nullptr);
   glPointSize(10.0f);

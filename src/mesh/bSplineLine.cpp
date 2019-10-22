@@ -1,7 +1,7 @@
 #include "glm/glm.hpp"
 #include "../openGL/openglmain.h"
 #include "../bspline/bspline.hpp"
-
+#include "../openGL/programGL.hpp"
 #include <memory>
 #include <functional>
 #include "bSplineLine.h"
@@ -21,8 +21,11 @@ BSplineLine::~BSplineLine(){
 
 
 
-void BSplineLine::draw(DrawElement de){
-  de.progGL[0].use(de.model,de.view,de.projection);
+void BSplineLine::draw(const std::vector<ProgramGL> & progGL,
+          const glm::mat4 & model,
+          const glm::mat4 & view,
+          const glm::mat4 & projection){
+  progGL[0].use(model,view,projection);
   glBindVertexArray(_vao);
   glDrawElements(GL_LINE_STRIP, _indices.size(), GL_UNSIGNED_INT, nullptr);
   glPointSize(10.0f);
