@@ -1,4 +1,4 @@
-#include "camera.h"
+#include "Camera.hpp"
 #define GLM_ENABLE_EXPERIMENTAL
 #include "gtc/quaternion.hpp"
 #include "gtx/norm.hpp"

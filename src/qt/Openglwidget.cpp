@@ -1,4 +1,4 @@
-#include "openglwidget.h"
+#include "Openglwidget.hpp"
 
 #include <QMessageBox>
 #include <QApplication>
@@ -7,7 +7,7 @@
 #include <iostream>
 #include <stdexcept>
 
-#include "../openGL/mainscene.h"
+#include "../openGL/Mainscene.hpp"
 
 
 OpenGLWidget::OpenGLWidget(QWidget *parent) :QOpenGLWidget(parent)/*, QOpenGLFunctions_4_1_Core()*/, _openglDemo(nullptr), _lastime(0) {

@@ -1,10 +1,10 @@
 #include "glm/glm.hpp"
 
-#include "../bspline/bspline.hpp"
-#include "../openGL/programGL.hpp"
+#include "../bspline/Bspline.hpp"
+#include "../openGL/ProgramGL.hpp"
 #include <memory>
 #include <functional>
-#include "bSplineSurface.h"
+#include "BSplineSurface.hpp"
 
 
 BSplineSurface::BSplineSurface(std::vector<glm::vec3> & vertices, size_t x, size_t y ):_vertices(vertices),_dimx(x),_dimy(y){

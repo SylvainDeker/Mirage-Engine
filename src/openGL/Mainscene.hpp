@@ -2,13 +2,13 @@
 #define MAINSCENE_H
 
 
-#include "camera.h"
+#include "Camera.hpp"
 
 #include <memory>
 #include <functional>
-#include "../mesh/demoBSplineLine.hpp"
-#include "../mesh/demoBSplineSurface.hpp"
-#include "./programGL.hpp"
+#include "../mesh/DemoBSplineLine.hpp"
+#include "../mesh/DemoBSplineSurface.hpp"
+#include "./ProgramGL.hpp"
 
 
 /** Simple drawing demonstration

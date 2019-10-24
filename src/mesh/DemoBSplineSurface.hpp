@@ -1,9 +1,9 @@
 #ifndef DEMOBSPLINESURFACE_H_
 #define DEMOBSPLINESURFACE_H_
-#include "../bspline/bspline2D.hpp"
-#include "bSplineLine.h"
-#include "bSplineSurface.h"
-#include "controlPoints.h"
+#include "../bspline/Bspline2D.hpp"
+#include "BSplineLine.hpp"
+#include "BSplineSurface.hpp"
+#include "ControlPoints.hpp"
 #include <vector>
 #include "glm/glm.hpp"
 

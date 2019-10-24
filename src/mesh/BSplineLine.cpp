@@ -1,46 +1,48 @@
 #include "glm/glm.hpp"
 
-
+#include "../bspline/Bspline.hpp"
+#include "../openGL/ProgramGL.hpp"
 #include <memory>
 #include <functional>
-#include "controlPoints.h"
-#include "../openGL/opengl_stuff.h"
+#include "BSplineLine.hpp"
 
 
-
-ControlPoints::ControlPoints(std::vector<glm::vec3> & points):_vertices(points){
-
+BSplineLine::BSplineLine(std::vector<glm::vec3> & vertices):_vertices(vertices){
 
 
 }
 
-ControlPoints::~ControlPoints(){
+
+BSplineLine::~BSplineLine(){
   glDeleteBuffers(1, &_vbo);
   glDeleteBuffers(1, &_ebo);
   glDeleteVertexArrays(1, &_vao) ;
 }
 
-void ControlPoints::draw(const std::vector<ProgramGL> & progGL,
+
+
+void BSplineLine::draw(const std::vector<ProgramGL> & progGL,
           const glm::mat4 & model,
           const glm::mat4 & view,
           const glm::mat4 & projection){
   progGL[0].use(model,view,projection);
-
   glBindVertexArray(_vao);
-  glDrawElements(GL_POINTS, _indices.size(), GL_UNSIGNED_INT, nullptr);
+  glDrawElements(GL_LINE_STRIP, _indices.size(), GL_UNSIGNED_INT, nullptr);
   glPointSize(10.0f);
   glBindVertexArray(0);
 }
 
-void ControlPoints::initializeGeometry(){
+void BSplineLine::initializeGeometry(){
 
+  _indices.clear();
   for (size_t i = 0; i < _vertices.size(); i++) {
-    _indices.push_back(int(i));
+    _indices.push_back(i);
   }
 
   // Initialize the geometry
   // 1. Generate geometry buffers
   glGenBuffers(1, &_vbo) ;
+  // glGenBuffers(1, &_nbo) ;
   glGenBuffers(1, &_ebo) ;
   glGenVertexArrays(1, &_vao) ;
   // 2. Bind Vertex Array Object
@@ -62,5 +64,8 @@ void ControlPoints::initializeGeometry(){
       glBufferData(GL_ELEMENT_ARRAY_BUFFER, _indices.size()*sizeof (GLuint), _indices.data(), GL_STATIC_DRAW);
   //6. Unbind the VAO
   glBindVertexArray(0);
+
+
+
 
 }

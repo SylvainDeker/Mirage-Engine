@@ -1,4 +1,4 @@
-#include "bspline2D.hpp"
+#include "Bspline2D.hpp"
 #include "../glm/glm.hpp"
 #include <vector>
 #include <assert.h>

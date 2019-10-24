@@ -1,6 +1,6 @@
-#include "mainwindow.h"
+#include "Mainwindow.hpp"
 
-#include "ui_mainwindow.h"
+#include "ui_Mainwindow.h"
 
 
 #include <QMessageBox>
@@ -40,10 +40,4 @@ void MainWindow::on_action_Version_OpenGL_triggered() {
     message << "Version        : " << glGetString(GL_VERSION) << std::endl;
     message << "GLSL Version   : " << glGetString(GL_SHADING_LANGUAGE_VERSION) << std::endl;
     QMessageBox::information(this, "OpenGL Information", message.str().c_str());
-}
-
-
-
-void MainWindow::on_actionHello_camera_triggered() {
-    openglWidget->activatedemo(2);
 }

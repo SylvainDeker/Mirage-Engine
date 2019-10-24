@@ -1,9 +1,9 @@
 #ifndef DEMOBSPLINE_H_
 #define DEMOBSPLINE_H_
-#include "../bspline/bspline.hpp"
-#include "../openGL/programGL.hpp"
-#include "bSplineLine.h"
-#include "controlPoints.h"
+#include "../bspline/Bspline.hpp"
+#include "../openGL/ProgramGL.hpp"
+#include "BSplineLine.hpp"
+#include "ControlPoints.hpp"
 #include <vector>
 #include "glm/glm.hpp"
 

@@ -7,7 +7,7 @@
 
 #include <memory>
 #include <functional>
-#include "../openGL/mainscene.h"
+#include "../openGL/Mainscene.hpp"
 
 
 class OpenGLWidget : public QOpenGLWidget, protected QOpenGLFunctions_4_1_Core {

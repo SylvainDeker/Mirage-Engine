@@ -1,7 +1,7 @@
-#include "mainscene.h"
+#include "Mainscene.hpp"
 #include <iostream>
-#include "../mesh/demoBSplineLine.hpp"
-#include "../mesh/demoBSplineSurface.hpp"
+#include "../mesh/DemoBSplineLine.hpp"
+#include "../mesh/DemoBSplineSurface.hpp"
 
 /*------------------------------------------------------------------------------------------------------------------------*/
 /*------------------------------------------------------------------------------------------------------------------------*/

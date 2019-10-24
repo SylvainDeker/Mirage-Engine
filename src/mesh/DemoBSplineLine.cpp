@@ -1,7 +1,7 @@
-#include "demoBSplineLine.hpp"
-#include "../bspline/bspline.hpp"
-#include "bSplineLine.h"
-#include "controlPoints.h"
+#include "DemoBSplineLine.hpp"
+#include "../bspline/Bspline.hpp"
+#include "BSplineLine.hpp"
+#include "ControlPoints.hpp"
 #include <vector>
 #include "glm/glm.hpp"
 

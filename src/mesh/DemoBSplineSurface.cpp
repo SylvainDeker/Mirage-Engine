@@ -1,8 +1,8 @@
-#include "demoBSplineSurface.hpp"
-#include "../bspline/bspline.hpp"
-#include "bSplineLine.h"
-#include "bSplineSurface.h"
-#include "controlPoints.h"
+#include "DemoBSplineSurface.hpp"
+#include "../bspline/Bspline.hpp"
+#include "BSplineLine.hpp"
+#include "BSplineSurface.hpp"
+#include "ControlPoints.hpp"
 #include <vector>
 #include "glm/glm.hpp"
 

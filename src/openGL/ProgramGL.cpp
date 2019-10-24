@@ -1,4 +1,4 @@
-#include "programGL.hpp"
+#include "ProgramGL.hpp"
 #include <cassert>
 #include <iostream>
 #include <fstream>
