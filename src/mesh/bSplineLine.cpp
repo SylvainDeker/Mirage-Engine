@@ -1,5 +1,5 @@
 #include "glm/glm.hpp"
-#include "../openGL/openglmain.h"
+
 #include "../bspline/bspline.hpp"
 #include "../openGL/programGL.hpp"
 #include <memory>

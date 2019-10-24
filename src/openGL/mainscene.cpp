@@ -1,6 +1,5 @@
 #include "mainscene.h"
 #include <iostream>
-#include "mesh.h"
 #include "../mesh/demoBSplineLine.hpp"
 #include "../mesh/demoBSplineSurface.hpp"
 
@@ -16,7 +15,8 @@
 
 
 
-MainScene::MainScene(int width, int height) : OpenGLMain(width, height),
+MainScene::MainScene(int width, int height) : _width(width), _height(height),
+      _drawfill(true),
       _progGL(std::vector<ProgramGL>()),
       _activecamera(0),
       _camera(nullptr),
@@ -26,10 +26,8 @@ MainScene::MainScene(int width, int height) : OpenGLMain(width, height),
 
 
           {
-
-
-
-
+    glEnable(GL_DEPTH_TEST);
+    glViewport(0, 0, width, height);
 
     _demoBSplineLine.initializeGeometry();
     _demoBSplineSurface.initializeGeometry();
@@ -37,12 +35,6 @@ MainScene::MainScene(int width, int height) : OpenGLMain(width, height),
     _progGL.push_back(ProgramGL());
 
     _progGL[0].loadfile("../shader/normal_VertexShader.glsl","../shader/normal_FragmentShader.glsl");
-
-
-
-
-
-
 
     _cameraselector.push_back( []()->Camera*{return new EulerCamera(glm::vec3(0.f, 0.f, 1.f));} );
     _cameraselector.push_back( []()->Camera*{return new TrackballCamera(glm::vec3(0.f, 0.f, 1.f),glm::vec3(0.f, 1.f, 0.f),glm::vec3(0.f, 0.f, 0.f));} );
@@ -60,13 +52,20 @@ MainScene::~MainScene() {
 }
 
 void MainScene::resize(int width, int height){
-    OpenGLMain::resize(width, height);
+  _width = width;
+  _height = height;
     _camera->setviewport(glm::vec4(0.f, 0.f, _width, _height));
     _projection = glm::perspective(_camera->zoom(), float(_width) / _height, 0.1f, 100.0f);
 }
 
 void MainScene::draw() {
-    OpenGLMain::draw();
+  glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+  glClear(GL_COLOR_BUFFER_BIT);
+
+  if (_drawfill)
+      glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+  else
+      glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
     _view = _camera->viewmatrix();
 
@@ -102,4 +101,8 @@ bool MainScene::keyboard(unsigned char k) {
         default:
             return false;
     }
+}
+
+void MainScene::toggledrawmode() {
+    _drawfill = !_drawfill;
 }

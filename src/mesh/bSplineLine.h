@@ -4,7 +4,7 @@
 #include <vector>
 #include "glm/glm.hpp"
 #include <GL/gl.h>
-#include "../openGL/openglmain.h"
+
 #include "../bspline/bspline.hpp"
 #include "../openGL/programGL.hpp"
 #include <memory>

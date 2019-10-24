@@ -7,7 +7,6 @@
 
 #include <memory>
 #include <functional>
-#include "../openGL/openglmain.h"
 #include "../openGL/mainscene.h"
 
 

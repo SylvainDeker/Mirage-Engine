@@ -1,13 +1,11 @@
 #ifndef MAINSCENE_H
 #define MAINSCENE_H
 
-#include "openglmain.h"
 
 #include "camera.h"
 
 #include <memory>
 #include <functional>
-#include "mesh.h"
 #include "../mesh/demoBSplineLine.hpp"
 #include "../mesh/demoBSplineSurface.hpp"
 #include "./programGL.hpp"
@@ -15,18 +13,19 @@
 
 /** Simple drawing demonstration
  */
-class MainScene : public OpenGLMain {
+class MainScene{
 public:
     explicit MainScene(int width, int height);
-    ~MainScene() override;
+    ~MainScene() ;
 
-    void resize(int width, int height) override;
-    void draw() override;
+    void resize(int width, int height) ;
+    void draw() ;
 
-    void mouseclick(int button, float xpos, float ypos) override;
-    void mousemove(float xpos, float ypos) override;
-    void keyboardmove(int key, double time) override;
-    bool keyboard(unsigned char k) override;
+    void mouseclick(int button, float xpos, float ypos) ;
+    void mousemove(float xpos, float ypos) ;
+    void keyboardmove(int key, double time) ;
+    bool keyboard(unsigned char k) ;
+    void toggledrawmode();
 
 private:
 
@@ -34,8 +33,13 @@ private:
     // GLuint _program;
 
 
-    std::vector<ProgramGL> _progGL;
+    // Width and heigth of the viewport
+    int _width;
+    int _height;
 
+    bool _drawfill;
+    std::vector<ProgramGL> _progGL;
+    // Rendering mode (true is filled, false is wireframed
 
     // for mouse management
     int _button; // 0 --> left. 1 --> right. 2 --> middle. 3 --> other

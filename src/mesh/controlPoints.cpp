@@ -1,9 +1,10 @@
 #include "glm/glm.hpp"
-#include "../openGL/openglmain.h"
+
 
 #include <memory>
 #include <functional>
 #include "controlPoints.h"
+#include "../openGL/opengl_stuff.h"
 
 
 
