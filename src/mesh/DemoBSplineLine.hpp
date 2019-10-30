@@ -14,7 +14,10 @@ public:
   DemoBSplineLine();
   ~DemoBSplineLine ();
   void initializeGeometry();
-  void draw(const std::vector<Shader> & shader);
+  void draw(const std::vector<Shader> & shader,
+            const glm::mat4 & model,
+            const glm::mat4 & view,
+            const glm::mat4 & projection);
 
 private:
   std::vector<glm::vec3> _controlPoints;
