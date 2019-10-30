@@ -18,7 +18,7 @@
 
 MainScene::MainScene(int width, int height) : _width(width), _height(height),
       _drawfill(true),
-      _progGL(std::vector<ProgramGL>()),
+      _shaders(std::vector<Shader>()),
       _activecamera(0),
       _camera(nullptr),
       _demoBSplineLine(DemoBSplineLine()),
@@ -33,9 +33,9 @@ MainScene::MainScene(int width, int height) : _width(width), _height(height),
     _demoBSplineLine.initializeGeometry();
     _demoBSplineSurface.initializeGeometry();
 
-    _progGL.push_back(ProgramGL());
+    _shaders.push_back(Shader());
 
-    _progGL[0].loadfile("../shader/normal_VertexShader.glsl","../shader/normal_FragmentShader.glsl");
+    _shaders[0].loadfile("../shader/normal_VertexShader.glsl","../shader/normal_FragmentShader.glsl");
 
     _cameraselector.push_back( []()->Camera*{return new EulerCamera(glm::vec3(0.f, 0.f, 1.f));} );
     _cameraselector.push_back( []()->Camera*{return new TrackballCamera(glm::vec3(0.f, 0.f, 1.f),glm::vec3(0.f, 1.f, 0.f),glm::vec3(0.f, 0.f, 0.f));} );
@@ -49,7 +49,7 @@ MainScene::MainScene(int width, int height) : _width(width), _height(height),
 }
 
 MainScene::~MainScene() {
-    // glDeleteProgram(_program);
+    // glDeleteProgram(_shaderID);
 }
 
 void MainScene::resize(int width, int height){
@@ -72,12 +72,12 @@ void MainScene::draw() {
 
 
 
-    _demoBSplineLine.draw(_progGL,_model,_view,_projection);
-    _demoBSplineSurface.draw(_progGL,_model,_view,_projection);
+    _demoBSplineLine.draw(_shaders);
+    _demoBSplineSurface.draw(_shaders);
 
-    _progGL[0].setMatrix4fv("model",_model);
-    _progGL[0].setMatrix4fv("view",_view);
-    _progGL[0].setMatrix4fv("projection",_projection);
+    _shaders[0].setMatrix4fv("model",_model);
+    _shaders[0].setMatrix4fv("view",_view);
+    _shaders[0].setMatrix4fv("projection",_projection);
 }
 
 void MainScene::mouseclick(int button, float xpos, float ypos) {

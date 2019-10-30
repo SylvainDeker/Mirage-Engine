@@ -47,11 +47,8 @@ void DemoBSplineSurface::initializeGeometry(){
 }
 
 
-void DemoBSplineSurface::draw(const std::vector<ProgramGL> & progGL,
-          const glm::mat4 & model,
-          const glm::mat4 & view,
-          const glm::mat4 & projection){
-  _meshSurface.draw(progGL,model,view,projection);
-  _meshControlPoints.draw(progGL,model,view,projection);
+void DemoBSplineSurface::draw(const std::vector<Shader> & shader){
+  _meshSurface.draw(shader);
+  _meshControlPoints.draw(shader);
 
 }

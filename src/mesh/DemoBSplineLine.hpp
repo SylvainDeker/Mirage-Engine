@@ -1,7 +1,7 @@
 #ifndef DEMOBSPLINE_H_
 #define DEMOBSPLINE_H_
 #include "../bspline/Bspline.hpp"
-#include "../openGL/ProgramGL.hpp"
+#include "../openGL/Shader.hpp"
 #include "BSplineLine.hpp"
 #include "ControlPoints.hpp"
 #include <vector>
@@ -14,10 +14,7 @@ public:
   DemoBSplineLine();
   ~DemoBSplineLine ();
   void initializeGeometry();
-  void draw(const std::vector<ProgramGL> & progGL,
-            const glm::mat4 & model,
-            const glm::mat4 & view,
-            const glm::mat4 & projection);
+  void draw(const std::vector<Shader> & shader);
 
 private:
   std::vector<glm::vec3> _controlPoints;

@@ -20,10 +20,7 @@ public:
   void setDimXY(size_t x, size_t y);
   glm::vec3 getVertice(size_t x,size_t y);
   size_t getIdx(size_t x, size_t y) const ;
-  void draw(const std::vector<ProgramGL> & progGL,
-            const glm::mat4 & model,
-            const glm::mat4 & view,
-            const glm::mat4 & projection);
+  void draw(const std::vector<Shader> & shader);
 
 
 private:
@@ -33,7 +30,7 @@ private:
   std::vector<GLuint> _indices;
 
   // Shader program for rendering
-  GLuint _program;
+  GLuint _shaderID;
 
   // OpenGL object for geometry
   GLuint _vao;

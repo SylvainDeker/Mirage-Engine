@@ -15,10 +15,7 @@ public:
   DemoBSplineSurface();
   ~DemoBSplineSurface ();
   void initializeGeometry();
-  void draw(const std::vector<ProgramGL> & progGL,
-            const glm::mat4 & model,
-            const glm::mat4 & view,
-            const glm::mat4 & projection);
+  void draw(const std::vector<Shader> & shader);
 
 
 private:

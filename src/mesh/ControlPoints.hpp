@@ -4,7 +4,7 @@
 #include <vector>
 #include "glm/glm.hpp"
 #include "../openGL/opengl_stuff.h"
-#include "../openGL/ProgramGL.hpp"
+#include "../openGL/Shader.hpp"
 #include <memory>
 
 
@@ -15,10 +15,7 @@ public:
 
   void initializeGeometry();
 
-  void draw(const std::vector<ProgramGL> & progGL,
-            const glm::mat4 & model,
-            const glm::mat4 & view,
-            const glm::mat4 & projection);
+  void draw(const std::vector<Shader> & shader);
 
 
 protected:

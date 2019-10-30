@@ -1,13 +1,13 @@
-#ifndef PROGRAMGL_H_
-#define PROGRAMGL_H_
+#ifndef SHADER_H_
+#define SHADER_H_
 
 #include <string>
 #include "opengl_stuff.h"
 
-class ProgramGL{
+class Shader{
 public:
-  ProgramGL();
-  ~ProgramGL();
+  Shader();
+  ~Shader();
 
   int load(const char * vertexshader_source, const char * fragmentshader_source );
 
@@ -26,7 +26,7 @@ public:
 private:
 
   // Shader program for rendering
-  GLuint _program;
+  GLuint _shaderID;
 
 
 };
@@ -34,4 +34,4 @@ private:
 
 
 
-#endif // PROGRAMGL_H_
+#endif // SHADER_H_

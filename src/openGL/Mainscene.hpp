@@ -8,7 +8,7 @@
 #include <functional>
 #include "../mesh/DemoBSplineLine.hpp"
 #include "../mesh/DemoBSplineSurface.hpp"
-#include "./ProgramGL.hpp"
+#include "./Shader.hpp"
 
 
 /** Simple drawing demonstration
@@ -30,7 +30,7 @@ public:
 private:
 
     // // Shader program for rendering
-    // GLuint _program;
+    // GLuint _shaderID;
 
 
     // Width and heigth of the viewport
@@ -38,7 +38,7 @@ private:
     int _height;
 
     bool _drawfill;
-    std::vector<ProgramGL> _progGL;
+    std::vector<Shader> _shaders;
     // Rendering mode (true is filled, false is wireframed
 
     // for mouse management

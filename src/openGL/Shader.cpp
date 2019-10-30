@@ -1,21 +1,21 @@
-#include "ProgramGL.hpp"
+#include "Shader.hpp"
 #include <cassert>
 #include <iostream>
 #include <fstream>
 #include <string>
 
-ProgramGL::ProgramGL():_program(0){
+Shader::Shader():_shaderID(0){
 }
 
 
-ProgramGL::~ProgramGL(){
-  glDeleteProgram(_program);
+Shader::~Shader(){
+  glDeleteProgram(_shaderID);
 }
 
 
 
 
-int ProgramGL::load(const char * vertexshader_source, const char * fragmentshader_source){
+int Shader::load(const char * vertexshader_source, const char * fragmentshader_source){
 
   // Initialize shaders
   GLint success;
@@ -47,16 +47,16 @@ int ProgramGL::load(const char * vertexshader_source, const char * fragmentshade
   }
 
   // 1. Generate the program
-  _program = glCreateProgram();
+  _shaderID = glCreateProgram();
   // 2. Attach the shaders to the program
-  glAttachShader(_program, vertexshader);
-  glAttachShader(_program, fragmentshader);
+  glAttachShader(_shaderID, vertexshader);
+  glAttachShader(_shaderID, fragmentshader);
   // 3. Link the program
-  glLinkProgram(_program);
+  glLinkProgram(_shaderID);
   // 4. Test for link errors
-  glGetProgramiv(_program, GL_LINK_STATUS, &success);
+  glGetProgramiv(_shaderID, GL_LINK_STATUS, &success);
   if(!success) {
-      glGetProgramInfoLog(_program, 512, NULL, infoLog);
+      glGetProgramInfoLog(_shaderID, 512, NULL, infoLog);
       std::cerr << "ERROR::SHADER::LINK_FAILED\n" << infoLog << std::endl;
       return 3;
   }
@@ -68,7 +68,7 @@ int ProgramGL::load(const char * vertexshader_source, const char * fragmentshade
 }
 
 
-int ProgramGL::loadfile(std::string vertexshader_path, std::string fragmentshader_path){
+int Shader::loadfile(std::string vertexshader_path, std::string fragmentshader_path){
   (void) vertexshader_path;
   (void) fragmentshader_path;
 
@@ -115,24 +115,24 @@ int ProgramGL::loadfile(std::string vertexshader_path, std::string fragmentshade
 }
 
 
-GLuint ProgramGL::getGLProgram() const { return _program;}
+GLuint Shader::getGLProgram() const { return _shaderID;}
 
 
-void ProgramGL::use() const {
-  glUseProgram(_program);
+void Shader::use() const {
+  glUseProgram(_shaderID);
 }
 
-void ProgramGL::setBool(const std::string &name, bool value) const {
+void Shader::setBool(const std::string &name, bool value) const {
   glUniform1i(glGetUniformLocation(getGLProgram(), name.c_str()), (int)value);
 }
-void ProgramGL::setInt(const std::string &name, int value) const {
+void Shader::setInt(const std::string &name, int value) const {
   glUniform1i(glGetUniformLocation(getGLProgram(), name.c_str()), value);
 }
 
-void ProgramGL::setFloat(const std::string &name, float value) const {
+void Shader::setFloat(const std::string &name, float value) const {
   glUniform1f(glGetUniformLocation(getGLProgram(), name.c_str()), value);
 }
 
-void ProgramGL::setMatrix4fv(const std::string &name,const glm::mat4 &value) const{
+void Shader::setMatrix4fv(const std::string &name,const glm::mat4 &value) const{
   glUniformMatrix4fv( glGetUniformLocation(getGLProgram(), name.c_str()), 1, GL_FALSE, glm::value_ptr(value));
 }
