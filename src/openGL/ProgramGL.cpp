@@ -118,11 +118,21 @@ int ProgramGL::loadfile(std::string vertexshader_path, std::string fragmentshade
 GLuint ProgramGL::getGLProgram() const { return _program;}
 
 
-void ProgramGL::use(const glm::mat4 &model,const glm::mat4 &view,const glm::mat4 &projection) const {
+void ProgramGL::use() const {
   glUseProgram(_program);
-  assert(getGLProgram()!=0);
-  glUniformMatrix4fv( glGetUniformLocation(getGLProgram(), "model"), 1, GL_FALSE, glm::value_ptr(model));
-  glUniformMatrix4fv( glGetUniformLocation(getGLProgram(), "view"), 1, GL_FALSE, glm::value_ptr(view));
-  glUniformMatrix4fv( glGetUniformLocation(getGLProgram(), "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+}
 
+void ProgramGL::setBool(const std::string &name, bool value) const {
+  glUniform1i(glGetUniformLocation(getGLProgram(), name.c_str()), (int)value);
+}
+void ProgramGL::setInt(const std::string &name, int value) const {
+  glUniform1i(glGetUniformLocation(getGLProgram(), name.c_str()), value);
+}
+
+void ProgramGL::setFloat(const std::string &name, float value) const {
+  glUniform1f(glGetUniformLocation(getGLProgram(), name.c_str()), value);
+}
+
+void ProgramGL::setMatrix4fv(const std::string &name,const glm::mat4 &value) const{
+  glUniformMatrix4fv( glGetUniformLocation(getGLProgram(), name.c_str()), 1, GL_FALSE, glm::value_ptr(value));
 }

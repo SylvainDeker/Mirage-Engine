@@ -58,7 +58,9 @@ void BSplineSurface::draw(const std::vector<ProgramGL> & progGL,
           const glm::mat4 & model,
           const glm::mat4 & view,
           const glm::mat4 & projection){
-  progGL[0].use(model,view,projection);
+  progGL[0].use();
+  
+
   glBindVertexArray(_vao);
   glDrawElements(GL_TRIANGLES, _indices.size(), GL_UNSIGNED_INT, nullptr);
   glBindVertexArray(0);

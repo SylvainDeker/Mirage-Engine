@@ -2,6 +2,7 @@
 #include <iostream>
 #include "../mesh/DemoBSplineLine.hpp"
 #include "../mesh/DemoBSplineSurface.hpp"
+#include "opengl_stuff.h"
 
 /*------------------------------------------------------------------------------------------------------------------------*/
 /*------------------------------------------------------------------------------------------------------------------------*/
@@ -74,6 +75,9 @@ void MainScene::draw() {
     _demoBSplineLine.draw(_progGL,_model,_view,_projection);
     _demoBSplineSurface.draw(_progGL,_model,_view,_projection);
 
+    _progGL[0].setMatrix4fv("model",_model);
+    _progGL[0].setMatrix4fv("view",_view);
+    _progGL[0].setMatrix4fv("projection",_projection);
 }
 
 void MainScene::mouseclick(int button, float xpos, float ypos) {
