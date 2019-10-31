@@ -37,8 +37,8 @@ MainScene::MainScene(int width, int height) : _width(width), _height(height),
 
     _shaders.at(0).loadfile("../shader/normal_VertexShader.glsl","../shader/normal_FragmentShader.glsl");
 
-    // _shaders.push_back(Shader());
-    // _shaders.at(1).loadfile("../shader/test_VertexShader.glsl","../shader/test_FragmentShader.glsl");
+    _shaders.push_back(Shader());
+    _shaders.at(1).loadfile("../shader/normal_VertexShader.glsl","../shader/normal_FragmentShader.glsl");
 
     _cameraselector.push_back( []()->Camera*{return new EulerCamera(glm::vec3(0.f, 0.f, 1.f));} );
     _cameraselector.push_back( []()->Camera*{return new TrackballCamera(glm::vec3(0.f, 0.f, 1.f),glm::vec3(0.f, 1.f, 0.f),glm::vec3(0.f, 0.f, 0.f));} );
