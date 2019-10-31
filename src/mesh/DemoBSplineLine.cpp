@@ -45,7 +45,7 @@ void DemoBSplineLine::initializeGeometry(){
 }
 
 
-void DemoBSplineLine::draw(const std::vector<Shader> & shader,
+void DemoBSplineLine::draw(const std::vector<Shader*> & shader,
           const glm::mat4 & model,
           const glm::mat4 & view,
           const glm::mat4 & projection){

@@ -8,7 +8,15 @@ Shader::Shader():_shaderID(0){
 }
 
 
+Shader::Shader(const Shader & copy):
+                _shaderID(copy.getGLProgram()){
+
+}
+
+
+
 Shader::~Shader(){
+  if(_shaderID >0 )
   glDeleteProgram(_shaderID);
 }
 
@@ -16,7 +24,7 @@ Shader::~Shader(){
 
 
 int Shader::load(const char * vertexshader_source, const char * fragmentshader_source){
-
+  assert(_shaderID ==0);
   // Initialize shaders
   GLint success;
   GLchar infoLog[512]; // warning fixed size ... request for LOG_LENGTH!!!
@@ -119,34 +127,35 @@ GLuint Shader::getGLProgram() const { return _shaderID;}
 
 
 void Shader::use() const {
+  assert(_shaderID > 0);
   glUseProgram(_shaderID);
 }
 
 void Shader::setBool(const std::string &name, bool value) const {
   int uniformLoc = glGetUniformLocation(getGLProgram(), name.c_str());
-  assert(uniformLoc != -1);
+  // assert(uniformLoc != -1);
   glUniform1i(uniformLoc, (int)value);
 }
 void Shader::setInt(const std::string &name, int value) const {
   int uniformLoc = glGetUniformLocation(getGLProgram(), name.c_str());
-  assert(uniformLoc != -1);
+  // assert(uniformLoc != -1);
   glUniform1i( uniformLoc, value);
 }
 
 void Shader::setFloat(const std::string &name, float value) const {
   int uniformLoc = glGetUniformLocation(getGLProgram(), name.c_str());
-  assert(uniformLoc != -1);
+  // assert(uniformLoc != -1);
   glUniform1f(uniformLoc, value);
 }
 
 void Shader::setMatrix4fv(const std::string &name,const glm::mat4 &value) const{
   int uniformLoc = glGetUniformLocation(getGLProgram(), name.c_str());
-  assert(uniformLoc != -1);
+  // assert(uniformLoc != -1);
   glUniformMatrix4fv( uniformLoc, 1, GL_FALSE, glm::value_ptr(value));
 }
 
 void Shader::setVector4fv(const std::string &name,const glm::vec4& value) const{
   int uniformLoc = glGetUniformLocation(getGLProgram(), name.c_str());
-  assert(uniformLoc != -1);
+  // assert(uniformLoc != -1);
   glUniform4fv(uniformLoc,1,glm::value_ptr(value));
 }

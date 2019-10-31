@@ -38,7 +38,7 @@ private:
     int _height;
 
     bool _drawfill;
-    std::vector<Shader> _shaders;
+    std::vector<Shader*> _shaders;
     // Rendering mode (true is filled, false is wireframed
 
     // for mouse management

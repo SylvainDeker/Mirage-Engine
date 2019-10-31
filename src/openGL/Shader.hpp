@@ -7,6 +7,7 @@
 class Shader{
 public:
   Shader();
+  Shader(const Shader & copy);
   ~Shader();
 
   int load(const char * vertexshader_source, const char * fragmentshader_source );
