@@ -1,4 +1,4 @@
-#include "Openglwidget.hpp"
+#include "OpenGLWidget.hpp"
 
 #include <QMessageBox>
 #include <QApplication>
@@ -10,14 +10,13 @@
 #include "../openGL/Mainscene.hpp"
 
 
+
 OpenGLWidget::OpenGLWidget(QWidget *parent) :QOpenGLWidget(parent)/*, QOpenGLFunctions_4_1_Core()*/, _openglDemo(nullptr), _lastime(0) {
     // add all demo constructors here
 
-    // _democonstructors = [](int width, int height)->MainScene*{
-    //    return new MainScene(width, height);
-    // };
-    // _democonstructors = new MainScene(width, height);
-    // };
+    _democonstructors = [](int width, int height)->OpenGLMain*{
+       return new MainScene(width, height);
+    };
 }
 
 OpenGLWidget::~OpenGLWidget() {
@@ -46,7 +45,7 @@ void OpenGLWidget::initializeGL() {
         exit(1);
     }
     // Initialize OpenGL and all OpenGL dependent stuff below
-    _openglDemo.reset( new MainScene(width(), height()));
+    _openglDemo.reset(_democonstructors(width(), height()));
 }
 
 void OpenGLWidget::paintGL() {
@@ -125,7 +124,7 @@ void OpenGLWidget::activatedemo(unsigned int numdemo) {
     (void) numdemo;
     std::cout << "Activating demo " << numdemo << " : ";
     makeCurrent();
-    _openglDemo.reset( new MainScene(width(), height()));
+    _openglDemo.reset(_democonstructors(width(), height()));
     doneCurrent();
     update();
 

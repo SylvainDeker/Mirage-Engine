@@ -1,11 +1,13 @@
 #ifndef MAINSCENE_H
 #define MAINSCENE_H
 
+#include "OpenGLMain.hpp"
 
 #include "Camera.hpp"
 
 #include <memory>
 #include <functional>
+
 #include "../mesh/DemoBSplineLine.hpp"
 #include "../mesh/DemoBSplineSurface.hpp"
 #include "./Shader.hpp"
@@ -13,33 +15,27 @@
 
 /** Simple drawing demonstration
  */
-class MainScene{
+class MainScene : public OpenGLMain {
 public:
     explicit MainScene(int width, int height);
-    ~MainScene() ;
+    ~MainScene() override;
 
-    void resize(int width, int height) ;
-    void draw() ;
+    void resize(int width, int height) override;
+    void draw() override;
 
-    void mouseclick(int button, float xpos, float ypos) ;
-    void mousemove(float xpos, float ypos) ;
-    void keyboardmove(int key, double time) ;
-    bool keyboard(unsigned char k) ;
-    void toggledrawmode();
+    void mouseclick(int button, float xpos, float ypos) override;
+    void mousemove(float xpos, float ypos) override;
+    void keyboardmove(int key, double time) override;
+    bool keyboard(unsigned char k) override;
 
 private:
 
     // // Shader program for rendering
-    // GLuint _shaderID;
+    // GLuint _program;
 
 
-    // Width and heigth of the viewport
-    int _width;
-    int _height;
+    std::vector<Shader*> _progGL;
 
-    bool _drawfill;
-    std::vector<Shader*> _shaders;
-    // Rendering mode (true is filled, false is wireframed
 
     // for mouse management
     int _button; // 0 --> left. 1 --> right. 2 --> middle. 3 --> other

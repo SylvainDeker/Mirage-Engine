@@ -3,7 +3,7 @@
 
 #include <QMainWindow>
 
-#include "Openglwidget.hpp"
+#include "OpenGLWidget.hpp"
 
 namespace Ui {
     class MainWindow;
@@ -19,6 +19,7 @@ public:
 private slots:
     void on_action_Version_OpenGL_triggered();
 
+    void on_actionHello_camera_triggered();
 
 private:
     Ui::MainWindow *ui;
