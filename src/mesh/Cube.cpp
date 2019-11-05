@@ -43,16 +43,16 @@ void Cube::draw(const std::vector<Shader*> & shader,
 
 }
 
-void Cube::initializeGeometry(const glm::vec3& pos){
+void Cube::initializeGeometry(){
 
   float value = 0.1;
 
-    _vertices.push_back(glm::vec3(-value+pos.x, -value, -value));
-    _vertices.push_back(glm::vec3( value+pos.x, -value, -value));
-    _vertices.push_back(glm::vec3( value+pos.x,  value, -value));
-    _vertices.push_back(glm::vec3( value+pos.x,  value, -value));
-    _vertices.push_back(glm::vec3(-value+pos.x,  value, -value));
-    _vertices.push_back(glm::vec3(-value+pos.x, -value, -value));
+    _vertices.push_back(glm::vec3(-value, -value, -value));
+    _vertices.push_back(glm::vec3( value, -value, -value));
+    _vertices.push_back(glm::vec3( value,  value, -value));
+    _vertices.push_back(glm::vec3( value,  value, -value));
+    _vertices.push_back(glm::vec3(-value,  value, -value));
+    _vertices.push_back(glm::vec3(-value, -value, -value));
 
     _vertices.push_back(glm::vec3(-value, -value,  value));
     _vertices.push_back(glm::vec3( value, -value,  value));

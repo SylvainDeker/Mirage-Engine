@@ -8,19 +8,20 @@
 #include "../bspline/Bspline.hpp"
 #include "../openGL/Shader.hpp"
 #include <memory>
+#include "Mesh.hpp"
 
 
-class BSplineLine {
+class BSplineLine :public Mesh{
 public:
   BSplineLine(std::vector<glm::vec3> & vertices);
-  ~BSplineLine();
+  ~BSplineLine() override ;
 
-  void initializeGeometry();
+  void initializeGeometry() override;
 
   void draw(const std::vector<Shader*> & shader,
             const glm::mat4 & model,
             const glm::mat4 & view,
-            const glm::mat4 & projection);
+            const glm::mat4 & projection) override;
 
 
 

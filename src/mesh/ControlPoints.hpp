@@ -6,19 +6,19 @@
 #include "../openGL/opengl_stuff.h"
 #include "../openGL/Shader.hpp"
 #include <memory>
+#include "Mesh.hpp"
 
-
-class ControlPoints {
+class ControlPoints : public Mesh {
 public:
   ControlPoints(std::vector<glm::vec3> & points);
-  ~ControlPoints();
+  ~ControlPoints() override ;
 
-  void initializeGeometry();
+  void initializeGeometry() override ;
 
   void draw(const std::vector<Shader*> & shader,
             const glm::mat4 & model,
             const glm::mat4 & view,
-            const glm::mat4 & projection);
+            const glm::mat4 & projection) override ;
 
 
 protected:

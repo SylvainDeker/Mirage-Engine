@@ -6,19 +6,19 @@
 #include "ControlPoints.hpp"
 #include <vector>
 #include "glm/glm.hpp"
+#include "Mesh.hpp"
 
 
-
-class DemoBSplineSurface {
+class DemoBSplineSurface : public Mesh{
 
 public:
   DemoBSplineSurface();
-  ~DemoBSplineSurface ();
-  void initializeGeometry();
+  ~DemoBSplineSurface () override ;
+  void initializeGeometry() override ;
   void draw(const std::vector<Shader*> & shader,
             const glm::mat4 & model,
             const glm::mat4 & view,
-            const glm::mat4 & projection);
+            const glm::mat4 & projection) override ;
 
 
 private:

@@ -4,17 +4,17 @@
 #include <vector>
 #include "glm/glm.hpp"
 #include <GL/gl.h>
-
+#include "Mesh.hpp"
 #include "../bspline/Bspline.hpp"
 
 #include <memory>
 
-class BSplineSurface {
+class BSplineSurface : public Mesh {
 public:
   BSplineSurface(std::vector<glm::vec3> & vertices, size_t x=1, size_t y=1);
-  ~BSplineSurface();
+  ~BSplineSurface() override ;
 
-  void initializeGeometry();
+  void initializeGeometry() override ;
   size_t getDimX() const ;
   size_t getDimY() const ;
   void setDimXY(size_t x, size_t y);
@@ -23,7 +23,7 @@ public:
   void draw(const std::vector<Shader*> & shader,
             const glm::mat4 & model,
             const glm::mat4 & view,
-            const glm::mat4 & projection);
+            const glm::mat4 & projection) override ;
 
 
 private:

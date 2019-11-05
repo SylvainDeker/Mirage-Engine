@@ -6,10 +6,8 @@
 
 #include <memory>
 #include <functional>
-#include "../mesh/DemoBSplineLine.hpp"
-#include "../mesh/DemoBSplineSurface.hpp"
 #include "./Shader.hpp"
-#include "../mesh/Textu.hpp"
+#include "../mesh/Mesh.hpp"
 
 
 /** Simple drawing demonstration
@@ -39,8 +37,8 @@ private:
     int _height;
 
     bool _drawfill;
+    std::vector<Mesh*> _meshes;
     std::vector<Shader*> _shaders;
-    // Rendering mode (true is filled, false is wireframed
 
     // for mouse management
     int _button; // 0 --> left. 1 --> right. 2 --> middle. 3 --> other
@@ -59,9 +57,9 @@ private:
     glm::mat4 _view;
     glm::mat4 _projection;
 
-    DemoBSplineLine _demoBSplineLine;
-    DemoBSplineSurface _demoBSplineSurface;
-    Textu _textu;
+    // DemoBSplineLine _demoBSplineLine;
+    // DemoBSplineSurface _demoBSplineSurface;
+    // Textu _textu;
 };
 
 /*------------------------------------------------------------------------------------------------------------------------*/

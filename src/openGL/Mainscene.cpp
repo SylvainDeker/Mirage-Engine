@@ -3,6 +3,7 @@
 #include "../mesh/DemoBSplineLine.hpp"
 #include "../mesh/DemoBSplineSurface.hpp"
 #include "../mesh/Textu.hpp"
+#include "../mesh/Mesh.hpp"
 #include "opengl_stuff.h"
 /*------------------------------------------------------------------------------------------------------------------------*/
 /*------------------------------------------------------------------------------------------------------------------------*/
@@ -18,12 +19,10 @@
 
 MainScene::MainScene(int width, int height) : _width(width), _height(height),
       _drawfill(true),
+      _meshes(std::vector<Mesh*>()),
       _shaders(std::vector<Shader*>()),
       _activecamera(0),
-      _camera(nullptr),
-      _demoBSplineLine(DemoBSplineLine()),
-      _demoBSplineSurface(DemoBSplineSurface()),
-      _textu(Textu())
+      _camera(nullptr)
 
 
 
@@ -31,12 +30,19 @@ MainScene::MainScene(int width, int height) : _width(width), _height(height),
     glEnable(GL_DEPTH_TEST);
     glViewport(0, 0, width, height);
 
-    _demoBSplineLine.initializeGeometry();
-    _demoBSplineSurface.initializeGeometry();
-    _textu.initializeGeometry();
+    // _demoBSplineLine.initializeGeometry();
+    // _demoBSplineSurface.initializeGeometry();
+    // _textu.initializeGeometry();
+
+    _meshes.push_back(new DemoBSplineLine());
+    _meshes.push_back(new DemoBSplineSurface());
+    _meshes.push_back(new Textu());
+
+    for (size_t i = 0; i < _meshes.size(); i++) {
+      _meshes[i]->initializeGeometry();
+    }
 
     _shaders.push_back(new Shader());
-
     _shaders.at(0)->loadfile("../shader/normal_VertexShader.glsl","../shader/normal_FragmentShader.glsl");
 
     _shaders.push_back(new Shader());
@@ -59,6 +65,9 @@ MainScene::MainScene(int width, int height) : _width(width), _height(height),
 }
 
 MainScene::~MainScene() {
+    for (size_t i = 0; i < _meshes.size(); i++) {
+      delete _meshes[i];
+    }
     for (size_t i = 0; i < _shaders.size(); i++) {
       delete _shaders[i];
     }
@@ -85,9 +94,12 @@ void MainScene::draw() {
     _view = _camera->viewmatrix();
 
 
-    _demoBSplineLine.draw(_shaders,_model,_view,_projection);
-    _demoBSplineSurface.draw(_shaders,_model,_view,_projection);
-    _textu.draw(_shaders,_model,_view,_projection);
+    // _demoBSplineLine.draw(_shaders,_model,_view,_projection);
+    // _demoBSplineSurface.draw(_shaders,_model,_view,_projection);
+    // _textu.draw(_shaders,_model,_view,_projection);
+    for (size_t i = 0; i < _meshes.size(); i++) {
+      _meshes[i]->draw(_shaders,_model,_view,_projection);
+    }
 
 }
 

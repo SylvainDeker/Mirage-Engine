@@ -4,22 +4,22 @@
 #include <vector>
 #include "glm/glm.hpp"
 #include <GL/gl.h>
-
+#include "Mesh.hpp"
 #include "../bspline/Bspline.hpp"
 
 #include <memory>
 
-class Cube {
+class Cube : public Mesh{
 public:
   Cube();
-  ~Cube();
+  ~Cube() override ;
 
-  void initializeGeometry(const glm::vec3& pos);
+  void initializeGeometry() override ;
 
   void draw(const std::vector<Shader*> & shader,
             const glm::mat4 & model,
             const glm::mat4 & view,
-            const glm::mat4 & projection);
+            const glm::mat4 & projection) override ;
 
 
 private:
