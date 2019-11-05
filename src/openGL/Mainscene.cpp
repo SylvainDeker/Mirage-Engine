@@ -30,9 +30,6 @@ MainScene::MainScene(int width, int height) : _width(width), _height(height),
     glEnable(GL_DEPTH_TEST);
     glViewport(0, 0, width, height);
 
-    // _demoBSplineLine.initializeGeometry();
-    // _demoBSplineSurface.initializeGeometry();
-    // _textu.initializeGeometry();
 
     _meshes.push_back(new DemoBSplineLine());
     _meshes.push_back(new DemoBSplineSurface());
@@ -50,6 +47,9 @@ MainScene::MainScene(int width, int height) : _width(width), _height(height),
 
     _shaders.push_back(new Shader());
     _shaders.at(2)->loadfile("../shader/textu_VertexShader.glsl","../shader/textu_FragmentShader.glsl");
+
+    _shaders.push_back(new Shader());
+    _shaders.at(3)->loadfile("../shader/rand_VertexShader.glsl","../shader/rand_FragmentShader.glsl");
 
 
     _cameraselector.push_back( []()->Camera*{return new EulerCamera(glm::vec3(0.f, 0.f, 1.f));} );
@@ -71,7 +71,7 @@ MainScene::~MainScene() {
     for (size_t i = 0; i < _shaders.size(); i++) {
       delete _shaders[i];
     }
-    // glDeleteProgram(_shaderID);
+
 }
 
 void MainScene::resize(int width, int height){
@@ -82,6 +82,7 @@ void MainScene::resize(int width, int height){
 }
 
 void MainScene::draw() {
+
   glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
   glClear(GL_COLOR_BUFFER_BIT);
 
@@ -94,9 +95,6 @@ void MainScene::draw() {
     _view = _camera->viewmatrix();
 
 
-    // _demoBSplineLine.draw(_shaders,_model,_view,_projection);
-    // _demoBSplineSurface.draw(_shaders,_model,_view,_projection);
-    // _textu.draw(_shaders,_model,_view,_projection);
     for (size_t i = 0; i < _meshes.size(); i++) {
       _meshes[i]->draw(_shaders,_model,_view,_projection);
     }

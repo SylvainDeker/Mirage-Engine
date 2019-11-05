@@ -1,6 +1,6 @@
 #include "glm/glm.hpp"
-
-
+#include <cstdlib>
+#include <ctime>
 #include <memory>
 #include <functional>
 #include "ControlPoints.hpp"
@@ -24,10 +24,14 @@ void ControlPoints::draw(const std::vector<Shader*> & shader,
           const glm::mat4 & model,
           const glm::mat4 & view,
           const glm::mat4 & projection){
-  shader.at(0)->use();
-  shader.at(0)->setMatrix4fv("model",model);
-  shader.at(0)->setMatrix4fv("view",view);
-  shader.at(0)->setMatrix4fv("projection",projection);
+  shader.at(3)->use();
+  shader.at(3)->setMatrix4fv("model",model);
+  shader.at(3)->setMatrix4fv("view",view);
+  shader.at(3)->setMatrix4fv("projection",projection);
+  float r = float(std::rand())/RAND_MAX;
+  float g = float(std::rand())/RAND_MAX;
+  float b = float(std::rand())/RAND_MAX;
+  shader.at(3)->setVector4fv("usercolor",glm::vec4(r,g,b,1.0));
 
   glBindVertexArray(_vao);
   glDrawElements(GL_POINTS, _indices.size(), GL_UNSIGNED_INT, nullptr);
