@@ -57,7 +57,7 @@ void Textu::initializeGeometry(){
       0, 1, 3, // first triangle
       1, 2, 3  // second triangle
   };
-  unsigned int _vbo, _vao, _ebo;
+  
   glGenVertexArrays(1, &_vao);
   glGenBuffers(1, &_vbo);
   glGenBuffers(1, &_ebo);
