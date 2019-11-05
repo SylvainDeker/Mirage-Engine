@@ -9,6 +9,7 @@
 #include "../mesh/DemoBSplineLine.hpp"
 #include "../mesh/DemoBSplineSurface.hpp"
 #include "./Shader.hpp"
+#include "../mesh/Textu.hpp"
 
 
 /** Simple drawing demonstration
@@ -60,6 +61,7 @@ private:
 
     DemoBSplineLine _demoBSplineLine;
     DemoBSplineSurface _demoBSplineSurface;
+    Textu _textu;
 };
 
 /*------------------------------------------------------------------------------------------------------------------------*/

@@ -32,8 +32,12 @@ FILE(GLOB_RECURSE
 
 FILE(GLOB_RECURSE
     folder_header
-    ${CMAKE_SOURCE_DIR}/src/*.h
+    ${CMAKE_SOURCE_DIR}/src/*.hpp
+)
 
+FILE(GLOB_RECURSE
+    folder_other_header
+    ${CMAKE_SOURCE_DIR}/src/*.h
 )
 
 FILE(GLOB_RECURSE
@@ -48,6 +52,7 @@ include_directories(
 
 SOURCE_GROUP("Source Files" FILES ${folder_source})
 SOURCE_GROUP("Header Files" FILES ${folder_header})
+SOURCE_GROUP("Other Header Files" FILES ${folder_other_header})
 SOURCE_GROUP("Shader Files" FILES ${folder_shader})
 
 ################################################################################

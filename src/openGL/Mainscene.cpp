@@ -2,8 +2,8 @@
 #include <iostream>
 #include "../mesh/DemoBSplineLine.hpp"
 #include "../mesh/DemoBSplineSurface.hpp"
+#include "../mesh/Textu.hpp"
 #include "opengl_stuff.h"
-
 /*------------------------------------------------------------------------------------------------------------------------*/
 /*------------------------------------------------------------------------------------------------------------------------*/
 /*------------------------------------------------------------------------------------------------------------------------*/
@@ -22,7 +22,8 @@ MainScene::MainScene(int width, int height) : _width(width), _height(height),
       _activecamera(0),
       _camera(nullptr),
       _demoBSplineLine(DemoBSplineLine()),
-      _demoBSplineSurface(DemoBSplineSurface())
+      _demoBSplineSurface(DemoBSplineSurface()),
+      _textu(Textu())
 
 
 
@@ -32,6 +33,7 @@ MainScene::MainScene(int width, int height) : _width(width), _height(height),
 
     _demoBSplineLine.initializeGeometry();
     _demoBSplineSurface.initializeGeometry();
+    _textu.initializeGeometry();
 
     _shaders.push_back(new Shader());
 
@@ -39,6 +41,10 @@ MainScene::MainScene(int width, int height) : _width(width), _height(height),
 
     _shaders.push_back(new Shader());
     _shaders.at(1)->loadfile("../shader/normal_VertexShader.glsl","../shader/normal_FragmentShader.glsl");
+
+    _shaders.push_back(new Shader());
+    _shaders.at(2)->loadfile("../shader/textu_VertexShader.glsl","../shader/textu_FragmentShader.glsl");
+
 
     _cameraselector.push_back( []()->Camera*{return new EulerCamera(glm::vec3(0.f, 0.f, 1.f));} );
     _cameraselector.push_back( []()->Camera*{return new TrackballCamera(glm::vec3(0.f, 0.f, 1.f),glm::vec3(0.f, 1.f, 0.f),glm::vec3(0.f, 0.f, 0.f));} );
@@ -49,6 +55,7 @@ MainScene::MainScene(int width, int height) : _width(width), _height(height),
     _view = _camera->viewmatrix();
 
     _projection = glm::perspective(_camera->zoom(), float(_width) / _height, 0.1f, 100.0f);
+
 }
 
 MainScene::~MainScene() {
@@ -69,6 +76,7 @@ void MainScene::draw() {
   glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
   glClear(GL_COLOR_BUFFER_BIT);
 
+
   if (_drawfill)
       glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
   else
@@ -77,9 +85,9 @@ void MainScene::draw() {
     _view = _camera->viewmatrix();
 
 
-
     _demoBSplineLine.draw(_shaders,_model,_view,_projection);
     _demoBSplineSurface.draw(_shaders,_model,_view,_projection);
+    _textu.draw(_shaders,_model,_view,_projection);
 
 }
 
