@@ -30,6 +30,7 @@ private:
   GLuint _vbo;
   GLuint _ebo;
   GLuint _texture;
+  GLuint _texture2;
 
 
 
