@@ -159,3 +159,9 @@ void Shader::setVector4fv(const std::string &name,const glm::vec4& value) const{
   // assert(uniformLoc != -1);
   glUniform4fv(uniformLoc,1,glm::value_ptr(value));
 }
+
+void Shader::setVector3fv(const std::string &name,const glm::vec3& value) const{
+  int uniformLoc = glGetUniformLocation(getGLProgram(), name.c_str());
+  // assert(uniformLoc != -1);
+  glUniform3fv(uniformLoc,1,glm::value_ptr(value));
+}

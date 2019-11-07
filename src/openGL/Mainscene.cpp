@@ -1,8 +1,10 @@
 #include "Mainscene.hpp"
 #include <iostream>
+#include <QTime>
 #include "../mesh/DemoBSplineLine.hpp"
 #include "../mesh/DemoBSplineSurface.hpp"
 #include "../mesh/Textu.hpp"
+#include "../mesh/Cube.hpp"
 #include "../mesh/Mesh.hpp"
 #include "opengl_stuff.h"
 /*------------------------------------------------------------------------------------------------------------------------*/
@@ -34,6 +36,7 @@ MainScene::MainScene(int width, int height) : _width(width), _height(height),
     _meshes.push_back(new DemoBSplineLine());
     _meshes.push_back(new DemoBSplineSurface());
     _meshes.push_back(new Textu());
+    _meshes.push_back(new Cube());
 
     for (size_t i = 0; i < _meshes.size(); i++) {
       _meshes[i]->initializeGeometry();
@@ -50,6 +53,12 @@ MainScene::MainScene(int width, int height) : _width(width), _height(height),
 
     _shaders.push_back(new Shader());
     _shaders.at(3)->loadfile("../shader/rand_VertexShader.glsl","../shader/rand_FragmentShader.glsl");
+
+    _shaders.push_back(new Shader());
+    _shaders.at(4)->loadfile("../shader/light_VertexShader.glsl","../shader/light_FragmentShader.glsl");
+
+    _shaders.push_back(new Shader());
+    _shaders.at(5)->loadfile("../shader/lamp_VertexShader.glsl","../shader/lamp_FragmentShader.glsl");
 
 
     _cameraselector.push_back( []()->Camera*{return new EulerCamera(glm::vec3(0.f, 0.f, 1.f));} );
@@ -84,7 +93,7 @@ void MainScene::resize(int width, int height){
 void MainScene::draw() {
 
   glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-  glClear(GL_COLOR_BUFFER_BIT);
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 
   if (_drawfill)
@@ -92,12 +101,26 @@ void MainScene::draw() {
   else
       glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
+
     _view = _camera->viewmatrix();
 
 
-    for (size_t i = 0; i < _meshes.size(); i++) {
-      _meshes[i]->draw(_shaders,_model,_view,_projection);
-    }
+
+
+    static size_t movvv= 0;
+    glm::mat4 turn_model = glm::translate(_model,glm::vec3(0.f,0.f,0.5f));
+    turn_model = glm::rotate(turn_model, glm::radians(float(movvv)) , glm::vec3(0.0f, 1.0f, 0.0f));
+
+    // _model = glm::translate(_model, glm::vec3(0.0f, 0.01f, 0.0f));
+
+    _meshes.at(0)->draw(_shaders,_model,_view,_projection);
+    _meshes.at(1)->draw(_shaders,_model,_view,_projection);
+    _meshes.at(2)->draw(_shaders,_model,_view,_projection);
+
+    _meshes.at(3)->draw(_shaders,turn_model*0.1f,_view,_projection);
+
+    movvv+=3;
+    if(movvv > 360)movvv = 0;
 
 }
 
@@ -119,6 +142,8 @@ void MainScene::keyboardmove(int key, double time) {
 
 bool MainScene::keyboard(unsigned char k) {
     switch(k) {
+
+
         case 'p':
             _activecamera = (_activecamera+1)%2;
             _camera.reset(_cameraselector[_activecamera]());

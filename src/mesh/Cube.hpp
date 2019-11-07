@@ -27,6 +27,7 @@ private:
   std::vector<glm::vec3> _vertices;
 
 
+
   // OpenGL object for geometry
   GLuint _vao;
   GLuint _vbo;
