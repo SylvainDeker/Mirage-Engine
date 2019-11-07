@@ -6,11 +6,11 @@
 #include "glm/glm.hpp"
 #include "../light/Light.hpp"
 
-DemoBSplineLine::DemoBSplineLine():
+DemoBSplineLine::DemoBSplineLine(const std::vector<Shader*> & shaders):Mesh(shaders),
   _controlPoints(std::vector<glm::vec3>()),
-  _meshLine(BSplineLine(_displayPoints)),
-  _meshControlPoints(ControlPoints(_controlPoints)),
-  _bspline(BSpline(_controlPoints)){
+  _meshLine(BSplineLine(shaders,_displayPoints)),
+  _meshControlPoints(ControlPoints(shaders,_controlPoints)),
+  _bspline(BSpline(_controlPoints)) {
 
   float tmp = 0.1f;
   float zero = 0.0f;
@@ -45,13 +45,13 @@ void DemoBSplineLine::initializeGeometry(){
 }
 
 
-void DemoBSplineLine::draw(const std::vector<Shader*> & shader,
+void DemoBSplineLine::draw(
           const glm::mat4 & model,
           const glm::mat4 & view,
           const glm::mat4 & projection,
           const Light * light){
 
-  _meshLine.draw(shader,model,view,projection,light);
-  _meshControlPoints.draw(shader,model,view,projection,light);
+  _meshLine.draw(model,view,projection,light);
+  _meshControlPoints.draw(model,view,projection,light);
 
 }

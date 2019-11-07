@@ -13,11 +13,11 @@
 class DemoBSplineSurface : public Mesh{
 
 public:
-  DemoBSplineSurface();
+  DemoBSplineSurface(const std::vector<Shader*> & shaders);
   ~DemoBSplineSurface () override ;
   void initializeGeometry() override ;
-  void draw(const std::vector<Shader*> & shader,
-            const glm::mat4 & model,
+  
+  void draw(const glm::mat4 & model,
             const glm::mat4 & view,
             const glm::mat4 & projection,
             const Light * light) override ;

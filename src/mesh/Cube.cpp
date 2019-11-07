@@ -8,7 +8,7 @@
 #include "../light/Light.hpp"
 
 
-Cube::Cube(){
+Cube::Cube(const std::vector<Shader*> & shaders):Mesh(shaders){
 
 }
 
@@ -23,23 +23,23 @@ Cube::~Cube(){
 
 
 
-void Cube::draw(const std::vector<Shader*> & shader,
+void Cube::draw(
           const glm::mat4 & model,
           const glm::mat4 & view,
           const glm::mat4 & projection,
           const Light * light){
 
-  shader.at(4)->use();
+  _shaders.at(4)->use();
   // glCheckError();
   glCheckError();
 
-  shader.at(4)->setMatrix4fv("model",model);
-  shader.at(4)->setMatrix4fv("view",view);
-  shader.at(4)->setMatrix4fv("projection",projection);
+  _shaders.at(4)->setMatrix4fv("model",model);
+  _shaders.at(4)->setMatrix4fv("view",view);
+  _shaders.at(4)->setMatrix4fv("projection",projection);
 
-  shader.at(4)->setVector3fv("objectColor", glm::vec3(1.0f, 0.5f, 0.31f));
-  shader.at(4)->setVector3fv("lightColor", light->getColor());
-  shader.at(4)->setVector3fv("lightPos", light->getPosition());
+  _shaders.at(4)->setVector3fv("objectColor", glm::vec3(1.0f, 0.5f, 0.31f));
+  _shaders.at(4)->setVector3fv("lightColor", light->getColor());
+  _shaders.at(4)->setVector3fv("lightPos", light->getPosition());
 
    // render the cube
    glBindVertexArray(_vao);

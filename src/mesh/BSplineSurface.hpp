@@ -11,7 +11,7 @@
 
 class BSplineSurface : public Mesh {
 public:
-  BSplineSurface(std::vector<glm::vec3> & vertices, size_t x=1, size_t y=1);
+  BSplineSurface(const std::vector<Shader*> & shaders, std::vector<glm::vec3> & vertices, size_t x=1, size_t y=1);
   ~BSplineSurface() override ;
 
   void initializeGeometry() override ;
@@ -20,7 +20,7 @@ public:
   void setDimXY(size_t x, size_t y);
   glm::vec3 getVertice(size_t x,size_t y);
   size_t getIdx(size_t x, size_t y) const ;
-  void draw(const std::vector<Shader*> & shader,
+  void draw(
             const glm::mat4 & model,
             const glm::mat4 & view,
             const glm::mat4 & projection,

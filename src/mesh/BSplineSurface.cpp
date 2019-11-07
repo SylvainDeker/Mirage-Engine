@@ -7,7 +7,7 @@
 #include "BSplineSurface.hpp"
 
 
-BSplineSurface::BSplineSurface(std::vector<glm::vec3> & vertices, size_t x, size_t y ):_vertices(vertices),_dimx(x),_dimy(y){
+BSplineSurface::BSplineSurface(const std::vector<Shader*> & shaders,std::vector<glm::vec3> & vertices, size_t x, size_t y ):Mesh(shaders),_vertices(vertices),_dimx(x),_dimy(y){
 
 }
 
@@ -54,15 +54,15 @@ BSplineSurface::~BSplineSurface(){
 
 
 
-void BSplineSurface::draw(const std::vector<Shader*> & shader,
+void BSplineSurface::draw(
           const glm::mat4 & model,
           const glm::mat4 & view,
           const glm::mat4 & projection,
           const Light * light){
-  shader.at(0)->use();
-  shader.at(0)->setMatrix4fv("model",model);
-  shader.at(0)->setMatrix4fv("view",view);
-  shader.at(0)->setMatrix4fv("projection",projection);
+  _shaders.at(0)->use();
+  _shaders.at(0)->setMatrix4fv("model",model);
+  _shaders.at(0)->setMatrix4fv("view",view);
+  _shaders.at(0)->setMatrix4fv("projection",projection);
 
 
   glBindVertexArray(_vao);

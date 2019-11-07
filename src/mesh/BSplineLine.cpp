@@ -7,9 +7,7 @@
 #include "BSplineLine.hpp"
 
 
-BSplineLine::BSplineLine(std::vector<glm::vec3> & vertices):_vertices(vertices){
-
-
+BSplineLine::BSplineLine(const std::vector<Shader*> & shaders, std::vector<glm::vec3> & vertices):Mesh(shaders),_vertices(vertices){
 }
 
 
@@ -21,15 +19,15 @@ BSplineLine::~BSplineLine(){
 
 
 
-void BSplineLine::draw(const std::vector<Shader*> & shader,
+void BSplineLine::draw(
           const glm::mat4 & model,
           const glm::mat4 & view,
           const glm::mat4 & projection,
         const Light * light){
-  shader.at(0)->use();
-  shader.at(0)->setMatrix4fv("model",model);
-  shader.at(0)->setMatrix4fv("view",view);
-  shader.at(0)->setMatrix4fv("projection",projection);
+  _shaders.at(0)->use();
+  _shaders.at(0)->setMatrix4fv("model",model);
+  _shaders.at(0)->setMatrix4fv("view",view);
+  _shaders.at(0)->setMatrix4fv("projection",projection);
 
   glBindVertexArray(_vao);
   glDrawElements(GL_LINE_STRIP, _indices.size(), GL_UNSIGNED_INT, nullptr);

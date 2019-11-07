@@ -13,13 +13,12 @@
 
 class BSplineLine :public Mesh{
 public:
-  BSplineLine(std::vector<glm::vec3> & vertices);
+  BSplineLine(const std::vector<Shader*> & shaders, std::vector<glm::vec3> & vertices);
   ~BSplineLine() override ;
 
   void initializeGeometry() override;
 
-  void draw(const std::vector<Shader*> & shader,
-            const glm::mat4 & model,
+  void draw( const glm::mat4 & model,
             const glm::mat4 & view,
             const glm::mat4 & projection,
             const Light * light) override;

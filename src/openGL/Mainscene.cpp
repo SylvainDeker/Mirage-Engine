@@ -34,10 +34,11 @@ MainScene::MainScene(int width, int height) : _width(width), _height(height),
     glEnable(GL_DEPTH_TEST);
     glViewport(0, 0, width, height);
 
-    _meshes.push_back(new DemoBSplineLine());
-    _meshes.push_back(new DemoBSplineSurface());
-    _meshes.push_back(new Textu());
-    _meshes.push_back(new Cube());
+    _meshes.push_back(new DemoBSplineLine(_shaders));
+    _meshes.push_back(new DemoBSplineSurface(_shaders));
+    _meshes.push_back(new Textu(_shaders));
+    _meshes.push_back(new Cube(_shaders));
+    _meshes.push_back(new Cube(_shaders));
 
 
     for (size_t i = 0; i < _meshes.size(); i++) {
@@ -60,7 +61,7 @@ MainScene::MainScene(int width, int height) : _width(width), _height(height),
     _shaders.at(4)->loadfile("../shader/light_VertexShader.glsl","../shader/light_FragmentShader.glsl");
 
 
-    _lights.push_back(new Light(glm::vec3(0.2f,1.f,1.f),glm::vec3(0.2f,0.02f,0.2f) ));
+    _lights.push_back(new Light(glm::vec3(0.2f,1.f,1.f),glm::vec3(1.f,0.f,0.0f) ));
 
 
 
@@ -116,11 +117,12 @@ void MainScene::draw() {
 
     for (Light *light : _lights) {
 
-        _meshes.at(0)->draw(_shaders,_model,_view,_projection,light); // DemoBSplineLine());
-        _meshes.at(1)->draw(_shaders,_model,_view,_projection,light); //DemoBSplineSurface());
-        _meshes.at(2)->draw(_shaders,glm::translate(_model,glm::vec3(0.f,-0.5f,0.0f)),_view,_projection,light); //Textu());
-        _meshes.at(3)->draw(_shaders,turn_model*0.1f,_view,_projection,light); // Cube());
-  
+        _meshes.at(0)->draw(_model,_view,_projection,light); // DemoBSplineLine());
+        _meshes.at(1)->draw(_model,_view,_projection,light); //DemoBSplineSurface());
+        _meshes.at(2)->draw(glm::translate(_model,glm::vec3(0.f,-0.5f,0.0f)),_view,_projection,light); //Textu());
+        _meshes.at(3)->draw(glm::scale(turn_model,glm::vec3(0.2f)),_view,_projection,light); // Cube());
+        _meshes.at(4)->draw(glm::scale(glm::translate(_model,light->getPosition()),glm::vec3(0.05f)),_view,_projection,light); // Cube());
+
     }
     movvv+=3;
     if(movvv > 360)movvv = 0;

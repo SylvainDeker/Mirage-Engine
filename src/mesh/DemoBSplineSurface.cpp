@@ -7,10 +7,10 @@
 #include "glm/glm.hpp"
 #include "../light/Light.hpp"
 
-DemoBSplineSurface::DemoBSplineSurface():
+DemoBSplineSurface::DemoBSplineSurface(const std::vector<Shader*> & shaders):Mesh(shaders),
   _controlPoints(std::vector<glm::vec3>()),
-  _meshSurface(BSplineSurface(_displayPoints)),
-  _meshControlPoints(ControlPoints(_controlPoints)),
+  _meshSurface(BSplineSurface(shaders,_displayPoints)),
+  _meshControlPoints(ControlPoints(shaders,_controlPoints)),
   _bspline2D(BSpline2D(_controlPoints)){
 
   float tmp = 0.1f;
@@ -48,12 +48,12 @@ void DemoBSplineSurface::initializeGeometry(){
 }
 
 
-void DemoBSplineSurface::draw(const std::vector<Shader*> & shader,
-          const glm::mat4 & model,
+
+void DemoBSplineSurface::draw(const glm::mat4 & model,
           const glm::mat4 & view,
           const glm::mat4 & projection,
-          const Light * light){
-  _meshSurface.draw(shader,model,view,projection,light);
-  _meshControlPoints.draw(shader,model,view,projection,light);
+          const Light * light) {
+  _meshSurface.draw(model,view,projection,light);
+  _meshControlPoints.draw(model,view,projection,light);
 
 }

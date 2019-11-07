@@ -11,12 +11,12 @@
 
 class Cube : public Mesh{
 public:
-  Cube();
+  Cube(const std::vector<Shader*> & shaders);
   ~Cube() override ;
 
   void initializeGeometry() override ;
 
-  void draw(const std::vector<Shader*> & shader,
+  void draw(
             const glm::mat4 & model,
             const glm::mat4 & view,
             const glm::mat4 & projection,

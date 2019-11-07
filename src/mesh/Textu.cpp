@@ -10,7 +10,7 @@
 #include "../openGL/stb_image.h"
 
 
-Textu::Textu(){
+Textu::Textu(const std::vector<Shader*> & shaders):Mesh(shaders){
 
 }
 
@@ -26,21 +26,21 @@ Textu::~Textu(){
 
 
 
-void Textu::draw(const std::vector<Shader*> & shader,
+void Textu::draw(
           const glm::mat4 & model,
           const glm::mat4 & view,
           const glm::mat4 & projection,
           const Light * light){
 
-  shader.at(2)->use();
+  _shaders.at(2)->use();
 
 
-  shader.at(2)->setMatrix4fv("model",model);
-  shader.at(2)->setMatrix4fv("view",view);
-  shader.at(2)->setMatrix4fv("projection",projection);
-  shader.at(2)->setVector4fv("ourColor",glm::vec4(1.0, 0.5, 0.31 ,1.0));
-  shader.at(2)->setInt("ourTexture",1);
-  shader.at(2)->setInt("ourTexture2",1);
+  _shaders.at(2)->setMatrix4fv("model",model);
+  _shaders.at(2)->setMatrix4fv("view",view);
+  _shaders.at(2)->setMatrix4fv("projection",projection);
+  _shaders.at(2)->setVector4fv("ourColor",glm::vec4(1.0, 0.5, 0.31 ,1.0));
+  _shaders.at(2)->setInt("ourTexture",1);
+  _shaders.at(2)->setInt("ourTexture2",1);
   glActiveTexture(GL_TEXTURE0); // activate the texture unit first before binding texture
   glBindTexture(GL_TEXTURE_2D, _texture);
 

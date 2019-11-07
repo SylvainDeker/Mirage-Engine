@@ -13,10 +13,10 @@
 class DemoBSplineLine : public Mesh {
 
 public:
-  DemoBSplineLine();
+  DemoBSplineLine(const std::vector<Shader*> & shaders);
   ~DemoBSplineLine () override ;
   void initializeGeometry() override ;
-  void draw(const std::vector<Shader*> & shader,
+  void draw(
             const glm::mat4 & model,
             const glm::mat4 & view,
             const glm::mat4 & projection,

@@ -11,12 +11,12 @@
 
 class ControlPoints : public Mesh {
 public:
-  ControlPoints(std::vector<glm::vec3> & points);
+  ControlPoints(const std::vector<Shader*> & shaders, std::vector<glm::vec3> & points);
   ~ControlPoints() override ;
 
   void initializeGeometry() override ;
 
-  void draw(const std::vector<Shader*> & shader,
+  void draw(
             const glm::mat4 & model,
             const glm::mat4 & view,
             const glm::mat4 & projection,

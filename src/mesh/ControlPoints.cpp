@@ -8,7 +8,7 @@
 #include "../light/Light.hpp"
 
 
-ControlPoints::ControlPoints(std::vector<glm::vec3> & points):_vertices(points){
+ControlPoints::ControlPoints(const std::vector<Shader*> & shaders, std::vector<glm::vec3> & points):Mesh(shaders),_vertices(points){
 
 
 
@@ -20,21 +20,21 @@ ControlPoints::~ControlPoints(){
   glDeleteVertexArrays(1, &_vao) ;
 }
 
-void ControlPoints::draw(const std::vector<Shader*> & shader,
+void ControlPoints::draw(
           const glm::mat4 & model,
           const glm::mat4 & view,
           const glm::mat4 & projection,
           const Light * light){
 
   (void) light;
-  shader.at(3)->use();
-  shader.at(3)->setMatrix4fv("model",model);
-  shader.at(3)->setMatrix4fv("view",view);
-  shader.at(3)->setMatrix4fv("projection",projection);
+  _shaders.at(3)->use();
+  _shaders.at(3)->setMatrix4fv("model",model);
+  _shaders.at(3)->setMatrix4fv("view",view);
+  _shaders.at(3)->setMatrix4fv("projection",projection);
   float r = float(std::rand())/RAND_MAX;
   float g = float(std::rand())/RAND_MAX;
   float b = float(std::rand())/RAND_MAX;
-  shader.at(3)->setVector4fv("usercolor",glm::vec4(r,g,b,1.0));
+  _shaders.at(3)->setVector4fv("usercolor",glm::vec4(r,g,b,1.0));
 
   glBindVertexArray(_vao);
   glDrawElements(GL_POINTS, _indices.size(), GL_UNSIGNED_INT, nullptr);

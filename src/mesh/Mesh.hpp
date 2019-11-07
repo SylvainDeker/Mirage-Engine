@@ -6,17 +6,17 @@
 #include "../light/Light.hpp"
 class Mesh {
 public:
-
+  Mesh(const std::vector<Shader*> & shaders):_shaders(shaders) {}
   virtual ~Mesh() {};
 
   virtual void initializeGeometry() = 0 ;
 
-  virtual void draw(const std::vector<Shader*> & shader,
-            const glm::mat4 & model,
-            const glm::mat4 & view,
-            const glm::mat4 & projection,
-            const Light * light) = 0 ;
-
+  virtual void draw(const glm::mat4 & model,
+                    const glm::mat4 & view,
+                    const glm::mat4 & projection,
+                    const Light * light) = 0 ;
+protected:
+  const std::vector<Shader*> & _shaders;
 
 };
 
