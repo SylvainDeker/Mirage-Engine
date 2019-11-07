@@ -1,5 +1,5 @@
 #include "glm/glm.hpp"
-
+#include "../light/Light.hpp"
 #include "../bspline/Bspline.hpp"
 #include "../openGL/Shader.hpp"
 #include <memory>
@@ -57,7 +57,8 @@ BSplineSurface::~BSplineSurface(){
 void BSplineSurface::draw(const std::vector<Shader*> & shader,
           const glm::mat4 & model,
           const glm::mat4 & view,
-          const glm::mat4 & projection){
+          const glm::mat4 & projection,
+          const Light * light){
   shader.at(0)->use();
   shader.at(0)->setMatrix4fv("model",model);
   shader.at(0)->setMatrix4fv("view",view);

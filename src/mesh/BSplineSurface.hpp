@@ -6,7 +6,7 @@
 #include <GL/gl.h>
 #include "Mesh.hpp"
 #include "../bspline/Bspline.hpp"
-
+#include "../light/Light.hpp"
 #include <memory>
 
 class BSplineSurface : public Mesh {
@@ -23,7 +23,8 @@ public:
   void draw(const std::vector<Shader*> & shader,
             const glm::mat4 & model,
             const glm::mat4 & view,
-            const glm::mat4 & projection) override ;
+            const glm::mat4 & projection,
+            const Light * light) override ;
 
 
 private:

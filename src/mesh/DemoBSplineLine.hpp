@@ -7,6 +7,7 @@
 #include <vector>
 #include "glm/glm.hpp"
 #include "Mesh.hpp"
+#include "../light/Light.hpp"
 
 
 class DemoBSplineLine : public Mesh {
@@ -18,7 +19,8 @@ public:
   void draw(const std::vector<Shader*> & shader,
             const glm::mat4 & model,
             const glm::mat4 & view,
-            const glm::mat4 & projection) override ;
+            const glm::mat4 & projection,
+            const Light * light) override ;
 
 private:
   std::vector<glm::vec3> _controlPoints;

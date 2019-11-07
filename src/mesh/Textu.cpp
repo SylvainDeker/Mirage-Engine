@@ -5,6 +5,7 @@
 #include <memory>
 #include <functional>
 #include "Textu.hpp"
+#include "../light/Light.hpp"
 #define STB_IMAGE_IMPLEMENTATION
 #include "../openGL/stb_image.h"
 
@@ -28,7 +29,8 @@ Textu::~Textu(){
 void Textu::draw(const std::vector<Shader*> & shader,
           const glm::mat4 & model,
           const glm::mat4 & view,
-          const glm::mat4 & projection){
+          const glm::mat4 & projection,
+          const Light * light){
 
   shader.at(2)->use();
 
@@ -56,10 +58,10 @@ void Textu::initializeGeometry(){
 
   float vertices[] = {
       // positions          // colors           // texture coords
-       0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f, // top right
-       0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f, // bottom right
-      -0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f, // bottom left
-      -0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f  // top left
+       0.5f, 0.0f,  0.5f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f, // top right
+       0.5f, 0.0f, -0.5f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f, // bottom right
+      -0.5f, 0.0f, -0.5f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f, // bottom left
+      -0.5f, 0.0f,  0.5f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f  // top left
   };
   unsigned int indices[] = {
       0, 1, 3, // first triangle

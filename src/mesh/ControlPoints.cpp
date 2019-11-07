@@ -5,7 +5,7 @@
 #include <functional>
 #include "ControlPoints.hpp"
 #include "../openGL/opengl_stuff.h"
-
+#include "../light/Light.hpp"
 
 
 ControlPoints::ControlPoints(std::vector<glm::vec3> & points):_vertices(points){
@@ -23,7 +23,10 @@ ControlPoints::~ControlPoints(){
 void ControlPoints::draw(const std::vector<Shader*> & shader,
           const glm::mat4 & model,
           const glm::mat4 & view,
-          const glm::mat4 & projection){
+          const glm::mat4 & projection,
+          const Light * light){
+
+  (void) light;
   shader.at(3)->use();
   shader.at(3)->setMatrix4fv("model",model);
   shader.at(3)->setMatrix4fv("view",view);

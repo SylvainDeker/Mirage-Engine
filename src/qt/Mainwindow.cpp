@@ -9,6 +9,7 @@
 #include <iostream>
 #include <sstream>
 #include <iomanip>
+#include <QTimer>
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
 
@@ -26,6 +27,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     openglWidget->setFocus();
 
     setCentralWidget(openglWidget);
+    QTimer *timer = new QTimer(this);
+    connect(timer, &QTimer::timeout, this,&MainWindow::timer_out );
+    timer->start(30);
+    openglWidget->update();
 }
 
 MainWindow::~MainWindow() {
@@ -40,4 +45,8 @@ void MainWindow::on_action_Version_OpenGL_triggered() {
     message << "Version        : " << glGetString(GL_VERSION) << std::endl;
     message << "GLSL Version   : " << glGetString(GL_SHADING_LANGUAGE_VERSION) << std::endl;
     QMessageBox::information(this, "OpenGL Information", message.str().c_str());
+}
+
+void MainWindow::timer_out(){
+  openglWidget->update();
 }

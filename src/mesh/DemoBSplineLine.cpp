@@ -4,7 +4,7 @@
 #include "ControlPoints.hpp"
 #include <vector>
 #include "glm/glm.hpp"
-
+#include "../light/Light.hpp"
 
 DemoBSplineLine::DemoBSplineLine():
   _controlPoints(std::vector<glm::vec3>()),
@@ -48,9 +48,10 @@ void DemoBSplineLine::initializeGeometry(){
 void DemoBSplineLine::draw(const std::vector<Shader*> & shader,
           const glm::mat4 & model,
           const glm::mat4 & view,
-          const glm::mat4 & projection){
+          const glm::mat4 & projection,
+          const Light * light){
 
-  _meshLine.draw(shader,model,view,projection);
-  _meshControlPoints.draw(shader,model,view,projection);
+  _meshLine.draw(shader,model,view,projection,light);
+  _meshControlPoints.draw(shader,model,view,projection,light);
 
 }

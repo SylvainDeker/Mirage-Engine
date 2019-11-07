@@ -18,7 +18,7 @@ public:
 
 private slots:
     void on_action_Version_OpenGL_triggered();
-
+    void timer_out();
 
 private:
     Ui::MainWindow *ui;

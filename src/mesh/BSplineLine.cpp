@@ -1,5 +1,5 @@
 #include "glm/glm.hpp"
-
+#include "../light/Light.hpp"
 #include "../bspline/Bspline.hpp"
 #include "../openGL/Shader.hpp"
 #include <memory>
@@ -24,7 +24,8 @@ BSplineLine::~BSplineLine(){
 void BSplineLine::draw(const std::vector<Shader*> & shader,
           const glm::mat4 & model,
           const glm::mat4 & view,
-          const glm::mat4 & projection){
+          const glm::mat4 & projection,
+        const Light * light){
   shader.at(0)->use();
   shader.at(0)->setMatrix4fv("model",model);
   shader.at(0)->setMatrix4fv("view",view);
@@ -32,7 +33,6 @@ void BSplineLine::draw(const std::vector<Shader*> & shader,
 
   glBindVertexArray(_vao);
   glDrawElements(GL_LINE_STRIP, _indices.size(), GL_UNSIGNED_INT, nullptr);
-  glPointSize(10.0f);
   glBindVertexArray(0);
 }
 

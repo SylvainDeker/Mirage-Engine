@@ -5,6 +5,7 @@
 #include <memory>
 #include <functional>
 #include "Cube.hpp"
+#include "../light/Light.hpp"
 
 
 Cube::Cube(){
@@ -25,7 +26,8 @@ Cube::~Cube(){
 void Cube::draw(const std::vector<Shader*> & shader,
           const glm::mat4 & model,
           const glm::mat4 & view,
-          const glm::mat4 & projection){
+          const glm::mat4 & projection,
+          const Light * light){
 
   shader.at(4)->use();
   // glCheckError();
@@ -36,8 +38,8 @@ void Cube::draw(const std::vector<Shader*> & shader,
   shader.at(4)->setMatrix4fv("projection",projection);
 
   shader.at(4)->setVector3fv("objectColor", glm::vec3(1.0f, 0.5f, 0.31f));
-  shader.at(4)->setVector3fv("lightColor", glm::vec3(1.0f, 1.0f, 1.0f));
-  shader.at(4)->setVector3fv("lightPos", glm::vec3(1.2f, 1.0f, 2.0f));
+  shader.at(4)->setVector3fv("lightColor", light->getColor());
+  shader.at(4)->setVector3fv("lightPos", light->getPosition());
 
    // render the cube
    glBindVertexArray(_vao);

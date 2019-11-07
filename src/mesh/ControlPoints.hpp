@@ -7,6 +7,7 @@
 #include "../openGL/Shader.hpp"
 #include <memory>
 #include "Mesh.hpp"
+#include "../light/Light.hpp"
 
 class ControlPoints : public Mesh {
 public:
@@ -18,7 +19,8 @@ public:
   void draw(const std::vector<Shader*> & shader,
             const glm::mat4 & model,
             const glm::mat4 & view,
-            const glm::mat4 & projection) override ;
+            const glm::mat4 & projection,
+            const Light * light) override ;
 
 
 protected:

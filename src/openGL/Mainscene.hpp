@@ -8,6 +8,7 @@
 #include <functional>
 #include "./Shader.hpp"
 #include "../mesh/Mesh.hpp"
+#include "../light/Light.hpp"
 
 
 /** Simple drawing demonstration
@@ -39,6 +40,7 @@ private:
     bool _drawfill;
     std::vector<Mesh*> _meshes;
     std::vector<Shader*> _shaders;
+    std::vector<Light*> _lights;
 
     // for mouse management
     int _button; // 0 --> left. 1 --> right. 2 --> middle. 3 --> other

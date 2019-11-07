@@ -3,6 +3,7 @@
 #include <vector>
 #include "../openGL/Shader.hpp"
 #include "../openGL/opengl_stuff.h"
+#include "../light/Light.hpp"
 class Mesh {
 public:
 
@@ -13,7 +14,8 @@ public:
   virtual void draw(const std::vector<Shader*> & shader,
             const glm::mat4 & model,
             const glm::mat4 & view,
-            const glm::mat4 & projection) = 0 ;
+            const glm::mat4 & projection,
+            const Light * light) = 0 ;
 
 
 };

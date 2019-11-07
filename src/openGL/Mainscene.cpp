@@ -6,6 +6,7 @@
 #include "../mesh/Textu.hpp"
 #include "../mesh/Cube.hpp"
 #include "../mesh/Mesh.hpp"
+#include "../light/Light.hpp"
 #include "opengl_stuff.h"
 /*------------------------------------------------------------------------------------------------------------------------*/
 /*------------------------------------------------------------------------------------------------------------------------*/
@@ -23,6 +24,7 @@ MainScene::MainScene(int width, int height) : _width(width), _height(height),
       _drawfill(true),
       _meshes(std::vector<Mesh*>()),
       _shaders(std::vector<Shader*>()),
+      _lights(std::vector<Light*>()),
       _activecamera(0),
       _camera(nullptr)
 
@@ -32,11 +34,11 @@ MainScene::MainScene(int width, int height) : _width(width), _height(height),
     glEnable(GL_DEPTH_TEST);
     glViewport(0, 0, width, height);
 
-
     _meshes.push_back(new DemoBSplineLine());
     _meshes.push_back(new DemoBSplineSurface());
     _meshes.push_back(new Textu());
     _meshes.push_back(new Cube());
+
 
     for (size_t i = 0; i < _meshes.size(); i++) {
       _meshes[i]->initializeGeometry();
@@ -57,8 +59,9 @@ MainScene::MainScene(int width, int height) : _width(width), _height(height),
     _shaders.push_back(new Shader());
     _shaders.at(4)->loadfile("../shader/light_VertexShader.glsl","../shader/light_FragmentShader.glsl");
 
-    _shaders.push_back(new Shader());
-    _shaders.at(5)->loadfile("../shader/lamp_VertexShader.glsl","../shader/lamp_FragmentShader.glsl");
+
+    _lights.push_back(new Light(glm::vec3(0.2f,1.f,1.f),glm::vec3(0.2f,0.02f,0.2f) ));
+
 
 
     _cameraselector.push_back( []()->Camera*{return new EulerCamera(glm::vec3(0.f, 0.f, 1.f));} );
@@ -105,23 +108,22 @@ void MainScene::draw() {
     _view = _camera->viewmatrix();
 
 
-
-
     static size_t movvv= 0;
     glm::mat4 turn_model = glm::translate(_model,glm::vec3(0.f,0.f,0.5f));
     turn_model = glm::rotate(turn_model, glm::radians(float(movvv)) , glm::vec3(0.0f, 1.0f, 0.0f));
 
-    // _model = glm::translate(_model, glm::vec3(0.0f, 0.01f, 0.0f));
 
-    _meshes.at(0)->draw(_shaders,_model,_view,_projection);
-    _meshes.at(1)->draw(_shaders,_model,_view,_projection);
-    _meshes.at(2)->draw(_shaders,_model,_view,_projection);
 
-    _meshes.at(3)->draw(_shaders,turn_model*0.1f,_view,_projection);
+    for (Light *light : _lights) {
 
+        _meshes.at(0)->draw(_shaders,_model,_view,_projection,light); // DemoBSplineLine());
+        _meshes.at(1)->draw(_shaders,_model,_view,_projection,light); //DemoBSplineSurface());
+        _meshes.at(2)->draw(_shaders,glm::translate(_model,glm::vec3(0.f,-0.5f,0.0f)),_view,_projection,light); //Textu());
+        _meshes.at(3)->draw(_shaders,turn_model*0.1f,_view,_projection,light); // Cube());
+  
+    }
     movvv+=3;
     if(movvv > 360)movvv = 0;
-
 }
 
 

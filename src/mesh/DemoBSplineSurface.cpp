@@ -5,6 +5,7 @@
 #include "ControlPoints.hpp"
 #include <vector>
 #include "glm/glm.hpp"
+#include "../light/Light.hpp"
 
 DemoBSplineSurface::DemoBSplineSurface():
   _controlPoints(std::vector<glm::vec3>()),
@@ -50,8 +51,9 @@ void DemoBSplineSurface::initializeGeometry(){
 void DemoBSplineSurface::draw(const std::vector<Shader*> & shader,
           const glm::mat4 & model,
           const glm::mat4 & view,
-          const glm::mat4 & projection){
-  _meshSurface.draw(shader,model,view,projection);
-  _meshControlPoints.draw(shader,model,view,projection);
+          const glm::mat4 & projection,
+          const Light * light){
+  _meshSurface.draw(shader,model,view,projection,light);
+  _meshControlPoints.draw(shader,model,view,projection,light);
 
 }
