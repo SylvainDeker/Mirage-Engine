@@ -6,7 +6,6 @@
 #include <functional>
 #include "Textu.hpp"
 #include "../light/Light.hpp"
-#define STB_IMAGE_IMPLEMENTATION
 #include "../openGL/stb_image.h"
 #include "../openGL/DrawParameter.hpp"
 

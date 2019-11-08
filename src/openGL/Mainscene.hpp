@@ -9,6 +9,7 @@
 #include "./Shader.hpp"
 #include "../mesh/DeprecatedMesh.hpp"
 #include "../light/Light.hpp"
+#include "../mesh/Model.hpp"
 
 
 /** Simple drawing demonstration
@@ -32,13 +33,13 @@ private:
     // // Shader program for rendering
     // GLuint _shaderID;
 
-
     // Width and heigth of the viewport
     int _width;
     int _height;
 
     bool _drawfill;
     std::vector<DeprecatedMesh*> _meshes;
+    std::vector<Model*> _models;
     std::vector<Shader*> _shaders;
     std::vector<Light*> _lights;
 

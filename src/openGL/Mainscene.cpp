@@ -7,6 +7,7 @@
 #include "../mesh/Cube.hpp"
 #include "../mesh/DeprecatedMesh.hpp"
 #include "../light/Light.hpp"
+#include "../mesh/Model.hpp"
 #include "opengl_stuff.h"
 #include "DrawParameter.hpp"
 /*------------------------------------------------------------------------------------------------------------------------*/
@@ -24,6 +25,7 @@
 MainScene::MainScene(int width, int height) : _width(width), _height(height),
       _drawfill(true),
       _meshes(std::vector<DeprecatedMesh*>()),
+      _models(std::vector<Model*>()),
       _shaders(std::vector<Shader*>()),
       _lights(std::vector<Light*>()),
       _activecamera(0),
@@ -66,8 +68,8 @@ MainScene::MainScene(int width, int height) : _width(width), _height(height),
     _shaders.at(5)->loadfile("../shader/light_VertexShader.glsl","../shader/material_FragmentShader.glsl");
 
 
-    _lights.push_back(new Light(glm::vec3(1.f,1.f,1.f),glm::vec3(0.5f,0.f,0.0f) ));
-    // _lights.push_back(new Light(glm::vec3(1.0f,1.f,1.f),glm::vec3(-0.5f,0.f,0.2f) ));
+    // _lights.push_back(new Light(glm::vec3(1.f,1.f,1.f),glm::vec3(0.5f,0.f,0.0f) ));
+    _lights.push_back(new Light(glm::vec3(1.0f,1.f,1.f),glm::vec3(-0.5f,0.f,0.2f) ));
 
 
 
