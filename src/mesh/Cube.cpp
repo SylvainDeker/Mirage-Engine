@@ -32,7 +32,7 @@ void Cube::draw(const DrawParameter & para){
   _shaders.at(5)->setMatrix4fv("model",para.model);
   _shaders.at(5)->setMatrix4fv("view",para.camera->viewmatrix());
   _shaders.at(5)->setMatrix4fv("projection",para.projection);
-  _shaders.at(5)->setVector3fv("objectColor", glm::vec3(1.0f, 0.5f, 0.31f));
+  _shaders.at(5)->setVector3fv("objectColor", glm::vec3(1.0f, 1.f, 1.f));
   _shaders.at(5)->setVector3fv("lightColor", para.light->getColor());
   _shaders.at(5)->setVector3fv("lightPos", para.light->getPosition());
   _shaders.at(5)->setVector3fv("viewPos", para.camera->getPosition());
@@ -42,7 +42,7 @@ void Cube::draw(const DrawParameter & para){
   _shaders.at(5)->setFloat("material.shininess", 32.0f);
   _shaders.at(5)->setVector3fv("light.ambient", glm::vec3( 0.2f, 0.2f, 0.2f));
   _shaders.at(5)->setVector3fv("light.diffuse", glm::vec3( 0.5f, 0.5f, 0.5f)); // darken the light a bit to fit the scene
-  _shaders.at(5)->setVector3fv("light.specular",glm::vec3( 1.0f, 1.0f, 1.0f)); 
+  _shaders.at(5)->setVector3fv("light.specular",glm::vec3( 1.0f, 1.0f, 1.0f));
 
    // render the cube
    glBindVertexArray(_vao);

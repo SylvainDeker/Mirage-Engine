@@ -40,6 +40,7 @@ MainScene::MainScene(int width, int height) : _width(width), _height(height),
     _meshes.push_back(new Textu(_shaders));
     _meshes.push_back(new Cube(_shaders));
     _meshes.push_back(new Cube(_shaders));
+    _meshes.push_back(new Cube(_shaders));
 
 
     for (size_t i = 0; i < _meshes.size(); i++) {
@@ -65,7 +66,8 @@ MainScene::MainScene(int width, int height) : _width(width), _height(height),
     _shaders.at(5)->loadfile("../shader/light_VertexShader.glsl","../shader/material_FragmentShader.glsl");
 
 
-    _lights.push_back(new Light(glm::vec3(0.2f,1.f,1.f),glm::vec3(1.f,0.f,0.0f) ));
+    _lights.push_back(new Light(glm::vec3(1.f,1.f,1.f),glm::vec3(0.5f,0.f,0.0f) ));
+    // _lights.push_back(new Light(glm::vec3(1.0f,1.f,1.f),glm::vec3(-0.5f,0.f,0.2f) ));
 
 
 
@@ -121,9 +123,17 @@ void MainScene::draw() {
 
     for (Light *light : _lights) {
 
-        _meshes.at(0)->draw(DrawParameter(_model,_camera.get(),_projection,light)); // DemoBSplineLine());
+        _meshes.at(0)->draw(DrawParameter(
+                      glm::translate(_model,glm::vec3(-1.f,-0.5f,0.0f)),
+                      _camera.get(),
+                      _projection,light
+                    )); // DemoBSplineLine());
 
-        _meshes.at(1)->draw(DrawParameter(_model,_camera.get(),_projection,light)); //DemoBSplineSurface());
+        _meshes.at(1)->draw(DrawParameter(
+                      glm::translate(_model,glm::vec3(-1.1f,-0.5f,0.0f)),
+                      _camera.get(),
+                      _projection,
+                      light)); //DemoBSplineSurface());
 
         _meshes.at(2)->draw(DrawParameter(
                         glm::translate(_model,glm::vec3(0.f,-0.5f,0.0f)),
@@ -140,13 +150,18 @@ void MainScene::draw() {
                       ); // Cube());
 
         _meshes.at(4)->draw(DrawParameter(
-                        glm::scale(glm::translate(_model,light->getPosition()),
-                        glm::vec3(0.05f)),
+                        glm::scale(glm::translate(_model,_lights[0]->getPosition()),glm::vec3(0.05f) ),
                         _camera.get(),
                         _projection,
                         light)
                       ); // Cube());
 
+        // _meshes.at(5)->draw(DrawParameter(
+        //                 glm::scale(glm::translate(_model,_lights[1]->getPosition()),glm::vec3(0.05f) ),
+        //                 _camera.get(),
+        //                 _projection,
+        //                 light)
+        //               ); // Cube());
     }
     movvv+=3;
     if(movvv > 360)movvv = 0;
