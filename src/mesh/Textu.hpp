@@ -4,13 +4,13 @@
 #include <vector>
 #include "glm/glm.hpp"
 #include <GL/gl.h>
-#include "Mesh.hpp"
+#include "DeprecatedMesh.hpp"
 #include "../bspline/Bspline.hpp"
 #include "../light/Light.hpp"
 
 #include <memory>
 
-class Textu : public Mesh {
+class Textu : public DeprecatedMesh {
 public:
   Textu(const std::vector<Shader*> & shaders);
   ~Textu() override ;

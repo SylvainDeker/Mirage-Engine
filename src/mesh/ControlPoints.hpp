@@ -6,11 +6,11 @@
 #include "../openGL/opengl_stuff.h"
 #include "../openGL/Shader.hpp"
 #include <memory>
-#include "Mesh.hpp"
+#include "DeprecatedMesh.hpp"
 #include "../light/Light.hpp"
 #include "../openGL/DrawParameter.hpp"
 
-class ControlPoints : public Mesh {
+class ControlPoints : public DeprecatedMesh {
 public:
   ControlPoints(const std::vector<Shader*> & shaders, std::vector<glm::vec3> & points);
   ~ControlPoints() override ;

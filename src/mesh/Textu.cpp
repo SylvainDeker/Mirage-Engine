@@ -11,7 +11,7 @@
 #include "../openGL/DrawParameter.hpp"
 
 
-Textu::Textu(const std::vector<Shader*> & shaders):Mesh(shaders){
+Textu::Textu(const std::vector<Shader*> & shaders):DeprecatedMesh(shaders){
 
 }
 

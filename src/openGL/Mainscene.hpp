@@ -7,7 +7,7 @@
 #include <memory>
 #include <functional>
 #include "./Shader.hpp"
-#include "../mesh/Mesh.hpp"
+#include "../mesh/DeprecatedMesh.hpp"
 #include "../light/Light.hpp"
 
 
@@ -38,7 +38,7 @@ private:
     int _height;
 
     bool _drawfill;
-    std::vector<Mesh*> _meshes;
+    std::vector<DeprecatedMesh*> _meshes;
     std::vector<Shader*> _shaders;
     std::vector<Light*> _lights;
 

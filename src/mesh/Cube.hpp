@@ -4,13 +4,13 @@
 #include <vector>
 #include "glm/glm.hpp"
 #include <GL/gl.h>
-#include "Mesh.hpp"
+#include "DeprecatedMesh.hpp"
 #include "../bspline/Bspline.hpp"
 #include "../light/Light.hpp"
 #include <memory>
 #include "../openGL/DrawParameter.hpp"
 
-class Cube : public Mesh{
+class Cube : public DeprecatedMesh{
 public:
   Cube(const std::vector<Shader*> & shaders);
   ~Cube() override ;

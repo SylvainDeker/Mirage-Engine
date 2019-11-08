@@ -8,7 +8,7 @@
 #include "../openGL/DrawParameter.hpp"
 
 
-BSplineLine::BSplineLine(const std::vector<Shader*> & shaders, std::vector<glm::vec3> & vertices):Mesh(shaders),_vertices(vertices){
+BSplineLine::BSplineLine(const std::vector<Shader*> & shaders, std::vector<glm::vec3> & vertices):DeprecatedMesh(shaders),_vertices(vertices){
 }
 
 

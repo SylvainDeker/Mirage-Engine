@@ -9,7 +9,7 @@
 #include "../openGL/DrawParameter.hpp"
 
 
-Cube::Cube(const std::vector<Shader*> & shaders):Mesh(shaders){
+Cube::Cube(const std::vector<Shader*> & shaders):DeprecatedMesh(shaders){
 
 }
 

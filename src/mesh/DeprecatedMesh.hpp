@@ -1,13 +1,13 @@
-#ifndef MESH_H_
-#define MESH_H_
+#ifndef DEPRECATED_H_
+#define DEPRECATED_H_
 #include <vector>
 #include "../openGL/Shader.hpp"
 #include "../openGL/DrawParameter.hpp"
 
-class Mesh {
+class DeprecatedMesh {
 public:
-  Mesh(const std::vector<Shader*> & shaders):_shaders(shaders) {}
-  virtual ~Mesh() {};
+  DeprecatedMesh(const std::vector<Shader*> & shaders):_shaders(shaders) {}
+  virtual ~DeprecatedMesh() {};
 
   virtual void initializeGeometry() = 0 ;
 
@@ -18,4 +18,4 @@ protected:
 
 };
 
-#endif // MESH_H_
+#endif // DEPRECATED_H_

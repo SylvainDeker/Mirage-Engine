@@ -8,11 +8,11 @@
 #include "../bspline/Bspline.hpp"
 #include "../openGL/Shader.hpp"
 #include <memory>
-#include "Mesh.hpp"
+#include "DeprecatedMesh.hpp"
 #include "../openGL/DrawParameter.hpp"
 
 
-class BSplineLine :public Mesh{
+class BSplineLine :public DeprecatedMesh{
 public:
   BSplineLine(const std::vector<Shader*> & shaders, std::vector<glm::vec3> & vertices);
   ~BSplineLine() override ;

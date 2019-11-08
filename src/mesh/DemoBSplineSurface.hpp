@@ -6,12 +6,12 @@
 #include "ControlPoints.hpp"
 #include <vector>
 #include "glm/glm.hpp"
-#include "Mesh.hpp"
+#include "DeprecatedMesh.hpp"
 #include "../light/Light.hpp"
 #include "../openGL/DrawParameter.hpp"
 
 
-class DemoBSplineSurface : public Mesh{
+class DemoBSplineSurface : public DeprecatedMesh{
 
 public:
   DemoBSplineSurface(const std::vector<Shader*> & shaders);

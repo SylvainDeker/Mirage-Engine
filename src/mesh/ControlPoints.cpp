@@ -9,7 +9,7 @@
 #include "../openGL/DrawParameter.hpp"
 
 
-ControlPoints::ControlPoints(const std::vector<Shader*> & shaders, std::vector<glm::vec3> & points):Mesh(shaders),_vertices(points){
+ControlPoints::ControlPoints(const std::vector<Shader*> & shaders, std::vector<glm::vec3> & points):DeprecatedMesh(shaders),_vertices(points){
 
 
 

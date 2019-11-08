@@ -5,7 +5,7 @@
 #include "../mesh/DemoBSplineSurface.hpp"
 #include "../mesh/Textu.hpp"
 #include "../mesh/Cube.hpp"
-#include "../mesh/Mesh.hpp"
+#include "../mesh/DeprecatedMesh.hpp"
 #include "../light/Light.hpp"
 #include "opengl_stuff.h"
 #include "DrawParameter.hpp"
@@ -23,7 +23,7 @@
 
 MainScene::MainScene(int width, int height) : _width(width), _height(height),
       _drawfill(true),
-      _meshes(std::vector<Mesh*>()),
+      _meshes(std::vector<DeprecatedMesh*>()),
       _shaders(std::vector<Shader*>()),
       _lights(std::vector<Light*>()),
       _activecamera(0),

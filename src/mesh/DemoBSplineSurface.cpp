@@ -8,7 +8,7 @@
 #include "../light/Light.hpp"
 #include "../openGL/DrawParameter.hpp"
 
-DemoBSplineSurface::DemoBSplineSurface(const std::vector<Shader*> & shaders):Mesh(shaders),
+DemoBSplineSurface::DemoBSplineSurface(const std::vector<Shader*> & shaders):DeprecatedMesh(shaders),
   _controlPoints(std::vector<glm::vec3>()),
   _meshSurface(BSplineSurface(shaders,_displayPoints)),
   _meshControlPoints(ControlPoints(shaders,_controlPoints)),

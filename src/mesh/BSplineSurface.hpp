@@ -4,13 +4,13 @@
 #include <vector>
 #include "glm/glm.hpp"
 #include <GL/gl.h>
-#include "Mesh.hpp"
+#include "DeprecatedMesh.hpp"
 #include "../bspline/Bspline.hpp"
 #include "../light/Light.hpp"
 #include <memory>
 #include "../openGL/DrawParameter.hpp"
 
-class BSplineSurface : public Mesh {
+class BSplineSurface : public DeprecatedMesh {
 public:
   BSplineSurface(const std::vector<Shader*> & shaders, std::vector<glm::vec3> & vertices, size_t x=1, size_t y=1);
   ~BSplineSurface() override ;

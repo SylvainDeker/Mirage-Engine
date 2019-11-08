@@ -8,7 +8,7 @@
 #include "../openGL/DrawParameter.hpp"
 
 
-BSplineSurface::BSplineSurface(const std::vector<Shader*> & shaders,std::vector<glm::vec3> & vertices, size_t x, size_t y ):Mesh(shaders),_vertices(vertices),_dimx(x),_dimy(y){
+BSplineSurface::BSplineSurface(const std::vector<Shader*> & shaders,std::vector<glm::vec3> & vertices, size_t x, size_t y ):DeprecatedMesh(shaders),_vertices(vertices),_dimx(x),_dimy(y){
 
 }
 
