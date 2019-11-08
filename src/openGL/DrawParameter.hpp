@@ -3,17 +3,18 @@
 
 #include "../openGL/opengl_stuff.h"
 #include "../light/Light.hpp"
+#include "Camera.hpp"
 
 
 class DrawParameter{
 public:
 
   DrawParameter(const glm::mat4 & mod,
-                const glm::mat4 & vie,
+                const Camera * cam,
                 const glm::mat4 & proj,
                 const Light * li) :
       model(mod),
-      view(vie),
+      camera(cam),
       projection(proj),
       light(li)
                 {
@@ -23,7 +24,7 @@ public:
   ~DrawParameter() = default;
 
   const glm::mat4 & model;
-  const glm::mat4 & view;
+  const Camera * camera;
   const glm::mat4 & projection;
   const Light * light;
 };

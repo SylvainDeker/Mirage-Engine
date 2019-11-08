@@ -33,7 +33,7 @@ void Textu::draw(const DrawParameter & para){
 
 
   _shaders.at(2)->setMatrix4fv("model",para.model);
-  _shaders.at(2)->setMatrix4fv("view",para.view);
+  _shaders.at(2)->setMatrix4fv("view",para.camera->viewmatrix());
   _shaders.at(2)->setMatrix4fv("projection",para.projection);
   _shaders.at(2)->setVector4fv("ourColor",glm::vec4(1.0, 0.5, 0.31 ,1.0));
   _shaders.at(2)->setInt("ourTexture",1);

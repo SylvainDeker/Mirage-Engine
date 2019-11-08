@@ -121,20 +121,20 @@ void MainScene::draw() {
 
     for (Light *light : _lights) {
 
-        _meshes.at(0)->draw(DrawParameter(_model,_view,_projection,light)); // DemoBSplineLine());
+        _meshes.at(0)->draw(DrawParameter(_model,_camera.get(),_projection,light)); // DemoBSplineLine());
 
-        _meshes.at(1)->draw(DrawParameter(_model,_view,_projection,light)); //DemoBSplineSurface());
+        _meshes.at(1)->draw(DrawParameter(_model,_camera.get(),_projection,light)); //DemoBSplineSurface());
 
         _meshes.at(2)->draw(DrawParameter(
                         glm::translate(_model,glm::vec3(0.f,-0.5f,0.0f)),
-                        _view,
+                        _camera.get(),
                         _projection,
                         light)
                       ); //Textu());
 
         _meshes.at(3)->draw(DrawParameter(
                         glm::scale(turn_model,glm::vec3(0.2f)),
-                        _view,
+                        _camera.get(),
                         _projection,
                         light)
                       ); // Cube());
@@ -142,7 +142,8 @@ void MainScene::draw() {
         _meshes.at(4)->draw(DrawParameter(
                         glm::scale(glm::translate(_model,light->getPosition()),
                         glm::vec3(0.05f)),
-                        _view,_projection,
+                        _camera.get(),
+                        _projection,
                         light)
                       ); // Cube());
 

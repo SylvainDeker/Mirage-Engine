@@ -24,7 +24,7 @@ void BSplineLine::draw(const DrawParameter & para){
 
   _shaders.at(0)->use();
   _shaders.at(0)->setMatrix4fv("model",para.model);
-  _shaders.at(0)->setMatrix4fv("view",para.view);
+  _shaders.at(0)->setMatrix4fv("view",para.camera->viewmatrix());
   _shaders.at(0)->setMatrix4fv("projection",para.projection);
 
   glBindVertexArray(_vao);
