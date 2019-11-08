@@ -21,6 +21,13 @@ find_package(OpenGL REQUIRED) # define OPENGL_LIBRARIES
 #OpenGL deprecated on MacosX : remove compilation warning
 add_definitions(-DGL_SILENCE_DEPRECATION)
 
+# include_directories(assimp-4.1.0/include)
+# set(BUILD_ASSIMP_TOOLS  OFF)
+add_subdirectory(assimp-4.1.0)
+
+include_directories(assimp-4.1.0/include)
+# link_directories()
+
 ################################################################################
 # Define project private sources and headers
 #
@@ -73,6 +80,6 @@ add_executable(${PROJECT_NAME}
                )
 
 
-set(EXT_LIBS Qt5::OpenGL ${OPENGL_LIBRARIES})
+set(EXT_LIBS Qt5::OpenGL ${OPENGL_LIBRARIES} assimp)
 
 target_link_libraries(${PROJECT_NAME} ${EXT_LIBS} )
