@@ -15,6 +15,16 @@ struct Material {
     float shininess;
 };
 
+struct Light {
+    vec3 position;
+
+    vec3 ambient;
+    vec3 diffuse;
+    vec3 specular;
+};
+
+uniform Light light;  
+
 uniform vec3 viewPos;
 uniform Material material;
 

@@ -24,7 +24,7 @@ public:
     // Returns the view matrix calculated using Eular Angles and the LookAt Matrix
     glm::mat4 viewmatrix() const;
     float &zoom();
-    glm::vec3 &position();
+    const glm::vec3 &getPosition() const ;
 
     void setviewport(glm::vec4 viewport);
 

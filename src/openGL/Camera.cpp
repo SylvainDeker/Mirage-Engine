@@ -40,7 +40,7 @@ float &Camera::zoom() {
     return _zoom;
 }
 
-glm::vec3 &Camera::position() {
+const glm::vec3 &Camera::getPosition() const {
     return _position;
 }
 
