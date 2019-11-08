@@ -9,7 +9,7 @@
 #include "../light/Light.hpp"
 #include "../mesh/Model.hpp"
 #include "opengl_stuff.h"
-#include "DrawParameter.hpp"
+#include "DeprecatedDrawParameter.hpp"
 /*------------------------------------------------------------------------------------------------------------------------*/
 /*------------------------------------------------------------------------------------------------------------------------*/
 /*------------------------------------------------------------------------------------------------------------------------*/
@@ -44,6 +44,9 @@ MainScene::MainScene(int width, int height) : _width(width), _height(height),
     _meshes.push_back(new Cube(_shaders));
     _meshes.push_back(new Cube(_shaders));
 
+    _models.push_back(new Model("../model/Boat/boat.3ds"));
+    _models.push_back(new Model("../model/Crysis/nanosuit.blend"));
+
 
     for (size_t i = 0; i < _meshes.size(); i++) {
       _meshes[i]->initializeGeometry();
@@ -66,6 +69,9 @@ MainScene::MainScene(int width, int height) : _width(width), _height(height),
 
     _shaders.push_back(new Shader());
     _shaders.at(5)->loadfile("../shader/light_VertexShader.glsl","../shader/material_FragmentShader.glsl");
+
+    _shaders.push_back(new Shader());
+    _shaders.at(6)->loadfile("../shader/loader_VertexShader.glsl","../shader/loader_FragmentShader.glsl");
 
 
     // _lights.push_back(new Light(glm::vec3(1.f,1.f,1.f),glm::vec3(0.5f,0.f,0.0f) ));
@@ -125,45 +131,59 @@ void MainScene::draw() {
 
     for (Light *light : _lights) {
 
-        _meshes.at(0)->draw(DrawParameter(
+        _meshes.at(0)->draw(DeprecatedDrawParameter(
                       glm::translate(_model,glm::vec3(-1.f,-0.5f,0.0f)),
                       _camera.get(),
                       _projection,light
                     )); // DemoBSplineLine());
 
-        _meshes.at(1)->draw(DrawParameter(
+        _meshes.at(1)->draw(DeprecatedDrawParameter(
                       glm::translate(_model,glm::vec3(-1.1f,-0.5f,0.0f)),
                       _camera.get(),
                       _projection,
                       light)); //DemoBSplineSurface());
 
-        _meshes.at(2)->draw(DrawParameter(
+        _meshes.at(2)->draw(DeprecatedDrawParameter(
                         glm::translate(_model,glm::vec3(0.f,-0.5f,0.0f)),
                         _camera.get(),
                         _projection,
                         light)
                       ); //Textu());
 
-        _meshes.at(3)->draw(DrawParameter(
+        _meshes.at(3)->draw(DeprecatedDrawParameter(
                         glm::scale(turn_model,glm::vec3(0.2f)),
                         _camera.get(),
                         _projection,
                         light)
                       ); // Cube());
 
-        _meshes.at(4)->draw(DrawParameter(
+        _meshes.at(4)->draw(DeprecatedDrawParameter(
                         glm::scale(glm::translate(_model,_lights[0]->getPosition()),glm::vec3(0.05f) ),
                         _camera.get(),
                         _projection,
                         light)
                       ); // Cube());
 
-        // _meshes.at(5)->draw(DrawParameter(
+        // _meshes.at(5)->draw(DeprecatedDrawParameter(
         //                 glm::scale(glm::translate(_model,_lights[1]->getPosition()),glm::vec3(0.05f) ),
         //                 _camera.get(),
         //                 _projection,
         //                 light)
         //               ); // Cube());
+
+        _models.at(0)->draw(DrawParameter(_shaders.at(6),
+                        glm::scale(_model,glm::vec3(10.0f)),
+                        _camera.get(),
+                        _projection,
+                        light
+                      ));
+
+        _models.at(1)->draw(DrawParameter(_shaders.at(6),
+                        glm::scale(_model,glm::vec3(2.0f)),
+                        _camera.get(),
+                        _projection,
+                        light
+                      ));
     }
     movvv+=3;
     if(movvv > 360)movvv = 0;

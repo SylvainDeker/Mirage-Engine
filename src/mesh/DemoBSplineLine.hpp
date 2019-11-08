@@ -8,7 +8,7 @@
 #include "glm/glm.hpp"
 #include "DeprecatedMesh.hpp"
 #include "../light/Light.hpp"
-#include "../openGL/DrawParameter.hpp"
+#include "../openGL/DeprecatedDrawParameter.hpp"
 
 
 class DemoBSplineLine : public DeprecatedMesh {
@@ -17,7 +17,7 @@ public:
   DemoBSplineLine(const std::vector<Shader*> & shaders);
   ~DemoBSplineLine () override ;
   void initializeGeometry() override ;
-  void draw(const DrawParameter & para) override ;
+  void draw(const DeprecatedDrawParameter & para) override ;
 
 private:
   std::vector<glm::vec3> _controlPoints;

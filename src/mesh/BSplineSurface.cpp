@@ -5,7 +5,7 @@
 #include <memory>
 #include <functional>
 #include "BSplineSurface.hpp"
-#include "../openGL/DrawParameter.hpp"
+#include "../openGL/DeprecatedDrawParameter.hpp"
 
 
 BSplineSurface::BSplineSurface(const std::vector<Shader*> & shaders,std::vector<glm::vec3> & vertices, size_t x, size_t y ):DeprecatedMesh(shaders),_vertices(vertices),_dimx(x),_dimy(y){
@@ -55,7 +55,7 @@ BSplineSurface::~BSplineSurface(){
 
 
 
-void BSplineSurface::draw(const DrawParameter & para){
+void BSplineSurface::draw(const DeprecatedDrawParameter & para){
 
   _shaders.at(0)->use();
   _shaders.at(0)->setMatrix4fv("model",para.model);

@@ -5,7 +5,7 @@
 #include <memory>
 #include <functional>
 #include "BSplineLine.hpp"
-#include "../openGL/DrawParameter.hpp"
+#include "../openGL/DeprecatedDrawParameter.hpp"
 
 
 BSplineLine::BSplineLine(const std::vector<Shader*> & shaders, std::vector<glm::vec3> & vertices):DeprecatedMesh(shaders),_vertices(vertices){
@@ -20,7 +20,7 @@ BSplineLine::~BSplineLine(){
 
 
 
-void BSplineLine::draw(const DrawParameter & para){
+void BSplineLine::draw(const DeprecatedDrawParameter & para){
 
   _shaders.at(0)->use();
   _shaders.at(0)->setMatrix4fv("model",para.model);

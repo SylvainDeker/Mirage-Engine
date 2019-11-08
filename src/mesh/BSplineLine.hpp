@@ -9,7 +9,7 @@
 #include "../openGL/Shader.hpp"
 #include <memory>
 #include "DeprecatedMesh.hpp"
-#include "../openGL/DrawParameter.hpp"
+#include "../openGL/DeprecatedDrawParameter.hpp"
 
 
 class BSplineLine :public DeprecatedMesh{
@@ -19,7 +19,7 @@ public:
 
   void initializeGeometry() override;
 
-  void draw(const DrawParameter & para) override ;
+  void draw(const DeprecatedDrawParameter & para) override ;
 
 
 

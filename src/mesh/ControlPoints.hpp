@@ -8,7 +8,7 @@
 #include <memory>
 #include "DeprecatedMesh.hpp"
 #include "../light/Light.hpp"
-#include "../openGL/DrawParameter.hpp"
+#include "../openGL/DeprecatedDrawParameter.hpp"
 
 class ControlPoints : public DeprecatedMesh {
 public:
@@ -17,7 +17,7 @@ public:
 
   void initializeGeometry() override ;
 
-  void draw(const DrawParameter & para) override ;
+  void draw(const DeprecatedDrawParameter & para) override ;
 
 
 protected:

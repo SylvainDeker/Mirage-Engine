@@ -7,7 +7,7 @@
 #include "Textu.hpp"
 #include "../light/Light.hpp"
 #include "../openGL/stb_image.h"
-#include "../openGL/DrawParameter.hpp"
+#include "../openGL/DeprecatedDrawParameter.hpp"
 
 
 Textu::Textu(const std::vector<Shader*> & shaders):DeprecatedMesh(shaders){
@@ -26,7 +26,7 @@ Textu::~Textu(){
 
 
 
-void Textu::draw(const DrawParameter & para){
+void Textu::draw(const DeprecatedDrawParameter & para){
 
   _shaders.at(2)->use();
 

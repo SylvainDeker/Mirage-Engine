@@ -12,7 +12,7 @@
 #include <assimp/postprocess.h>
 
 #include "Mesh.hpp"
-#include "../openGL/Shader.hpp"
+#include "../openGL/DrawParameter.hpp"
 
 #include <string>
 #include <fstream>
@@ -41,7 +41,7 @@ public:
     Model(string const &path, bool gamma = false);
 
     // draws the model, and thus all its meshes
-    void draw(Shader* shader);
+    void draw(const DrawParameter & para);
 
 private:
     /*  Functions   */

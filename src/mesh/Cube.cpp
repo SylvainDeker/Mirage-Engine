@@ -6,7 +6,7 @@
 #include <functional>
 #include "Cube.hpp"
 #include "../light/Light.hpp"
-#include "../openGL/DrawParameter.hpp"
+#include "../openGL/DeprecatedDrawParameter.hpp"
 
 
 Cube::Cube(const std::vector<Shader*> & shaders):DeprecatedMesh(shaders){
@@ -23,7 +23,7 @@ Cube::~Cube(){
 
 
 
-void Cube::draw(const DrawParameter & para){
+void Cube::draw(const DeprecatedDrawParameter & para){
 
   _shaders.at(5)->use();
   // glCheckError();

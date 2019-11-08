@@ -6,7 +6,7 @@
 #include "ControlPoints.hpp"
 #include "../openGL/opengl_stuff.h"
 #include "../light/Light.hpp"
-#include "../openGL/DrawParameter.hpp"
+#include "../openGL/DeprecatedDrawParameter.hpp"
 
 
 ControlPoints::ControlPoints(const std::vector<Shader*> & shaders, std::vector<glm::vec3> & points):DeprecatedMesh(shaders),_vertices(points){
@@ -21,7 +21,7 @@ ControlPoints::~ControlPoints(){
   glDeleteVertexArrays(1, &_vao) ;
 }
 
-void ControlPoints::draw(const DrawParameter & para){
+void ControlPoints::draw(const DeprecatedDrawParameter & para){
 
   _shaders.at(3)->use();
   _shaders.at(3)->setMatrix4fv("model",para.model);

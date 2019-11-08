@@ -8,6 +8,7 @@
 
 #include "Mesh.hpp"
 #include "../openGL/Shader.hpp"
+#include "../openGL/DrawParameter.hpp"
 
 #include <string>
 #include <fstream>
@@ -36,10 +37,10 @@ Model::Model(string const &path, bool gamma) : gammaCorrection(gamma)
 }
 
 // draws the model, and thus all its meshes
-void Model::draw(Shader* shader)
+void Model::draw(const DrawParameter & para)
 {
     for(unsigned int i = 0; i < meshes.size(); i++)
-        meshes[i].draw(shader);
+        meshes[i].draw(para);
 }
 
 

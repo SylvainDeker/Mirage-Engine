@@ -8,7 +8,7 @@
 #include "glm/glm.hpp"
 #include "DeprecatedMesh.hpp"
 #include "../light/Light.hpp"
-#include "../openGL/DrawParameter.hpp"
+#include "../openGL/DeprecatedDrawParameter.hpp"
 
 
 class DemoBSplineSurface : public DeprecatedMesh{
@@ -18,7 +18,7 @@ public:
   ~DemoBSplineSurface () override ;
   void initializeGeometry() override ;
 
-  void draw(const DrawParameter & para) override ;
+  void draw(const DeprecatedDrawParameter & para) override ;
 
 
 private:

@@ -2,7 +2,7 @@
 #define DEPRECATED_H_
 #include <vector>
 #include "../openGL/Shader.hpp"
-#include "../openGL/DrawParameter.hpp"
+#include "../openGL/DeprecatedDrawParameter.hpp"
 
 class DeprecatedMesh {
 public:
@@ -11,7 +11,7 @@ public:
 
   virtual void initializeGeometry() = 0 ;
 
-  virtual void draw(const DrawParameter & para)  = 0 ;
+  virtual void draw(const DeprecatedDrawParameter & para)  = 0 ;
 
 protected:
   const std::vector<Shader*> & _shaders;

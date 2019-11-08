@@ -8,7 +8,7 @@
 #include "../bspline/Bspline.hpp"
 #include "../light/Light.hpp"
 #include <memory>
-#include "../openGL/DrawParameter.hpp"
+#include "../openGL/DeprecatedDrawParameter.hpp"
 
 class BSplineSurface : public DeprecatedMesh {
 public:
@@ -21,7 +21,7 @@ public:
   void setDimXY(size_t x, size_t y);
   glm::vec3 getVertice(size_t x,size_t y);
   size_t getIdx(size_t x, size_t y) const ;
-  void draw(const DrawParameter & para) override ;
+  void draw(const DeprecatedDrawParameter & para) override ;
 
 
 private:

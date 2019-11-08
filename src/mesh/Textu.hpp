@@ -17,7 +17,7 @@ public:
 
   void initializeGeometry() override ;
 
-  void draw(const DrawParameter & para) override ;
+  void draw(const DeprecatedDrawParameter & para) override ;
 
 
 private:

@@ -8,7 +8,7 @@
 #include "../bspline/Bspline.hpp"
 #include "../light/Light.hpp"
 #include <memory>
-#include "../openGL/DrawParameter.hpp"
+#include "../openGL/DeprecatedDrawParameter.hpp"
 
 class Cube : public DeprecatedMesh{
 public:
@@ -17,7 +17,7 @@ public:
 
   void initializeGeometry() override ;
 
-  void draw(const DrawParameter & para) override ;
+  void draw(const DeprecatedDrawParameter & para) override ;
 
 
 private:

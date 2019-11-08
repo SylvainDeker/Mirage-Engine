@@ -6,6 +6,7 @@
 #include "Vertex.hpp"
 #include "../openGL/opengl_stuff.h"
 #include "../openGL/Shader.hpp"
+#include "../openGL/DrawParameter.hpp"
 
 Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures)
 {
@@ -46,7 +47,7 @@ void Mesh::setupMesh()
 }
 
 
-void Mesh::draw(Shader *shader)
+void Mesh::draw(const DrawParameter& para)
 {
     unsigned int diffuseNr = 1;
     unsigned int specularNr = 1;
@@ -61,7 +62,7 @@ void Mesh::draw(Shader *shader)
         else if(name == "texture_specular")
             number = std::to_string(specularNr++);
 
-        shader->setFloat(("material." + name + number).c_str(), i);
+        para.shader->setFloat(("material." + name + number).c_str(), i);
         glBindTexture(GL_TEXTURE_2D, textures[i].id);
     }
     glActiveTexture(GL_TEXTURE0);

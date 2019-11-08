@@ -6,7 +6,7 @@
 #include <vector>
 #include "glm/glm.hpp"
 #include "../light/Light.hpp"
-#include "../openGL/DrawParameter.hpp"
+#include "../openGL/DeprecatedDrawParameter.hpp"
 
 DemoBSplineSurface::DemoBSplineSurface(const std::vector<Shader*> & shaders):DeprecatedMesh(shaders),
   _controlPoints(std::vector<glm::vec3>()),
@@ -50,7 +50,7 @@ void DemoBSplineSurface::initializeGeometry(){
 
 
 
-void DemoBSplineSurface::draw(const DrawParameter & para){
+void DemoBSplineSurface::draw(const DeprecatedDrawParameter & para){
 
   _meshSurface.draw(para);
   _meshControlPoints.draw(para);
