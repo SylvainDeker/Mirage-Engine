@@ -9,6 +9,7 @@
 #include "../openGL/Shader.hpp"
 #include <memory>
 #include "Mesh.hpp"
+#include "../openGL/DrawParameter.hpp"
 
 
 class BSplineLine :public Mesh{
@@ -18,10 +19,7 @@ public:
 
   void initializeGeometry() override;
 
-  void draw( const glm::mat4 & model,
-            const glm::mat4 & view,
-            const glm::mat4 & projection,
-            const Light * light) override;
+  void draw(const DrawParameter & para) override ;
 
 
 

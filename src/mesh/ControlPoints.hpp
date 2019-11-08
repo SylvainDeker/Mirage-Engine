@@ -8,6 +8,7 @@
 #include <memory>
 #include "Mesh.hpp"
 #include "../light/Light.hpp"
+#include "../openGL/DrawParameter.hpp"
 
 class ControlPoints : public Mesh {
 public:
@@ -16,11 +17,7 @@ public:
 
   void initializeGeometry() override ;
 
-  void draw(
-            const glm::mat4 & model,
-            const glm::mat4 & view,
-            const glm::mat4 & projection,
-            const Light * light) override ;
+  void draw(const DrawParameter & para) override ;
 
 
 protected:

@@ -6,6 +6,7 @@
 #include "ControlPoints.hpp"
 #include "../openGL/opengl_stuff.h"
 #include "../light/Light.hpp"
+#include "../openGL/DrawParameter.hpp"
 
 
 ControlPoints::ControlPoints(const std::vector<Shader*> & shaders, std::vector<glm::vec3> & points):Mesh(shaders),_vertices(points){
@@ -20,17 +21,12 @@ ControlPoints::~ControlPoints(){
   glDeleteVertexArrays(1, &_vao) ;
 }
 
-void ControlPoints::draw(
-          const glm::mat4 & model,
-          const glm::mat4 & view,
-          const glm::mat4 & projection,
-          const Light * light){
+void ControlPoints::draw(const DrawParameter & para){
 
-  (void) light;
   _shaders.at(3)->use();
-  _shaders.at(3)->setMatrix4fv("model",model);
-  _shaders.at(3)->setMatrix4fv("view",view);
-  _shaders.at(3)->setMatrix4fv("projection",projection);
+  _shaders.at(3)->setMatrix4fv("model",para.model);
+  _shaders.at(3)->setMatrix4fv("view",para.view);
+  _shaders.at(3)->setMatrix4fv("projection",para.projection);
   float r = float(std::rand())/RAND_MAX;
   float g = float(std::rand())/RAND_MAX;
   float b = float(std::rand())/RAND_MAX;

@@ -5,6 +5,7 @@
 #include <vector>
 #include "glm/glm.hpp"
 #include "../light/Light.hpp"
+#include "../openGL/DrawParameter.hpp"
 
 DemoBSplineLine::DemoBSplineLine(const std::vector<Shader*> & shaders):Mesh(shaders),
   _controlPoints(std::vector<glm::vec3>()),
@@ -45,13 +46,9 @@ void DemoBSplineLine::initializeGeometry(){
 }
 
 
-void DemoBSplineLine::draw(
-          const glm::mat4 & model,
-          const glm::mat4 & view,
-          const glm::mat4 & projection,
-          const Light * light){
+void DemoBSplineLine::draw(const DrawParameter & para){
 
-  _meshLine.draw(model,view,projection,light);
-  _meshControlPoints.draw(model,view,projection,light);
+  _meshLine.draw(para);
+  _meshControlPoints.draw(para);
 
 }

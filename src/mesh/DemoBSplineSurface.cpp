@@ -6,6 +6,7 @@
 #include <vector>
 #include "glm/glm.hpp"
 #include "../light/Light.hpp"
+#include "../openGL/DrawParameter.hpp"
 
 DemoBSplineSurface::DemoBSplineSurface(const std::vector<Shader*> & shaders):Mesh(shaders),
   _controlPoints(std::vector<glm::vec3>()),
@@ -49,11 +50,9 @@ void DemoBSplineSurface::initializeGeometry(){
 
 
 
-void DemoBSplineSurface::draw(const glm::mat4 & model,
-          const glm::mat4 & view,
-          const glm::mat4 & projection,
-          const Light * light) {
-  _meshSurface.draw(model,view,projection,light);
-  _meshControlPoints.draw(model,view,projection,light);
+void DemoBSplineSurface::draw(const DrawParameter & para){
+
+  _meshSurface.draw(para);
+  _meshControlPoints.draw(para);
 
 }
