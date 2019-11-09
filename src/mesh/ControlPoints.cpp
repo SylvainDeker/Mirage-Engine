@@ -9,7 +9,7 @@
 #include "../openGL/DeprecatedDrawParameter.hpp"
 
 
-ControlPoints::ControlPoints(const std::vector<Shader*> & shaders, std::vector<glm::vec3> & points):DeprecatedMesh(shaders),_vertices(points){
+ControlPoints::ControlPoints(const std::map<std::string,Shader*> & shaders, std::vector<glm::vec3> & points):DeprecatedMesh(shaders),_vertices(points){
 
 
 
@@ -23,14 +23,14 @@ ControlPoints::~ControlPoints(){
 
 void ControlPoints::draw(const DeprecatedDrawParameter & para){
 
-  _shaders.at(3)->use();
-  _shaders.at(3)->setMatrix4fv("model",para.model);
-  _shaders.at(3)->setMatrix4fv("view",para.camera->viewmatrix());
-  _shaders.at(3)->setMatrix4fv("projection",para.projection);
+  _shaders.at("rand")->use();
+  _shaders.at("rand")->setMatrix4fv("model",para.model);
+  _shaders.at("rand")->setMatrix4fv("view",para.camera->viewmatrix());
+  _shaders.at("rand")->setMatrix4fv("projection",para.projection);
   float r = float(std::rand())/RAND_MAX;
   float g = float(std::rand())/RAND_MAX;
   float b = float(std::rand())/RAND_MAX;
-  _shaders.at(3)->setVector4fv("usercolor",glm::vec4(r,g,b,1.0));
+  _shaders.at("rand")->setVector4fv("usercolor",glm::vec4(r,g,b,1.0));
 
   glBindVertexArray(_vao);
   glDrawElements(GL_POINTS, _indices.size(), GL_UNSIGNED_INT, nullptr);

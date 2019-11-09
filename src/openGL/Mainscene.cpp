@@ -1,6 +1,7 @@
 #include "Mainscene.hpp"
 #include <iostream>
 #include <QTime>
+#include <map>
 #include "../mesh/DemoBSplineLine.hpp"
 #include "../mesh/DemoBSplineSurface.hpp"
 #include "../mesh/Textu.hpp"
@@ -26,7 +27,7 @@ MainScene::MainScene(int width, int height) : _width(width), _height(height),
       _drawfill(true),
       _meshes(std::vector<DeprecatedMesh*>()),
       _models(std::vector<Model*>()),
-      _shaders(std::vector<Shader*>()),
+      _shaders(std::map<std::string,Shader*>()),
       _lights(std::vector<Light*>()),
       _activecamera(0),
       _camera(nullptr)
@@ -52,26 +53,26 @@ MainScene::MainScene(int width, int height) : _width(width), _height(height),
       _meshes[i]->initializeGeometry();
     }
 
-    _shaders.push_back(new Shader());
-    _shaders.at(0)->loadfile("../shader/normal_VertexShader.glsl","../shader/normal_FragmentShader.glsl");
+    _shaders.insert(std::pair<std::string,Shader*>("normal", new Shader()));
+    _shaders.at("normal")->loadfile("../shader/normal_VertexShader.glsl","../shader/normal_FragmentShader.glsl");
 
-    _shaders.push_back(new Shader());
-    _shaders.at(1)->loadfile("../shader/normal_VertexShader.glsl","../shader/normal_FragmentShader.glsl");
+    _shaders.insert(std::pair<std::string,Shader*>("normal2", new Shader()));
+    _shaders.at("normal2")->loadfile("../shader/normal_VertexShader.glsl","../shader/normal_FragmentShader.glsl");
 
-    _shaders.push_back(new Shader());
-    _shaders.at(2)->loadfile("../shader/textu_VertexShader.glsl","../shader/textu_FragmentShader.glsl");
+    _shaders.insert(std::pair<std::string,Shader*>("textu", new Shader()));
+    _shaders.at("textu")->loadfile("../shader/textu_VertexShader.glsl","../shader/textu_FragmentShader.glsl");
 
-    _shaders.push_back(new Shader());
-    _shaders.at(3)->loadfile("../shader/rand_VertexShader.glsl","../shader/rand_FragmentShader.glsl");
+    _shaders.insert(std::pair<std::string,Shader*>("rand", new Shader()));
+    _shaders.at("rand")->loadfile("../shader/rand_VertexShader.glsl","../shader/rand_FragmentShader.glsl");
 
-    _shaders.push_back(new Shader());
-    _shaders.at(4)->loadfile("../shader/light_VertexShader.glsl","../shader/light_FragmentShader.glsl");
+    _shaders.insert(std::pair<std::string,Shader*>("light", new Shader()));
+    _shaders.at("light")->loadfile("../shader/light_VertexShader.glsl","../shader/light_FragmentShader.glsl");
 
-    _shaders.push_back(new Shader());
-    _shaders.at(5)->loadfile("../shader/light_VertexShader.glsl","../shader/material_FragmentShader.glsl");
+    _shaders.insert(std::pair<std::string,Shader*>("l+m", new Shader()));
+    _shaders.at("l+m")->loadfile("../shader/light_VertexShader.glsl","../shader/material_FragmentShader.glsl");
 
-    _shaders.push_back(new Shader());
-    _shaders.at(6)->loadfile("../shader/loader_VertexShader.glsl","../shader/loader_FragmentShader.glsl");
+    _shaders.insert(std::pair<std::string,Shader*>("loader", new Shader()));
+    _shaders.at("loader")->loadfile("../shader/loader_VertexShader.glsl","../shader/loader_FragmentShader.glsl");
 
 
     // _lights.push_back(new Light(glm::vec3(1.f,1.f,1.f),glm::vec3(0.5f,0.f,0.0f) ));
@@ -95,8 +96,8 @@ MainScene::~MainScene() {
     for (size_t i = 0; i < _meshes.size(); i++) {
       delete _meshes[i];
     }
-    for (size_t i = 0; i < _shaders.size(); i++) {
-      delete _shaders[i];
+    for (std::map<std::string,Shader*>::iterator it= _shaders.begin(); it!=_shaders.end(); ++it){
+      delete it->second;
     }
 
 }
@@ -172,14 +173,14 @@ void MainScene::draw() {
         //                 light)
         //               ); // Cube());
 
-        _models.at(0)->draw(DrawParameter(_shaders.at(6),
+        _models.at(0)->draw(DrawParameter(_shaders.at("loader"),
                         glm::scale(_model,glm::vec3(10.0f)),
                         _camera.get(),
                         _projection,
                         light
                       ));
 
-        _models.at(1)->draw(DrawParameter(_shaders.at(6),
+        _models.at(1)->draw(DrawParameter(_shaders.at("loader"),
                         glm::scale(_model,glm::vec3(2.0f)),
                         _camera.get(),
                         _projection,

@@ -8,7 +8,7 @@
 #include "../openGL/DeprecatedDrawParameter.hpp"
 
 
-BSplineLine::BSplineLine(const std::vector<Shader*> & shaders, std::vector<glm::vec3> & vertices):DeprecatedMesh(shaders),_vertices(vertices){
+BSplineLine::BSplineLine(const std::map<std::string,Shader*> & shaders, std::vector<glm::vec3> & vertices):DeprecatedMesh(shaders),_vertices(vertices){
 }
 
 
@@ -22,10 +22,10 @@ BSplineLine::~BSplineLine(){
 
 void BSplineLine::draw(const DeprecatedDrawParameter & para){
 
-  _shaders.at(0)->use();
-  _shaders.at(0)->setMatrix4fv("model",para.model);
-  _shaders.at(0)->setMatrix4fv("view",para.camera->viewmatrix());
-  _shaders.at(0)->setMatrix4fv("projection",para.projection);
+  _shaders.at("normal")->use();
+  _shaders.at("normal")->setMatrix4fv("model",para.model);
+  _shaders.at("normal")->setMatrix4fv("view",para.camera->viewmatrix());
+  _shaders.at("normal")->setMatrix4fv("projection",para.projection);
 
   glBindVertexArray(_vao);
   glDrawElements(GL_LINE_STRIP, _indices.size(), GL_UNSIGNED_INT, nullptr);

@@ -12,7 +12,7 @@
 
 class Textu : public DeprecatedMesh {
 public:
-  Textu(const std::vector<Shader*> & shaders);
+  Textu(const std::map<std::string,Shader*> & shaders);
   ~Textu() override ;
 
   void initializeGeometry() override ;

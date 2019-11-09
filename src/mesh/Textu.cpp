@@ -10,7 +10,7 @@
 #include "../openGL/DeprecatedDrawParameter.hpp"
 
 
-Textu::Textu(const std::vector<Shader*> & shaders):DeprecatedMesh(shaders){
+Textu::Textu(const std::map<std::string,Shader*> & shaders):DeprecatedMesh(shaders){
 
 }
 
@@ -28,15 +28,15 @@ Textu::~Textu(){
 
 void Textu::draw(const DeprecatedDrawParameter & para){
 
-  _shaders.at(2)->use();
+  _shaders.at("textu")->use();
 
 
-  _shaders.at(2)->setMatrix4fv("model",para.model);
-  _shaders.at(2)->setMatrix4fv("view",para.camera->viewmatrix());
-  _shaders.at(2)->setMatrix4fv("projection",para.projection);
-  _shaders.at(2)->setVector4fv("ourColor",glm::vec4(1.0, 0.5, 0.31 ,1.0));
-  _shaders.at(2)->setInt("ourTexture",1);
-  _shaders.at(2)->setInt("ourTexture2",1);
+  _shaders.at("textu")->setMatrix4fv("model",para.model);
+  _shaders.at("textu")->setMatrix4fv("view",para.camera->viewmatrix());
+  _shaders.at("textu")->setMatrix4fv("projection",para.projection);
+  _shaders.at("textu")->setVector4fv("ourColor",glm::vec4(1.0, 0.5, 0.31 ,1.0));
+  _shaders.at("textu")->setInt("ourTexture",1);
+  _shaders.at("textu")->setInt("ourTexture2",1);
   glActiveTexture(GL_TEXTURE0); // activate the texture unit first before binding texture
   glBindTexture(GL_TEXTURE_2D, _texture);
 

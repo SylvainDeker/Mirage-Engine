@@ -14,7 +14,7 @@
 class DemoBSplineLine : public DeprecatedMesh {
 
 public:
-  DemoBSplineLine(const std::vector<Shader*> & shaders);
+  DemoBSplineLine(const std::map<std::string,Shader*> & shaders);
   ~DemoBSplineLine () override ;
   void initializeGeometry() override ;
   void draw(const DeprecatedDrawParameter & para) override ;

@@ -14,7 +14,7 @@
 class DemoBSplineSurface : public DeprecatedMesh{
 
 public:
-  DemoBSplineSurface(const std::vector<Shader*> & shaders);
+  DemoBSplineSurface(const std::map<std::string,Shader*> & shaders);
   ~DemoBSplineSurface () override ;
   void initializeGeometry() override ;
 

@@ -12,7 +12,7 @@
 
 class ControlPoints : public DeprecatedMesh {
 public:
-  ControlPoints(const std::vector<Shader*> & shaders, std::vector<glm::vec3> & points);
+  ControlPoints(const std::map<std::string,Shader*> & shaders, std::vector<glm::vec3> & points);
   ~ControlPoints() override ;
 
   void initializeGeometry() override ;

@@ -12,7 +12,7 @@
 
 class BSplineSurface : public DeprecatedMesh {
 public:
-  BSplineSurface(const std::vector<Shader*> & shaders, std::vector<glm::vec3> & vertices, size_t x=1, size_t y=1);
+  BSplineSurface(const std::map<std::string,Shader*> & shaders, std::vector<glm::vec3> & vertices, size_t x=1, size_t y=1);
   ~BSplineSurface() override ;
 
   void initializeGeometry() override ;

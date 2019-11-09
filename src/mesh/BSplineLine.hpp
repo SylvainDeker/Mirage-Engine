@@ -14,7 +14,7 @@
 
 class BSplineLine :public DeprecatedMesh{
 public:
-  BSplineLine(const std::vector<Shader*> & shaders, std::vector<glm::vec3> & vertices);
+  BSplineLine(const std::map<std::string,Shader*> & shaders, std::vector<glm::vec3> & vertices);
   ~BSplineLine() override ;
 
   void initializeGeometry() override;

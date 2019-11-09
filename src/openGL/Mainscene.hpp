@@ -40,7 +40,7 @@ private:
     bool _drawfill;
     std::vector<DeprecatedMesh*> _meshes;
     std::vector<Model*> _models;
-    std::vector<Shader*> _shaders;
+    std::map<std::string,Shader*> _shaders;
     std::vector<Light*> _lights;
 
     // for mouse management

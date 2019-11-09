@@ -8,7 +8,7 @@
 #include "../openGL/DeprecatedDrawParameter.hpp"
 
 
-BSplineSurface::BSplineSurface(const std::vector<Shader*> & shaders,std::vector<glm::vec3> & vertices, size_t x, size_t y ):DeprecatedMesh(shaders),_vertices(vertices),_dimx(x),_dimy(y){
+BSplineSurface::BSplineSurface(const std::map<std::string,Shader*> & shaders,std::vector<glm::vec3> & vertices, size_t x, size_t y ):DeprecatedMesh(shaders),_vertices(vertices),_dimx(x),_dimy(y){
 
 }
 
@@ -57,10 +57,10 @@ BSplineSurface::~BSplineSurface(){
 
 void BSplineSurface::draw(const DeprecatedDrawParameter & para){
 
-  _shaders.at(0)->use();
-  _shaders.at(0)->setMatrix4fv("model",para.model);
-  _shaders.at(0)->setMatrix4fv("view",para.camera->viewmatrix());
-  _shaders.at(0)->setMatrix4fv("projection",para.projection);
+  _shaders.at("normal")->use();
+  _shaders.at("normal")->setMatrix4fv("model",para.model);
+  _shaders.at("normal")->setMatrix4fv("view",para.camera->viewmatrix());
+  _shaders.at("normal")->setMatrix4fv("projection",para.projection);
 
 
   glBindVertexArray(_vao);

@@ -12,7 +12,7 @@
 
 class Cube : public DeprecatedMesh{
 public:
-  Cube(const std::vector<Shader*> & shaders);
+  Cube(const std::map<std::string,Shader*> & shaders);
   ~Cube() override ;
 
   void initializeGeometry() override ;
