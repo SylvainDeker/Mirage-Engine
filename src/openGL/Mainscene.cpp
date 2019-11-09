@@ -113,6 +113,7 @@ void MainScene::draw() {
   glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+  glDepthFunc(GL_LESS); // DepthBuff
 
   if (_drawfill)
       glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
