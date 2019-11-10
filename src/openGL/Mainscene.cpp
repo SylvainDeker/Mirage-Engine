@@ -9,6 +9,7 @@
 #include "../mesh/DeprecatedMesh.hpp"
 #include "../light/Light.hpp"
 #include "../mesh/Model.hpp"
+#include "../mesh/CubeMap.hpp"
 #include "opengl_stuff.h"
 #include "DeprecatedDrawParameter.hpp"
 /*------------------------------------------------------------------------------------------------------------------------*/
@@ -17,9 +18,6 @@
 /*------------------------------------------------------------------------------------------------------------------------*/
 /*------------------------------------------------------------------------------------------------------------------------*/
 /*------------------------------------------------------------------------------------------------------------------------*/
-
-
-#define deg2rad(x) float(M_PI)*(x)/180.f
 
 
 
@@ -44,9 +42,10 @@ MainScene::MainScene(int width, int height) : _width(width), _height(height),
     _meshes.push_back(new Cube(_shaders));
     _meshes.push_back(new Cube(_shaders));
     _meshes.push_back(new Cube(_shaders));
+    _meshes.push_back(new CubeMap(_shaders));
 
-    _models.push_back(new Model("../model/Boat/boat.3ds"));
-    _models.push_back(new Model("../model/Crysis/nanosuit.blend"));
+    // _models.push_back(new Model("../model/Boat/boat.3ds"));
+    // _models.push_back(new Model("../model/Crysis/nanosuit.blend"));
 
 
     for (size_t i = 0; i < _meshes.size(); i++) {
@@ -73,6 +72,12 @@ MainScene::MainScene(int width, int height) : _width(width), _height(height),
 
     _shaders.insert(std::pair<std::string,Shader*>("loader", new Shader()));
     _shaders.at("loader")->loadfile("../shader/loader_VertexShader.glsl","../shader/loader_FragmentShader.glsl");
+
+    _shaders.insert(std::pair<std::string,Shader*>("cubemaps", new Shader()));
+    _shaders.at("cubemaps")->loadfile("../shader/cubemaps_VertexShader.glsl","../shader/cubemaps_FragmentShader.glsl");
+
+    _shaders.insert(std::pair<std::string,Shader*>("skybox", new Shader()));
+    _shaders.at("skybox")->loadfile("../shader/skybox_VertexShader.glsl","../shader/skybox_FragmentShader.glsl");
 
 
     // _lights.push_back(new Light(glm::vec3(1.f,1.f,1.f),glm::vec3(0.5f,0.f,0.0f) ));
@@ -173,19 +178,27 @@ void MainScene::draw() {
         //                 light)
         //               ); // Cube());
 
-        _models.at(0)->draw(DrawParameter(_shaders.at("loader"),
-                        glm::scale(_model,glm::vec3(10.0f)),
-                        _camera.get(),
-                        _projection,
-                        light
-                      ));
 
-        _models.at(1)->draw(DrawParameter(_shaders.at("loader"),
-                        glm::scale(_model,glm::vec3(2.0f)),
+        _meshes.at(6)->draw(DeprecatedDrawParameter(
+                        _model,
                         _camera.get(),
                         _projection,
-                        light
-                      ));
+                        light)
+                      ); // Cube());
+
+        // _models.at(0)->draw(DrawParameter(_shaders.at("loader"),
+        //                 glm::scale(_model,glm::vec3(10.0f)),
+        //                 _camera.get(),
+        //                 _projection,
+        //                 light
+        //               ));
+        //
+        // _models.at(1)->draw(DrawParameter(_shaders.at("loader"),
+        //                 glm::scale(_model,glm::vec3(2.0f)),
+        //                 _camera.get(),
+        //                 _projection,
+        //                 light
+        //               ));
     }
     movvv+=3;
     if(movvv > 360)movvv = 0;
