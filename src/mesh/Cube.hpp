@@ -21,10 +21,11 @@ public:
 
 
 private:
+  unsigned int loadTexture(char const * path);
   // A simple geometry
-  std::vector<glm::vec3> _vertices;
+  std::vector<float> _vertices ;
 
-
+  unsigned int _cubeTexture ;
 
   // OpenGL object for geometry
   GLuint _vao;

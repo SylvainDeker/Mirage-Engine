@@ -164,12 +164,13 @@ void MainScene::draw() {
                         light)
                       ); // Cube());
 
-        _meshes.at(4)->draw(DeprecatedDrawParameter(
-                        glm::scale(glm::translate(_model,_lights[0]->getPosition()),glm::vec3(0.05f) ),
-                        _camera.get(),
-                        _projection,
-                        light)
-                      ); // Cube());
+        // _meshes.at(4)->draw(DeprecatedDrawParameter(
+        //                 // glm::scale(glm::translate(_model,_lights[0]->getPosition()),glm::vec3(0.05f) ),
+        //                 _model,
+        //                 _camera.get(),
+        //                 _projection,
+        //                 light)
+        //               ); // Cube());
 
         // _meshes.at(5)->draw(DeprecatedDrawParameter(
         //                 glm::scale(glm::translate(_model,_lights[1]->getPosition()),glm::vec3(0.05f) ),
@@ -200,7 +201,7 @@ void MainScene::draw() {
         //                 light
         //               ));
     }
-    movvv+=3;
+    movvv+=1;
     if(movvv > 360)movvv = 0;
 }
 

@@ -27,33 +27,33 @@ CubeMap::~CubeMap(){
 
 
 void CubeMap::draw(const DeprecatedDrawParameter & para){
-  _shaders.at("cubemaps")->use();
-  _shaders.at("cubemaps")->setInt("texture1", 0);
+  // _shaders.at("cubemaps")->use();
+  // _shaders.at("cubemaps")->setInt("texture1", 0);
 
   _shaders.at("skybox")->use();
   _shaders.at("skybox")->setInt("skybox", 0);
 
-  _shaders.at("cubemaps")->use();
-  glm::mat4 model = para.model;
-  glm::mat4 view = para.camera->viewmatrix();
-  glm::mat4 projection = para.projection;
-  _shaders.at("cubemaps")->setMatrix4fv("model", model);
-  _shaders.at("cubemaps")->setMatrix4fv("view", view);
-  _shaders.at("cubemaps")->setMatrix4fv("projection", projection);
-  _shaders.at("cubemaps")->setVector3fv("cameraPos", para.camera->getPosition());
-  // cubes
-  glBindVertexArray(_cubeVAO);
-  glActiveTexture(GL_TEXTURE0);
-  glBindTexture(GL_TEXTURE_2D, _cubeTexture);
-  glDrawArrays(GL_TRIANGLES, 0, 36);
-  glBindVertexArray(0);
+  // _shaders.at("cubemaps")->use();
+  // glm::mat4 model = para.model;
+  // glm::mat4 view = para.camera->viewmatrix();
+  // glm::mat4 projection = para.projection;
+  // _shaders.at("cubemaps")->setMatrix4fv("model", model);
+  // _shaders.at("cubemaps")->setMatrix4fv("view", view);
+  // _shaders.at("cubemaps")->setMatrix4fv("projection", projection);
+  // _shaders.at("cubemaps")->setVector3fv("cameraPos", para.camera->getPosition());
+  // // cubes
+  // glBindVertexArray(_cubeVAO);
+  // glActiveTexture(GL_TEXTURE0);
+  // glBindTexture(GL_TEXTURE_2D, _cubeTexture);
+  // glDrawArrays(GL_TRIANGLES, 0, 36);
+  // glBindVertexArray(0);
 
   // draw skybox as last
   glDepthFunc(GL_LEQUAL);  // change depth function so depth test passes when values are equal to depth buffer's content
   _shaders.at("skybox")->use();
-  view = glm::mat4(glm::mat3(para.camera->viewmatrix())); // remove translation from the view matrix
+  glm::mat4 view = glm::mat4(glm::mat3(para.camera->viewmatrix())); // remove translation from the view matrix
   _shaders.at("skybox")->setMatrix4fv("view", view);
-  _shaders.at("skybox")->setMatrix4fv("projection", projection);
+  _shaders.at("skybox")->setMatrix4fv("projection", para.projection);
   // skybox cube
   glBindVertexArray(_skyboxVAO);
   glActiveTexture(GL_TEXTURE0);
@@ -70,44 +70,44 @@ void CubeMap::draw(const DeprecatedDrawParameter & para){
 
 void CubeMap::initializeGeometry(){
 
-  // positions          // texture Coords
-  _cubeVertices.push_back(-0.5f);_cubeVertices.push_back(-0.5f);_cubeVertices.push_back(-0.5f);     _cubeVertices.push_back( 0.0f); _cubeVertices.push_back( 0.0f); _cubeVertices.push_back(-1.0f);      _cubeVertices.push_back(0.0f);_cubeVertices.push_back(0.0f);
-  _cubeVertices.push_back( 0.5f);_cubeVertices.push_back(-0.5f);_cubeVertices.push_back(-0.5f);     _cubeVertices.push_back( 0.0f); _cubeVertices.push_back( 0.0f); _cubeVertices.push_back(-1.0f);      _cubeVertices.push_back(1.0f);_cubeVertices.push_back(0.0f);
-  _cubeVertices.push_back( 0.5f);_cubeVertices.push_back( 0.5f);_cubeVertices.push_back(-0.5f);     _cubeVertices.push_back( 0.0f); _cubeVertices.push_back( 0.0f); _cubeVertices.push_back(-1.0f);      _cubeVertices.push_back(1.0f);_cubeVertices.push_back(1.0f);
-  _cubeVertices.push_back( 0.5f);_cubeVertices.push_back( 0.5f);_cubeVertices.push_back(-0.5f);     _cubeVertices.push_back( 0.0f); _cubeVertices.push_back( 0.0f); _cubeVertices.push_back(-1.0f);      _cubeVertices.push_back(1.0f);_cubeVertices.push_back(1.0f);
-  _cubeVertices.push_back(-0.5f);_cubeVertices.push_back( 0.5f);_cubeVertices.push_back(-0.5f);     _cubeVertices.push_back( 0.0f); _cubeVertices.push_back( 0.0f); _cubeVertices.push_back(-1.0f);      _cubeVertices.push_back(0.0f);_cubeVertices.push_back(1.0f);
-  _cubeVertices.push_back(-0.5f);_cubeVertices.push_back(-0.5f);_cubeVertices.push_back(-0.5f);     _cubeVertices.push_back( 0.0f); _cubeVertices.push_back( 0.0f); _cubeVertices.push_back(-1.0f);      _cubeVertices.push_back(0.0f);_cubeVertices.push_back(0.0f);
-  _cubeVertices.push_back(-0.5f);_cubeVertices.push_back(-0.5f);_cubeVertices.push_back( 0.5f);     _cubeVertices.push_back( 0.0f); _cubeVertices.push_back( 0.0f); _cubeVertices.push_back( 1.0f);      _cubeVertices.push_back(0.0f);_cubeVertices.push_back(0.0f);
-  _cubeVertices.push_back( 0.5f);_cubeVertices.push_back(-0.5f);_cubeVertices.push_back( 0.5f);     _cubeVertices.push_back( 0.0f); _cubeVertices.push_back( 0.0f); _cubeVertices.push_back( 1.0f);      _cubeVertices.push_back(1.0f);_cubeVertices.push_back(0.0f);
-  _cubeVertices.push_back( 0.5f);_cubeVertices.push_back( 0.5f);_cubeVertices.push_back( 0.5f);     _cubeVertices.push_back( 0.0f); _cubeVertices.push_back( 0.0f); _cubeVertices.push_back( 1.0f);      _cubeVertices.push_back(1.0f);_cubeVertices.push_back(1.0f);
-  _cubeVertices.push_back( 0.5f);_cubeVertices.push_back( 0.5f);_cubeVertices.push_back( 0.5f);     _cubeVertices.push_back( 0.0f); _cubeVertices.push_back( 0.0f); _cubeVertices.push_back( 1.0f);      _cubeVertices.push_back(1.0f);_cubeVertices.push_back(1.0f);
-  _cubeVertices.push_back(-0.5f);_cubeVertices.push_back( 0.5f);_cubeVertices.push_back( 0.5f);     _cubeVertices.push_back( 0.0f); _cubeVertices.push_back( 0.0f); _cubeVertices.push_back( 1.0f);      _cubeVertices.push_back(0.0f);_cubeVertices.push_back(1.0f);
-  _cubeVertices.push_back(-0.5f);_cubeVertices.push_back(-0.5f);_cubeVertices.push_back( 0.5f);     _cubeVertices.push_back( 0.0f); _cubeVertices.push_back( 0.0f); _cubeVertices.push_back( 1.0f);      _cubeVertices.push_back(0.0f);_cubeVertices.push_back(0.0f);
-  _cubeVertices.push_back(-0.5f);_cubeVertices.push_back( 0.5f);_cubeVertices.push_back( 0.5f);     _cubeVertices.push_back(-1.0f); _cubeVertices.push_back( 0.0f); _cubeVertices.push_back( 0.0f);      _cubeVertices.push_back(1.0f);_cubeVertices.push_back(0.0f);
-  _cubeVertices.push_back(-0.5f);_cubeVertices.push_back( 0.5f);_cubeVertices.push_back(-0.5f);     _cubeVertices.push_back(-1.0f); _cubeVertices.push_back( 0.0f); _cubeVertices.push_back( 0.0f);      _cubeVertices.push_back(1.0f);_cubeVertices.push_back(1.0f);
-  _cubeVertices.push_back(-0.5f);_cubeVertices.push_back(-0.5f);_cubeVertices.push_back(-0.5f);     _cubeVertices.push_back(-1.0f); _cubeVertices.push_back( 0.0f); _cubeVertices.push_back( 0.0f);      _cubeVertices.push_back(0.0f);_cubeVertices.push_back(1.0f);
-  _cubeVertices.push_back(-0.5f);_cubeVertices.push_back(-0.5f);_cubeVertices.push_back(-0.5f);     _cubeVertices.push_back(-1.0f); _cubeVertices.push_back( 0.0f); _cubeVertices.push_back( 0.0f);      _cubeVertices.push_back(0.0f);_cubeVertices.push_back(1.0f);
-  _cubeVertices.push_back(-0.5f);_cubeVertices.push_back(-0.5f);_cubeVertices.push_back( 0.5f);     _cubeVertices.push_back(-1.0f); _cubeVertices.push_back( 0.0f); _cubeVertices.push_back( 0.0f);      _cubeVertices.push_back(0.0f);_cubeVertices.push_back(0.0f);
-  _cubeVertices.push_back(-0.5f);_cubeVertices.push_back( 0.5f);_cubeVertices.push_back( 0.5f);     _cubeVertices.push_back(-1.0f); _cubeVertices.push_back( 0.0f); _cubeVertices.push_back( 0.0f);      _cubeVertices.push_back(1.0f);_cubeVertices.push_back(0.0f);
-  _cubeVertices.push_back( 0.5f);_cubeVertices.push_back( 0.5f);_cubeVertices.push_back( 0.5f);     _cubeVertices.push_back( 1.0f); _cubeVertices.push_back( 0.0f); _cubeVertices.push_back( 0.0f);      _cubeVertices.push_back(1.0f);_cubeVertices.push_back(0.0f);
-  _cubeVertices.push_back( 0.5f);_cubeVertices.push_back( 0.5f);_cubeVertices.push_back(-0.5f);     _cubeVertices.push_back( 1.0f); _cubeVertices.push_back( 0.0f); _cubeVertices.push_back( 0.0f);      _cubeVertices.push_back(1.0f);_cubeVertices.push_back(1.0f);
-  _cubeVertices.push_back( 0.5f);_cubeVertices.push_back(-0.5f);_cubeVertices.push_back(-0.5f);     _cubeVertices.push_back( 1.0f); _cubeVertices.push_back( 0.0f); _cubeVertices.push_back( 0.0f);      _cubeVertices.push_back(0.0f);_cubeVertices.push_back(1.0f);
-  _cubeVertices.push_back( 0.5f);_cubeVertices.push_back(-0.5f);_cubeVertices.push_back(-0.5f);     _cubeVertices.push_back( 1.0f); _cubeVertices.push_back( 0.0f); _cubeVertices.push_back( 0.0f);      _cubeVertices.push_back(0.0f);_cubeVertices.push_back(1.0f);
-  _cubeVertices.push_back( 0.5f);_cubeVertices.push_back(-0.5f);_cubeVertices.push_back( 0.5f);     _cubeVertices.push_back( 1.0f); _cubeVertices.push_back( 0.0f); _cubeVertices.push_back( 0.0f);      _cubeVertices.push_back(0.0f);_cubeVertices.push_back(0.0f);
-  _cubeVertices.push_back( 0.5f);_cubeVertices.push_back( 0.5f);_cubeVertices.push_back( 0.5f);     _cubeVertices.push_back( 1.0f); _cubeVertices.push_back( 0.0f); _cubeVertices.push_back( 0.0f);      _cubeVertices.push_back(1.0f);_cubeVertices.push_back(0.0f);
-  _cubeVertices.push_back(-0.5f);_cubeVertices.push_back(-0.5f);_cubeVertices.push_back(-0.5f);     _cubeVertices.push_back( 0.0f); _cubeVertices.push_back(-1.0f); _cubeVertices.push_back( 0.0f);      _cubeVertices.push_back(0.0f);_cubeVertices.push_back(1.0f);
-  _cubeVertices.push_back( 0.5f);_cubeVertices.push_back(-0.5f);_cubeVertices.push_back(-0.5f);     _cubeVertices.push_back( 0.0f); _cubeVertices.push_back(-1.0f); _cubeVertices.push_back( 0.0f);      _cubeVertices.push_back(1.0f);_cubeVertices.push_back(1.0f);
-  _cubeVertices.push_back( 0.5f);_cubeVertices.push_back(-0.5f);_cubeVertices.push_back( 0.5f);     _cubeVertices.push_back( 0.0f); _cubeVertices.push_back(-1.0f); _cubeVertices.push_back( 0.0f);      _cubeVertices.push_back(1.0f);_cubeVertices.push_back(0.0f);
-  _cubeVertices.push_back( 0.5f);_cubeVertices.push_back(-0.5f);_cubeVertices.push_back( 0.5f);     _cubeVertices.push_back( 0.0f); _cubeVertices.push_back(-1.0f); _cubeVertices.push_back( 0.0f);      _cubeVertices.push_back(1.0f);_cubeVertices.push_back(0.0f);
-  _cubeVertices.push_back(-0.5f);_cubeVertices.push_back(-0.5f);_cubeVertices.push_back( 0.5f);     _cubeVertices.push_back( 0.0f); _cubeVertices.push_back(-1.0f); _cubeVertices.push_back( 0.0f);      _cubeVertices.push_back(0.0f);_cubeVertices.push_back(0.0f);
-  _cubeVertices.push_back(-0.5f);_cubeVertices.push_back(-0.5f);_cubeVertices.push_back(-0.5f);     _cubeVertices.push_back( 0.0f); _cubeVertices.push_back(-1.0f); _cubeVertices.push_back( 0.0f);      _cubeVertices.push_back(0.0f);_cubeVertices.push_back(1.0f);
-  _cubeVertices.push_back(-0.5f);_cubeVertices.push_back( 0.5f);_cubeVertices.push_back(-0.5f);     _cubeVertices.push_back( 0.0f); _cubeVertices.push_back( 1.0f); _cubeVertices.push_back( 0.0f);      _cubeVertices.push_back(0.0f);_cubeVertices.push_back(1.0f);
-  _cubeVertices.push_back( 0.5f);_cubeVertices.push_back( 0.5f);_cubeVertices.push_back(-0.5f);     _cubeVertices.push_back( 0.0f); _cubeVertices.push_back( 1.0f); _cubeVertices.push_back( 0.0f);      _cubeVertices.push_back(1.0f);_cubeVertices.push_back(1.0f);
-  _cubeVertices.push_back( 0.5f);_cubeVertices.push_back( 0.5f);_cubeVertices.push_back( 0.5f);     _cubeVertices.push_back( 0.0f); _cubeVertices.push_back( 1.0f); _cubeVertices.push_back( 0.0f);      _cubeVertices.push_back(1.0f);_cubeVertices.push_back(0.0f);
-  _cubeVertices.push_back( 0.5f);_cubeVertices.push_back( 0.5f);_cubeVertices.push_back( 0.5f);     _cubeVertices.push_back( 0.0f); _cubeVertices.push_back( 1.0f); _cubeVertices.push_back( 0.0f);      _cubeVertices.push_back(1.0f);_cubeVertices.push_back(0.0f);
-  _cubeVertices.push_back(-0.5f);_cubeVertices.push_back( 0.5f);_cubeVertices.push_back( 0.5f);     _cubeVertices.push_back( 0.0f); _cubeVertices.push_back( 1.0f); _cubeVertices.push_back( 0.0f);      _cubeVertices.push_back(0.0f);_cubeVertices.push_back(0.0f);
-  _cubeVertices.push_back(-0.5f);_cubeVertices.push_back( 0.5f);_cubeVertices.push_back(-0.5f);     _cubeVertices.push_back( 0.0f); _cubeVertices.push_back( 1.0f); _cubeVertices.push_back( 0.0f);      _cubeVertices.push_back(0.0f);_cubeVertices.push_back(1.0f);
-
+  // // positions          // texture Coords
+  // _cubeVertices.push_back(-0.5f);_cubeVertices.push_back(-0.5f);_cubeVertices.push_back(-0.5f);     _cubeVertices.push_back( 0.0f); _cubeVertices.push_back( 0.0f); _cubeVertices.push_back(-1.0f);      _cubeVertices.push_back(0.0f);_cubeVertices.push_back(0.0f);
+  // _cubeVertices.push_back( 0.5f);_cubeVertices.push_back(-0.5f);_cubeVertices.push_back(-0.5f);     _cubeVertices.push_back( 0.0f); _cubeVertices.push_back( 0.0f); _cubeVertices.push_back(-1.0f);      _cubeVertices.push_back(1.0f);_cubeVertices.push_back(0.0f);
+  // _cubeVertices.push_back( 0.5f);_cubeVertices.push_back( 0.5f);_cubeVertices.push_back(-0.5f);     _cubeVertices.push_back( 0.0f); _cubeVertices.push_back( 0.0f); _cubeVertices.push_back(-1.0f);      _cubeVertices.push_back(1.0f);_cubeVertices.push_back(1.0f);
+  // _cubeVertices.push_back( 0.5f);_cubeVertices.push_back( 0.5f);_cubeVertices.push_back(-0.5f);     _cubeVertices.push_back( 0.0f); _cubeVertices.push_back( 0.0f); _cubeVertices.push_back(-1.0f);      _cubeVertices.push_back(1.0f);_cubeVertices.push_back(1.0f);
+  // _cubeVertices.push_back(-0.5f);_cubeVertices.push_back( 0.5f);_cubeVertices.push_back(-0.5f);     _cubeVertices.push_back( 0.0f); _cubeVertices.push_back( 0.0f); _cubeVertices.push_back(-1.0f);      _cubeVertices.push_back(0.0f);_cubeVertices.push_back(1.0f);
+  // _cubeVertices.push_back(-0.5f);_cubeVertices.push_back(-0.5f);_cubeVertices.push_back(-0.5f);     _cubeVertices.push_back( 0.0f); _cubeVertices.push_back( 0.0f); _cubeVertices.push_back(-1.0f);      _cubeVertices.push_back(0.0f);_cubeVertices.push_back(0.0f);
+  // _cubeVertices.push_back(-0.5f);_cubeVertices.push_back(-0.5f);_cubeVertices.push_back( 0.5f);     _cubeVertices.push_back( 0.0f); _cubeVertices.push_back( 0.0f); _cubeVertices.push_back( 1.0f);      _cubeVertices.push_back(0.0f);_cubeVertices.push_back(0.0f);
+  // _cubeVertices.push_back( 0.5f);_cubeVertices.push_back(-0.5f);_cubeVertices.push_back( 0.5f);     _cubeVertices.push_back( 0.0f); _cubeVertices.push_back( 0.0f); _cubeVertices.push_back( 1.0f);      _cubeVertices.push_back(1.0f);_cubeVertices.push_back(0.0f);
+  // _cubeVertices.push_back( 0.5f);_cubeVertices.push_back( 0.5f);_cubeVertices.push_back( 0.5f);     _cubeVertices.push_back( 0.0f); _cubeVertices.push_back( 0.0f); _cubeVertices.push_back( 1.0f);      _cubeVertices.push_back(1.0f);_cubeVertices.push_back(1.0f);
+  // _cubeVertices.push_back( 0.5f);_cubeVertices.push_back( 0.5f);_cubeVertices.push_back( 0.5f);     _cubeVertices.push_back( 0.0f); _cubeVertices.push_back( 0.0f); _cubeVertices.push_back( 1.0f);      _cubeVertices.push_back(1.0f);_cubeVertices.push_back(1.0f);
+  // _cubeVertices.push_back(-0.5f);_cubeVertices.push_back( 0.5f);_cubeVertices.push_back( 0.5f);     _cubeVertices.push_back( 0.0f); _cubeVertices.push_back( 0.0f); _cubeVertices.push_back( 1.0f);      _cubeVertices.push_back(0.0f);_cubeVertices.push_back(1.0f);
+  // _cubeVertices.push_back(-0.5f);_cubeVertices.push_back(-0.5f);_cubeVertices.push_back( 0.5f);     _cubeVertices.push_back( 0.0f); _cubeVertices.push_back( 0.0f); _cubeVertices.push_back( 1.0f);      _cubeVertices.push_back(0.0f);_cubeVertices.push_back(0.0f);
+  // _cubeVertices.push_back(-0.5f);_cubeVertices.push_back( 0.5f);_cubeVertices.push_back( 0.5f);     _cubeVertices.push_back(-1.0f); _cubeVertices.push_back( 0.0f); _cubeVertices.push_back( 0.0f);      _cubeVertices.push_back(1.0f);_cubeVertices.push_back(0.0f);
+  // _cubeVertices.push_back(-0.5f);_cubeVertices.push_back( 0.5f);_cubeVertices.push_back(-0.5f);     _cubeVertices.push_back(-1.0f); _cubeVertices.push_back( 0.0f); _cubeVertices.push_back( 0.0f);      _cubeVertices.push_back(1.0f);_cubeVertices.push_back(1.0f);
+  // _cubeVertices.push_back(-0.5f);_cubeVertices.push_back(-0.5f);_cubeVertices.push_back(-0.5f);     _cubeVertices.push_back(-1.0f); _cubeVertices.push_back( 0.0f); _cubeVertices.push_back( 0.0f);      _cubeVertices.push_back(0.0f);_cubeVertices.push_back(1.0f);
+  // _cubeVertices.push_back(-0.5f);_cubeVertices.push_back(-0.5f);_cubeVertices.push_back(-0.5f);     _cubeVertices.push_back(-1.0f); _cubeVertices.push_back( 0.0f); _cubeVertices.push_back( 0.0f);      _cubeVertices.push_back(0.0f);_cubeVertices.push_back(1.0f);
+  // _cubeVertices.push_back(-0.5f);_cubeVertices.push_back(-0.5f);_cubeVertices.push_back( 0.5f);     _cubeVertices.push_back(-1.0f); _cubeVertices.push_back( 0.0f); _cubeVertices.push_back( 0.0f);      _cubeVertices.push_back(0.0f);_cubeVertices.push_back(0.0f);
+  // _cubeVertices.push_back(-0.5f);_cubeVertices.push_back( 0.5f);_cubeVertices.push_back( 0.5f);     _cubeVertices.push_back(-1.0f); _cubeVertices.push_back( 0.0f); _cubeVertices.push_back( 0.0f);      _cubeVertices.push_back(1.0f);_cubeVertices.push_back(0.0f);
+  // _cubeVertices.push_back( 0.5f);_cubeVertices.push_back( 0.5f);_cubeVertices.push_back( 0.5f);     _cubeVertices.push_back( 1.0f); _cubeVertices.push_back( 0.0f); _cubeVertices.push_back( 0.0f);      _cubeVertices.push_back(1.0f);_cubeVertices.push_back(0.0f);
+  // _cubeVertices.push_back( 0.5f);_cubeVertices.push_back( 0.5f);_cubeVertices.push_back(-0.5f);     _cubeVertices.push_back( 1.0f); _cubeVertices.push_back( 0.0f); _cubeVertices.push_back( 0.0f);      _cubeVertices.push_back(1.0f);_cubeVertices.push_back(1.0f);
+  // _cubeVertices.push_back( 0.5f);_cubeVertices.push_back(-0.5f);_cubeVertices.push_back(-0.5f);     _cubeVertices.push_back( 1.0f); _cubeVertices.push_back( 0.0f); _cubeVertices.push_back( 0.0f);      _cubeVertices.push_back(0.0f);_cubeVertices.push_back(1.0f);
+  // _cubeVertices.push_back( 0.5f);_cubeVertices.push_back(-0.5f);_cubeVertices.push_back(-0.5f);     _cubeVertices.push_back( 1.0f); _cubeVertices.push_back( 0.0f); _cubeVertices.push_back( 0.0f);      _cubeVertices.push_back(0.0f);_cubeVertices.push_back(1.0f);
+  // _cubeVertices.push_back( 0.5f);_cubeVertices.push_back(-0.5f);_cubeVertices.push_back( 0.5f);     _cubeVertices.push_back( 1.0f); _cubeVertices.push_back( 0.0f); _cubeVertices.push_back( 0.0f);      _cubeVertices.push_back(0.0f);_cubeVertices.push_back(0.0f);
+  // _cubeVertices.push_back( 0.5f);_cubeVertices.push_back( 0.5f);_cubeVertices.push_back( 0.5f);     _cubeVertices.push_back( 1.0f); _cubeVertices.push_back( 0.0f); _cubeVertices.push_back( 0.0f);      _cubeVertices.push_back(1.0f);_cubeVertices.push_back(0.0f);
+  // _cubeVertices.push_back(-0.5f);_cubeVertices.push_back(-0.5f);_cubeVertices.push_back(-0.5f);     _cubeVertices.push_back( 0.0f); _cubeVertices.push_back(-1.0f); _cubeVertices.push_back( 0.0f);      _cubeVertices.push_back(0.0f);_cubeVertices.push_back(1.0f);
+  // _cubeVertices.push_back( 0.5f);_cubeVertices.push_back(-0.5f);_cubeVertices.push_back(-0.5f);     _cubeVertices.push_back( 0.0f); _cubeVertices.push_back(-1.0f); _cubeVertices.push_back( 0.0f);      _cubeVertices.push_back(1.0f);_cubeVertices.push_back(1.0f);
+  // _cubeVertices.push_back( 0.5f);_cubeVertices.push_back(-0.5f);_cubeVertices.push_back( 0.5f);     _cubeVertices.push_back( 0.0f); _cubeVertices.push_back(-1.0f); _cubeVertices.push_back( 0.0f);      _cubeVertices.push_back(1.0f);_cubeVertices.push_back(0.0f);
+  // _cubeVertices.push_back( 0.5f);_cubeVertices.push_back(-0.5f);_cubeVertices.push_back( 0.5f);     _cubeVertices.push_back( 0.0f); _cubeVertices.push_back(-1.0f); _cubeVertices.push_back( 0.0f);      _cubeVertices.push_back(1.0f);_cubeVertices.push_back(0.0f);
+  // _cubeVertices.push_back(-0.5f);_cubeVertices.push_back(-0.5f);_cubeVertices.push_back( 0.5f);     _cubeVertices.push_back( 0.0f); _cubeVertices.push_back(-1.0f); _cubeVertices.push_back( 0.0f);      _cubeVertices.push_back(0.0f);_cubeVertices.push_back(0.0f);
+  // _cubeVertices.push_back(-0.5f);_cubeVertices.push_back(-0.5f);_cubeVertices.push_back(-0.5f);     _cubeVertices.push_back( 0.0f); _cubeVertices.push_back(-1.0f); _cubeVertices.push_back( 0.0f);      _cubeVertices.push_back(0.0f);_cubeVertices.push_back(1.0f);
+  // _cubeVertices.push_back(-0.5f);_cubeVertices.push_back( 0.5f);_cubeVertices.push_back(-0.5f);     _cubeVertices.push_back( 0.0f); _cubeVertices.push_back( 1.0f); _cubeVertices.push_back( 0.0f);      _cubeVertices.push_back(0.0f);_cubeVertices.push_back(1.0f);
+  // _cubeVertices.push_back( 0.5f);_cubeVertices.push_back( 0.5f);_cubeVertices.push_back(-0.5f);     _cubeVertices.push_back( 0.0f); _cubeVertices.push_back( 1.0f); _cubeVertices.push_back( 0.0f);      _cubeVertices.push_back(1.0f);_cubeVertices.push_back(1.0f);
+  // _cubeVertices.push_back( 0.5f);_cubeVertices.push_back( 0.5f);_cubeVertices.push_back( 0.5f);     _cubeVertices.push_back( 0.0f); _cubeVertices.push_back( 1.0f); _cubeVertices.push_back( 0.0f);      _cubeVertices.push_back(1.0f);_cubeVertices.push_back(0.0f);
+  // _cubeVertices.push_back( 0.5f);_cubeVertices.push_back( 0.5f);_cubeVertices.push_back( 0.5f);     _cubeVertices.push_back( 0.0f); _cubeVertices.push_back( 1.0f); _cubeVertices.push_back( 0.0f);      _cubeVertices.push_back(1.0f);_cubeVertices.push_back(0.0f);
+  // _cubeVertices.push_back(-0.5f);_cubeVertices.push_back( 0.5f);_cubeVertices.push_back( 0.5f);     _cubeVertices.push_back( 0.0f); _cubeVertices.push_back( 1.0f); _cubeVertices.push_back( 0.0f);      _cubeVertices.push_back(0.0f);_cubeVertices.push_back(0.0f);
+  // _cubeVertices.push_back(-0.5f);_cubeVertices.push_back( 0.5f);_cubeVertices.push_back(-0.5f);     _cubeVertices.push_back( 0.0f); _cubeVertices.push_back( 1.0f); _cubeVertices.push_back( 0.0f);      _cubeVertices.push_back(0.0f);_cubeVertices.push_back(1.0f);
+  //
 
 
 
@@ -150,18 +150,18 @@ void CubeMap::initializeGeometry(){
   _skyboxVertices.push_back(-1.0f); _skyboxVertices.push_back(-1.0f); _skyboxVertices.push_back( 1.0f);
   _skyboxVertices.push_back( 1.0f); _skyboxVertices.push_back(-1.0f); _skyboxVertices.push_back( 1.0f);
 
-  // cube VAO
-  glGenVertexArrays(1, &_cubeVAO);
-  glGenBuffers(1, &_cubeVBO);
-  glBindVertexArray(_cubeVAO);
-  glBindBuffer(GL_ARRAY_BUFFER, _cubeVBO);
-  glBufferData(GL_ARRAY_BUFFER, _cubeVertices.size()*sizeof(float), _cubeVertices.data(), GL_STATIC_DRAW);
-  glEnableVertexAttribArray(0);
-  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
-  glEnableVertexAttribArray(1);
-  glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
-  glEnableVertexAttribArray(2);
-  glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+  // // cube VAO
+  // glGenVertexArrays(1, &_cubeVAO);
+  // glGenBuffers(1, &_cubeVBO);
+  // glBindVertexArray(_cubeVAO);
+  // glBindBuffer(GL_ARRAY_BUFFER, _cubeVBO);
+  // glBufferData(GL_ARRAY_BUFFER, _cubeVertices.size()*sizeof(float), _cubeVertices.data(), GL_STATIC_DRAW);
+  // glEnableVertexAttribArray(0);
+  // glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
+  // glEnableVertexAttribArray(1);
+  // glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
+  // glEnableVertexAttribArray(2);
+  // glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
   // skybox VAO
   glGenVertexArrays(1, &_skyboxVAO);
   glGenBuffers(1, &_skyboxVBO);
