@@ -27,10 +27,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     openglWidget->setFocus();
 
     setCentralWidget(openglWidget);
-    QTimer *timer = new QTimer(this);
-    connect(timer, &QTimer::timeout, this,&MainWindow::timer_out );
-    timer->start(30);
-    openglWidget->update();
+    // QTimer *timer = new QTimer(this);
+    // connect(timer, &QTimer::timeout, this,&MainWindow::timer_out );
+    // timer->start(30);
+    // openglWidget->update();
 }
 
 MainWindow::~MainWindow() {

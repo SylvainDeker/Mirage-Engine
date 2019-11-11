@@ -1,4 +1,4 @@
-#include "Bspline.hpp"
+#include "NURBS.hpp"
 #include "../glm/glm.hpp"
 #include <vector>
 #include <assert.h>
@@ -6,28 +6,28 @@
 
 
 
-BSpline::BSpline(std::vector<glm::vec3>& controlPoints):
+NURBS::NURBS(std::vector<glm::vec3>& controlPoints):
   _controlPoints(controlPoints),
   _order_k(1){
 
 }
 
 
-void BSpline::setOrderK(int k){
+void NURBS::setOrderK(int k){
   assert(k>=1);
   _order_k = k;
 }
 
-int BSpline::getOrderK() const {
+int NURBS::getOrderK() const {
   return _order_k;
 }
 
-int BSpline::getN() const {
+int NURBS::getN() const {
   assert(_controlPoints.size()>1);
   return _controlPoints.size()- 1;
 }
 
-void BSpline::setModalVector(){
+void NURBS::setModalVector(){
   assert(getOrderK()>=1);
   assert(getN()>0);
   size_t node_number = getOrderK() + getN()+1;
@@ -37,7 +37,18 @@ void BSpline::setModalVector(){
   }
 }
 
-float BSpline::recFloraison(float u,int k,int i) const {
+void NURBS::setWeightVector(){
+  _coef.clear();
+  for (size_t i = 0; i < size_t(getN()+1); i++) {
+    _coef.push_back(1.0f);
+  }
+}
+
+void NURBS::setWeightVector(const std::vector<float> & coef){
+  _coef = coef; // copy
+}
+
+float NURBS::recFloraison(float u,int k,int i) const {
   assert(u>=0.f);
   assert(k>0);
 
@@ -51,16 +62,20 @@ float BSpline::recFloraison(float u,int k,int i) const {
 }
 
 
-glm::vec3 BSpline::polynom(float u) const {
+glm::vec3 NURBS::polynom(float u) const {
   glm::vec3 acc=glm::vec3(0.f,0.f,0.f);
+  float deno=0.f;
+  float nki = 0;
   for (int i = 0; i <=getN() ; i++) {
-    acc += recFloraison(u,getOrderK(),i) * _controlPoints[i];
+    nki = recFloraison(u,getOrderK(),i);
+    acc += nki * _controlPoints[i] *_coef[i] ;
+    deno += nki * _coef[i] ;
   }
-  return acc;
+  return acc/deno;
 }
 
 
-glm::vec3 BSpline::floraison(float u) const {
+glm::vec3 NURBS::floraison(float u) const {
 
   int dec = 0;
   int k_it = getOrderK();
@@ -93,7 +108,7 @@ glm::vec3 BSpline::floraison(float u) const {
 
 
 
-void BSpline::getDisplayPoints(std::vector<glm::vec3> & vertices,size_t points) const {
+void NURBS::getDisplayPoints(std::vector<glm::vec3> & vertices,size_t points) const {
   assert(int(_modalVector.size())==getOrderK()+getN()+1);
   float min = _modalVector[getOrderK()-1];
   float max = _modalVector[getN()+1];
@@ -104,10 +119,7 @@ void BSpline::getDisplayPoints(std::vector<glm::vec3> & vertices,size_t points) 
   for (size_t i = 0; i < points; i++) {
 
     // Recursive calcul
-    // v = polynom(unit*float(i)+min);
-
-    // Iterative calcul
-    v = floraison(unit*float(i)+min);
+    v = polynom(unit*float(i)+min);
 
     vertices.push_back(v);
   }

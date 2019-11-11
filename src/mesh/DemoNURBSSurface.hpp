@@ -1,8 +1,8 @@
 #ifndef DEMOBSPLINESURFACE_H_
 #define DEMOBSPLINESURFACE_H_
-#include "../bspline/Bspline2D.hpp"
-#include "BSplineLine.hpp"
-#include "BSplineSurface.hpp"
+#include "../nurbs/NURBS2D.hpp"
+#include "NURBSLine.hpp"
+#include "NURBSSurface.hpp"
 #include "ControlPoints.hpp"
 #include <vector>
 #include "glm/glm.hpp"
@@ -11,11 +11,11 @@
 #include "../openGL/DeprecatedDrawParameter.hpp"
 
 
-class DemoBSplineSurface : public DeprecatedMesh{
+class DemoNURBSSurface : public DeprecatedMesh{
 
 public:
-  DemoBSplineSurface(const std::map<std::string,Shader*> & shaders);
-  ~DemoBSplineSurface () override ;
+  DemoNURBSSurface(const std::map<std::string,Shader*> & shaders);
+  ~DemoNURBSSurface () override ;
   void initializeGeometry() override ;
 
   void draw(const DeprecatedDrawParameter & para) override ;
@@ -24,10 +24,11 @@ public:
 private:
   std::vector<glm::vec3> _controlPoints;
   std::vector<glm::vec3> _displayPoints;
+  std::vector<float> _coef ;
 
-  BSplineSurface _meshSurface;
+  NURBSSurface _meshSurface;
   ControlPoints _meshControlPoints;
-  BSpline2D _bspline2D;
+  NURBS2D _nurbs2D;
 
 
 

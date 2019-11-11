@@ -1,32 +1,32 @@
 #include "glm/glm.hpp"
 #include "../light/Light.hpp"
-#include "../bspline/Bspline.hpp"
+#include "../nurbs/NURBS.hpp"
 #include "../openGL/Shader.hpp"
 #include <memory>
 #include <functional>
-#include "BSplineSurface.hpp"
+#include "NURBSSurface.hpp"
 #include "../openGL/DeprecatedDrawParameter.hpp"
 
 
-BSplineSurface::BSplineSurface(const std::map<std::string,Shader*> & shaders,std::vector<glm::vec3> & vertices, size_t x, size_t y ):DeprecatedMesh(shaders),_vertices(vertices),_dimx(x),_dimy(y){
+NURBSSurface::NURBSSurface(const std::map<std::string,Shader*> & shaders,std::vector<glm::vec3> & vertices, size_t x, size_t y ):DeprecatedMesh(shaders),_vertices(vertices),_dimx(x),_dimy(y){
 
 }
 
 
-size_t BSplineSurface::getDimX() const {
+size_t NURBSSurface::getDimX() const {
   return _dimx;
 }
 
-size_t BSplineSurface::getDimY() const {
+size_t NURBSSurface::getDimY() const {
   return _dimy;
 }
 
-void BSplineSurface::setDimXY(size_t x, size_t y) {
+void NURBSSurface::setDimXY(size_t x, size_t y) {
   _dimx = x;
   _dimy = y;
 }
 
-glm::vec3 BSplineSurface::getVertice(size_t x,size_t y){
+glm::vec3 NURBSSurface::getVertice(size_t x,size_t y){
 
   assert(x<getDimX());
   assert(y<getDimY());
@@ -36,7 +36,7 @@ glm::vec3 BSplineSurface::getVertice(size_t x,size_t y){
   return _vertices[idx];
 }
 
-size_t BSplineSurface::getIdx(size_t x,size_t y) const {
+size_t NURBSSurface::getIdx(size_t x,size_t y) const {
   assert(x<getDimX());
   assert(y<getDimY());
   size_t idx = x*getDimY()+y;
@@ -45,7 +45,7 @@ size_t BSplineSurface::getIdx(size_t x,size_t y) const {
 }
 
 
-BSplineSurface::~BSplineSurface(){
+NURBSSurface::~NURBSSurface(){
   glDeleteBuffers(1, &_vbo);
   glDeleteBuffers(1, &_nbo);
   glDeleteBuffers(1, &_ebo);
@@ -55,7 +55,7 @@ BSplineSurface::~BSplineSurface(){
 
 
 
-void BSplineSurface::draw(const DeprecatedDrawParameter & para){
+void NURBSSurface::draw(const DeprecatedDrawParameter & para){
 
   _shaders.at("normal")->use();
   _shaders.at("normal")->setMatrix4fv("model",para.model);
@@ -68,7 +68,7 @@ void BSplineSurface::draw(const DeprecatedDrawParameter & para){
   glBindVertexArray(0);
 }
 
-void BSplineSurface::initializeGeometry(){
+void NURBSSurface::initializeGeometry(){
 
   _indices.clear();
 

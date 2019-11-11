@@ -1,6 +1,6 @@
 #include "glm/glm.hpp"
 
-#include "../bspline/Bspline.hpp"
+#include "../nurbs/NURBS.hpp"
 #include "../openGL/Shader.hpp"
 #include <memory>
 #include <functional>

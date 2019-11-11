@@ -2,8 +2,8 @@
 #include <iostream>
 #include <QTime>
 #include <map>
-#include "../mesh/DemoBSplineLine.hpp"
-#include "../mesh/DemoBSplineSurface.hpp"
+#include "../mesh/DemoNURBSLine.hpp"
+#include "../mesh/DemoNURBSSurface.hpp"
 #include "../mesh/Textu.hpp"
 #include "../mesh/Cube.hpp"
 #include "../mesh/DeprecatedMesh.hpp"
@@ -36,8 +36,8 @@ MainScene::MainScene(int width, int height) : _width(width), _height(height),
     glEnable(GL_DEPTH_TEST);
     glViewport(0, 0, width, height);
 
-    _meshes.push_back(new DemoBSplineLine(_shaders));
-    _meshes.push_back(new DemoBSplineSurface(_shaders));
+    _meshes.push_back(new DemoNURBSLine(_shaders));
+    _meshes.push_back(new DemoNURBSSurface(_shaders));
     _meshes.push_back(new Textu(_shaders));
     _meshes.push_back(new Cube(_shaders));
     _meshes.push_back(new Cube(_shaders));
@@ -142,13 +142,13 @@ void MainScene::draw() {
                       glm::translate(_model,glm::vec3(-1.f,-0.5f,0.0f)),
                       _camera.get(),
                       _projection,light
-                    )); // DemoBSplineLine());
+                    )); // DemoNURBSLine());
 
         _meshes.at(1)->draw(DeprecatedDrawParameter(
                       glm::translate(_model,glm::vec3(-1.1f,-0.5f,0.0f)),
                       _camera.get(),
                       _projection,
-                      light)); //DemoBSplineSurface());
+                      light)); //DemoNURBSSurface());
 
         _meshes.at(2)->draw(DeprecatedDrawParameter(
                         glm::translate(_model,glm::vec3(0.f,-0.5f,0.0f)),

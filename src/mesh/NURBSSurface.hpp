@@ -5,15 +5,15 @@
 #include "glm/glm.hpp"
 #include <GL/gl.h>
 #include "DeprecatedMesh.hpp"
-#include "../bspline/Bspline.hpp"
+#include "../nurbs/NURBS.hpp"
 #include "../light/Light.hpp"
 #include <memory>
 #include "../openGL/DeprecatedDrawParameter.hpp"
 
-class BSplineSurface : public DeprecatedMesh {
+class NURBSSurface : public DeprecatedMesh {
 public:
-  BSplineSurface(const std::map<std::string,Shader*> & shaders, std::vector<glm::vec3> & vertices, size_t x=1, size_t y=1);
-  ~BSplineSurface() override ;
+  NURBSSurface(const std::map<std::string,Shader*> & shaders, std::vector<glm::vec3> & vertices, size_t x=1, size_t y=1);
+  ~NURBSSurface() override ;
 
   void initializeGeometry() override ;
   size_t getDimX() const ;

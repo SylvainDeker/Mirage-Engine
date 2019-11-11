@@ -1,18 +1,18 @@
 #include "glm/glm.hpp"
 #include "../light/Light.hpp"
-#include "../bspline/Bspline.hpp"
+#include "../nurbs/NURBS.hpp"
 #include "../openGL/Shader.hpp"
 #include <memory>
 #include <functional>
-#include "BSplineLine.hpp"
+#include "NURBSLine.hpp"
 #include "../openGL/DeprecatedDrawParameter.hpp"
 
 
-BSplineLine::BSplineLine(const std::map<std::string,Shader*> & shaders, std::vector<glm::vec3> & vertices):DeprecatedMesh(shaders),_vertices(vertices){
+NURBSLine::NURBSLine(const std::map<std::string,Shader*> & shaders, std::vector<glm::vec3> & vertices):DeprecatedMesh(shaders),_vertices(vertices){
 }
 
 
-BSplineLine::~BSplineLine(){
+NURBSLine::~NURBSLine(){
   glDeleteBuffers(1, &_vbo);
   glDeleteBuffers(1, &_ebo);
   glDeleteVertexArrays(1, &_vao) ;
@@ -20,7 +20,7 @@ BSplineLine::~BSplineLine(){
 
 
 
-void BSplineLine::draw(const DeprecatedDrawParameter & para){
+void NURBSLine::draw(const DeprecatedDrawParameter & para){
 
   _shaders.at("normal")->use();
   _shaders.at("normal")->setMatrix4fv("model",para.model);
@@ -32,7 +32,7 @@ void BSplineLine::draw(const DeprecatedDrawParameter & para){
   glBindVertexArray(0);
 }
 
-void BSplineLine::initializeGeometry(){
+void NURBSLine::initializeGeometry(){
 
   _indices.clear();
   for (size_t i = 0; i < _vertices.size(); i++) {

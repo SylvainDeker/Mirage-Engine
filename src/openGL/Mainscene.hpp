@@ -60,8 +60,8 @@ private:
     glm::mat4 _view;
     glm::mat4 _projection;
 
-    // DemoBSplineLine _demoBSplineLine;
-    // DemoBSplineSurface _demoBSplineSurface;
+    // DemoNURBSLine _demoNURBSLine;
+    // DemoNURBSSurface _demoNURBSSurface;
     // Textu _textu;
 };
 

@@ -1,4 +1,4 @@
-#include "Bspline2D.hpp"
+#include "NURBS2D.hpp"
 #include "../glm/glm.hpp"
 #include <vector>
 #include <assert.h>
@@ -7,7 +7,7 @@
 
 
 
-BSpline2D::BSpline2D(std::vector<glm::vec3>& controlPoints):
+NURBS2D::NURBS2D(std::vector<glm::vec3>& controlPoints):
   _controlPoints(controlPoints),
   _order_kx(1),
   _order_ky(1){
@@ -15,47 +15,47 @@ BSpline2D::BSpline2D(std::vector<glm::vec3>& controlPoints):
 }
 
 
-size_t BSpline2D::getIdx(size_t x,size_t y) const {
+size_t NURBS2D::getIdx(size_t x,size_t y) const {
 
   size_t idx = x*(getNY()+1)+y;
 
   return idx;
 }
 
-void BSpline2D::setOrderKX(int k){
+void NURBS2D::setOrderKX(int k){
   assert(k>=1);
   _order_kx = k;
 }
 
-void BSpline2D::setOrderKY(int k){
+void NURBS2D::setOrderKY(int k){
   assert(k>=1);
   _order_ky = k;
 }
 
-int BSpline2D::getOrderKX() const {
+int NURBS2D::getOrderKX() const {
   return _order_kx;
 }
-int BSpline2D::getOrderKY() const {
+int NURBS2D::getOrderKY() const {
   return _order_ky;
 }
 
-int BSpline2D::getNX() const {
+int NURBS2D::getNX() const {
   return _nx;
 }
 
-int BSpline2D::getNY() const {
+int NURBS2D::getNY() const {
   return _ny;
 }
 
-void BSpline2D::setNX(int n){
+void NURBS2D::setNX(int n){
   _nx = n;
 }
-void BSpline2D::setNY(int n){
+void NURBS2D::setNY(int n){
   _ny = n;
 }
 
 
-void BSpline2D::setModalVectors(){
+void NURBS2D::setModalVectors(){
   assert(getOrderKX()>=1);
   assert(getOrderKY()>=1);
   assert(getNX()>=0);
@@ -72,16 +72,20 @@ void BSpline2D::setModalVectors(){
   }
 }
 
-void BSpline2D::setModalVectors(const std::vector<float> & modalVectorX, const std::vector<float> & modalVectorY){
+void NURBS2D::setModalVectors(const std::vector<float> & modalVectorX, const std::vector<float> & modalVectorY){
   assert(int(modalVectorX.size())==getNX()+1);
   assert(int(modalVectorY.size())==getNY()+1);
   _modalVectorX = modalVectorX;
   _modalVectorY = modalVectorY;
 }
 
+void NURBS2D::setWeightVector(const std::vector<float> &coef){
+  _coef = coef; // copy
+}
 
 
-float BSpline2D::recFloraison(float u,int k,int i,const std::vector<float> & modalVector) const {
+
+float NURBS2D::recFloraison(float u,int k,int i,const std::vector<float> & modalVector) const {
   assert(u>=0.f);
   assert(k>0);
 
@@ -95,21 +99,27 @@ float BSpline2D::recFloraison(float u,int k,int i,const std::vector<float> & mod
 }
 
 
-glm::vec3 BSpline2D::polynom(float u,float v) const {
+glm::vec3 NURBS2D::polynom(float u,float v) const {
   glm::vec3 acc=glm::vec3(0.f,0.f,0.f);
+  float deno = 0.0f;
+  float nkiu = 0.0f;
+  float nkiv = 0.0f;
   for (int i = 0; i <= getNX() ; i++) {
     for (int j = 0; j <= getNY(); j++) {
-      acc += recFloraison(u,getOrderKX(),i,_modalVectorX) * recFloraison(v,getOrderKY(),j,_modalVectorY) * _controlPoints[getIdx(i,j)];
+      nkiu = recFloraison(u,getOrderKX(),i,_modalVectorX);
+      nkiv = recFloraison(v,getOrderKY(),j,_modalVectorY);
+      acc += nkiu * nkiv * _controlPoints[getIdx(i,j)] * _coef[getIdx(i,j)];
+      deno += nkiu * nkiv * _coef[getIdx(i,j)];
     }
   }
-  return acc;
+  return acc/ deno;
 }
 
 
 
 
 
-void BSpline2D::getDisplayPoints(std::vector<glm::vec3> & vertices,size_t pointsX, size_t pointsY) const {
+void NURBS2D::getDisplayPoints(std::vector<glm::vec3> & vertices,size_t pointsX, size_t pointsY) const {
   assert(int(_modalVectorX.size())==getOrderKX()+getNX()+1);
   assert(int(_modalVectorY.size())==getOrderKY()+getNY()+1);
   float minX = _modalVectorX[getOrderKX()-1];

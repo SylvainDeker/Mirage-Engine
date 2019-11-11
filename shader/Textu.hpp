@@ -5,7 +5,7 @@
 #include "glm/glm.hpp"
 #include <GL/gl.h>
 #include "DeprecatedMesh.hpp"
-#include "../bspline/Bspline.hpp"
+#include "../bspline/BSpline.hpp"
 #include "../light/Light.hpp"
 
 #include <memory>

@@ -5,17 +5,17 @@
 #include "glm/glm.hpp"
 #include <GL/gl.h>
 #include "../light/Light.hpp"
-#include "../bspline/Bspline.hpp"
+#include "../nurbs/NURBS.hpp"
 #include "../openGL/Shader.hpp"
 #include <memory>
 #include "DeprecatedMesh.hpp"
 #include "../openGL/DeprecatedDrawParameter.hpp"
 
 
-class BSplineLine :public DeprecatedMesh{
+class NURBSLine :public DeprecatedMesh{
 public:
-  BSplineLine(const std::map<std::string,Shader*> & shaders, std::vector<glm::vec3> & vertices);
-  ~BSplineLine() override ;
+  NURBSLine(const std::map<std::string,Shader*> & shaders, std::vector<glm::vec3> & vertices);
+  ~NURBSLine() override ;
 
   void initializeGeometry() override;
 
