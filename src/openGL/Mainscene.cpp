@@ -138,6 +138,7 @@ void MainScene::draw() {
 
     for (Light *light : _lights) {
 
+        /////////// Basic Mesh
         _meshes.at(0)->draw(DeprecatedDrawParameter(
                       glm::translate(_model,glm::vec3(-1.f,-0.5f,0.0f)),
                       _camera.get(),
@@ -145,7 +146,13 @@ void MainScene::draw() {
                     )); // DemoNURBSLine());
 
         _meshes.at(1)->draw(DeprecatedDrawParameter(
-                      glm::translate(_model,glm::vec3(-1.1f,-0.5f,0.0f)),
+                      glm::translate(
+                        glm::rotate(_model,
+                          glm::radians(45.f),
+                          glm::vec3(0.f,-1.f,0.f)
+                        ),
+                        glm::vec3(-1.1f,-1.5f,-3.0f)
+                      ),
                       _camera.get(),
                       _projection,
                       light)); //DemoNURBSSurface());
@@ -158,7 +165,7 @@ void MainScene::draw() {
                       ); //Textu());
 
         _meshes.at(3)->draw(DeprecatedDrawParameter(
-                        glm::scale(turn_model,glm::vec3(0.2f)),
+                        glm::scale(turn_model,glm::vec3(0.1f)),
                         _camera.get(),
                         _projection,
                         light)
@@ -172,33 +179,48 @@ void MainScene::draw() {
         //                 light)
         //               ); // Cube());
 
-        // _meshes.at(5)->draw(DeprecatedDrawParameter(
-        //                 glm::scale(glm::translate(_model,_lights[1]->getPosition()),glm::vec3(0.05f) ),
-        //                 _camera.get(),
-        //                 _projection,
-        //                 light)
-        //               ); // Cube());
-
-        _models.at(0)->draw(DrawParameter(_shaders.at("loader"),
-        glm::scale(_model,glm::vec3(10.0f)),
-        _camera.get(),
-        _projection,
-        light
-      ));
-
-      _models.at(1)->draw(DrawParameter(_shaders.at("loader"),
-      glm::scale(_model,glm::vec3(2.0f)),
-      _camera.get(),
-      _projection,
-      light
-    ));
-
-        _meshes.at(6)->draw(DeprecatedDrawParameter(
-                        _model,
+        _meshes.at(5)->draw(DeprecatedDrawParameter(
+                        glm::scale(glm::translate(_model,_lights[1]->getPosition()),glm::vec3(0.05f) ),
                         _camera.get(),
                         _projection,
                         light)
                       ); // Cube());
+
+
+        //////// Assimp mesh
+        _models.at(0)->draw(DrawParameter(_shaders.at("loader"),
+              glm::scale(
+                glm::translate(
+                  glm::rotate(_model,
+                    glm::radians(90.f) , glm::vec3(-1.0f, 0.0f, 0.0f)
+                  ),
+                  glm::vec3(-1.0f,2.f,-1.0f)
+                ),
+                glm::vec3(0.10f)
+              ),
+              _camera.get(),
+              _projection,
+              light
+      ));
+
+      _models.at(1)->draw(DrawParameter(_shaders.at("loader"),
+              glm::scale(
+                glm::translate(
+                  glm::rotate(_model,
+                    glm::radians(1.f) , glm::vec3(1.0f, 0.0f, 0.0f)
+                  ),
+                  glm::vec3(0.0f,-1.f,-2.0f)
+                ),
+                glm::vec3(0.20f)
+              ),
+              _camera.get(),
+              _projection,
+              light
+    ));
+
+
+        // CubeMap TODO make a dedicated class
+        _meshes.at(6)->draw(DeprecatedDrawParameter(_model, _camera.get(),_projection,light));
 
     }
     movvv+=1;
