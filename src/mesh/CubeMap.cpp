@@ -63,7 +63,7 @@ void CubeMap::draw(const DeprecatedDrawParameter & para){
   glDepthFunc(GL_LESS); // set depth function back to default
 
 
-  glCheckError();
+
 
 
 }

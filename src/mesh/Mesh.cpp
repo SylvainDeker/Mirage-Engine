@@ -51,6 +51,7 @@ void Mesh::draw(const DrawParameter& para)
 {
     unsigned int diffuseNr = 1;
     unsigned int specularNr = 1;
+    para.shader->use();
     para.shader->setMatrix4fv("model", para.model);
     para.shader->setMatrix4fv("view", para.camera->viewmatrix());
     para.shader->setMatrix4fv("projection", para.projection);

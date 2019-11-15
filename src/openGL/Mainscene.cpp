@@ -10,6 +10,7 @@
 #include "../light/Light.hpp"
 #include "../mesh/Model.hpp"
 #include "../mesh/CubeMap.hpp"
+#include "../mesh/IcoSphere.hpp"
 #include "opengl_stuff.h"
 #include "DeprecatedDrawParameter.hpp"
 /*------------------------------------------------------------------------------------------------------------------------*/
@@ -42,10 +43,13 @@ MainScene::MainScene(int width, int height) : _width(width), _height(height),
     _meshes.push_back(new Cube(_shaders));
     _meshes.push_back(new Cube(_shaders));
     _meshes.push_back(new Cube(_shaders));
+    _meshes.push_back(new IcoSphere(_shaders,0));
+    _meshes.push_back(new IcoSphere(_shaders,1));
+    _meshes.push_back(new IcoSphere(_shaders,2));
     _meshes.push_back(new CubeMap(_shaders));
 
     _models.push_back(new Model("../model/Boat/boat.3ds"));
-    _models.push_back(new Model("../model/Crysis/nanosuit.blend"));
+    _models.push_back(new Model("../model/Crysis/nanosuit.obj"));
 
 
     for (size_t i = 0; i < _meshes.size(); i++) {
@@ -186,6 +190,27 @@ void MainScene::draw() {
                         light)
                       ); // Cube());
 
+        _meshes.at(6)->draw(DeprecatedDrawParameter(
+                        glm::translate(_model,glm::vec3(-0.50f, 0.8f, 0.0f)),
+                        _camera.get(),
+                        _projection,
+                        light)
+                      ); // IcoSphere());
+
+        _meshes.at(7)->draw(DeprecatedDrawParameter(
+                        glm::translate(_model,glm::vec3(-0.5f, 0.4f, 0.0f)),
+                        _camera.get(),
+                        _projection,
+                        light)
+                      ); // IcoSphere());
+
+        _meshes.at(8)->draw(DeprecatedDrawParameter(
+                        glm::translate(_model,glm::vec3(-0.50f, 0.0f, 0.0f)),
+                        _camera.get(),
+                        _projection,
+                        light)
+                      ); // IcoSphere());
+
 
         //////// Assimp mesh
         _models.at(0)->draw(DrawParameter(_shaders.at("loader"),
@@ -220,7 +245,7 @@ void MainScene::draw() {
 
 
         // CubeMap TODO make a dedicated class
-        _meshes.at(6)->draw(DeprecatedDrawParameter(_model, _camera.get(),_projection,light));
+        _meshes.at(_meshes.size()-1)->draw(DeprecatedDrawParameter(_model, _camera.get(),_projection,light));
 
     }
     movvv+=1;
