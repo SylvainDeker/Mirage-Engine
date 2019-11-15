@@ -44,8 +44,8 @@ MainScene::MainScene(int width, int height) : _width(width), _height(height),
     _meshes.push_back(new Cube(_shaders));
     _meshes.push_back(new CubeMap(_shaders));
 
-    // _models.push_back(new Model("../model/Boat/boat.3ds"));
-    // _models.push_back(new Model("../model/Crysis/nanosuit.blend"));
+    _models.push_back(new Model("../model/Boat/boat.3ds"));
+    _models.push_back(new Model("../model/Crysis/nanosuit.blend"));
 
 
     for (size_t i = 0; i < _meshes.size(); i++) {
@@ -179,6 +179,19 @@ void MainScene::draw() {
         //                 light)
         //               ); // Cube());
 
+        _models.at(0)->draw(DrawParameter(_shaders.at("loader"),
+        glm::scale(_model,glm::vec3(10.0f)),
+        _camera.get(),
+        _projection,
+        light
+      ));
+
+      _models.at(1)->draw(DrawParameter(_shaders.at("loader"),
+      glm::scale(_model,glm::vec3(2.0f)),
+      _camera.get(),
+      _projection,
+      light
+    ));
 
         _meshes.at(6)->draw(DeprecatedDrawParameter(
                         _model,
@@ -187,19 +200,6 @@ void MainScene::draw() {
                         light)
                       ); // Cube());
 
-        // _models.at(0)->draw(DrawParameter(_shaders.at("loader"),
-        //                 glm::scale(_model,glm::vec3(10.0f)),
-        //                 _camera.get(),
-        //                 _projection,
-        //                 light
-        //               ));
-        //
-        // _models.at(1)->draw(DrawParameter(_shaders.at("loader"),
-        //                 glm::scale(_model,glm::vec3(2.0f)),
-        //                 _camera.get(),
-        //                 _projection,
-        //                 light
-        //               ));
     }
     movvv+=1;
     if(movvv > 360)movvv = 0;
